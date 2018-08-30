@@ -1,0 +1,11 @@
+.expandMenuBar{
+    opacity: 1;
+    display: block;
+}
+.collapseMenuBar{
+    opacity: 0;
+    display: none;
+}
+table {
+    width: 100%;
+  }
