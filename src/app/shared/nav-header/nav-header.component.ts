@@ -15,9 +15,9 @@ export class NavHeaderComponent implements OnInit {
   toggleMenuBar = 'colapseMenuBar';
   arrayBuffer: any;
   file: File;
+  whatsappShareUrl: string;
   newCustomer: Customer[] = [];
   customers;
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
 
   constructor(private navHeaderService: NavHeaderService, private http: HttpClient) { }
 
@@ -30,19 +30,15 @@ export class NavHeaderComponent implements OnInit {
   uploadingfile(event) {
     this.file = event.target.files[0];
   }
-  WhatsApp() {
-    return new Promise(resolve => {
-      console.log('Before API');
-      this.http.get(https://api.whatsapp.com/send?phone=121234567891&text=I'")
-      .map(response => response.json()).subscribe(data => {
-          resolve(data);
-          console.log('After API', data);
-        }, err => {
-        });
-    });
+  whatsApp() {
+    this.whatsappShareUrl = 'https://api.whatsapp.com/send?phone=919965437973&text=welcome%20to%20CRM%20'
+   /* + 'http://ec2-13-126-16-163.ap-south-1.compute.amazonaws.com:3021/' */;
+
+    window.location.href = this.whatsappShareUrl;
+
   }
 
-  Upload() {
+ /*  Upload() {
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
       this.arrayBuffer = fileReader.result;
@@ -62,6 +58,6 @@ export class NavHeaderComponent implements OnInit {
       });
     };
     fileReader.readAsArrayBuffer(this.file);
-  }
+  } */
 }
 

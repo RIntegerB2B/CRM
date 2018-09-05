@@ -14,14 +14,16 @@ import { MatTableModule } from '@angular/material/table';
 import { NavHeaderComponent } from './shared/nav-header/nav-header.component';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-
+import { CustomerManagementComponent } from './customer-management/customer-management/customer-management.component';
+import { CustomerManagementService } from './customer-management/customer-management.service';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavHeaderComponent
+    NavHeaderComponent,
+    CustomerManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,7 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
     MatInputModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [NavHeaderService],
+  providers: [NavHeaderService, CustomerManagementService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
