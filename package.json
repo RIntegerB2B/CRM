@@ -4,7 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "pre-deployBat": "pre-deploy.bat",
+    "build": "ng build --prod --base-href /admin/crm/",
+    "deployBat": "deploy.bat",
+    "deploy": "npm run pre-deployBat && npm run build && npm run deployBat",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
