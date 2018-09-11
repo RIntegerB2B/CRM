@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routing } from './app.route';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -29,6 +30,8 @@ import { CustomerManagementService } from './customer-management/customer-manage
     BrowserModule,
     BrowserAnimationsModule,
     Routing,
+    FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     HttpClientModule,
     HttpClientJsonpModule,

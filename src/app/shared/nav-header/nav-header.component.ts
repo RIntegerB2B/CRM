@@ -19,7 +19,7 @@ export class NavHeaderComponent implements OnInit {
   newCustomer: Customer[] = [];
   customers;
 
-  constructor(private navHeaderService: NavHeaderService, private http: HttpClient) { }
+  constructor(public navHeaderService: NavHeaderService, private http: HttpClient) { }
 
   ngOnInit() {
 

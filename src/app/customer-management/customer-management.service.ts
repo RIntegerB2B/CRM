@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Customer } from './customer-management/customer.model';
+import { MobileSend } from './customer-management/mobile-send.model';
+import { EmailSend } from './customer-management/email-send.model';
 import { AppSetting } from './../config/appSetting';
 import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
@@ -31,5 +33,39 @@ export class CustomerManagementService {
     const addUrl = 'customers';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<Customer[]>(url, data);
+  }
+  // all customer details
+  allCustomer(): Observable<any> {
+    const addUrl = 'allcustomers';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.get<Customer[]>(url);
+  }
+  duplicateCustomer(): Observable<any> {
+    const addUrl = 'duplicatecustomers';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.get<Customer[]>(url);
+  }
+  editCustomer(edit): Observable<any> {
+    const addUrl = 'customers/';
+    const url: string = this.serviceUrl + addUrl + edit._id;
+    return this.httpClient.put<Customer[]>(url, edit);
+  }
+  mobileMessage(phone) {
+    const addUrl = 'customers/phone/';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.post<MobileSend[]>(url, phone);
+  }
+  emailMessage(email) {
+    const addUrl = 'customers/emailId/';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.post<EmailSend[]>(url, email);
+  }
+
+  deleteCustomer(edit): Observable<any> {
+
+    const addUrl = 'customersdelete/';
+
+    const url: string = this.serviceUrl + addUrl + edit._id;
+    return this.httpClient.delete<Customer[]>(url);
   }
 }
