@@ -7,10 +7,30 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { NavHeaderService } from './shared/nav-header/nav-header.service';
-
+import {
+  MatSidenavModule,
+  MatListModule,
+  MatTooltipModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatMenuModule,
+  MatSnackBarModule,
+  MatGridListModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatButtonModule,
+  MatRadioModule,
+  MatCheckboxModule,
+  MatCardModule,
+  MatProgressSpinnerModule,
+  MatExpansionModule,
+  MatRippleModule,
+  MatDialogModule,
+  MatChipsModule
+} from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule, MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+
 import { MatTableModule } from '@angular/material/table';
 import { NavHeaderComponent } from './shared/nav-header/nav-header.component';
 import { HttpModule } from '@angular/http';
@@ -35,14 +55,26 @@ import { CustomerManagementService } from './customer-management/customer-manage
     HttpModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    MatCardModule,
-    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    MatTooltipModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatMenuModule,
+    MatExpansionModule,
+    MatSnackBarModule,
+    MatGridListModule,
     MatToolbarModule,
+    MatIconModule,
     MatButtonModule,
-    MatFormFieldModule,
-    MatTableModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatChipsModule,
+    MatProgressSpinnerModule,
+    MatRippleModule,
+    MatDialogModule,
     RouterModule,
-    MatInputModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [NavHeaderService, CustomerManagementService],

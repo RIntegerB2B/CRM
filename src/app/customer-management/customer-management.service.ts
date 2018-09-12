@@ -6,7 +6,7 @@ import { EmailSend } from './customer-management/email-send.model';
 import { AppSetting } from './../config/appSetting';
 import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
-
+import { ResponseResult } from './../shared/model/response-result.model';
 
 @Injectable({
   providedIn: 'root'
@@ -53,12 +53,12 @@ export class CustomerManagementService {
   mobileMessage(phone) {
     const addUrl = 'customers/phone/';
     const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<MobileSend[]>(url, phone);
+    return this.httpClient.post<ResponseResult>(url, phone);
   }
   emailMessage(email) {
     const addUrl = 'customers/emailId/';
     const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<EmailSend[]>(url, email);
+    return this.httpClient.post<ResponseResult>(url, email);
   }
 
   deleteCustomer(edit): Observable<any> {

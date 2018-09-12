@@ -11,6 +11,7 @@ import { EmailSend } from './email-send.model';
 
 
 
+
 @Component({
   selector: 'app-customer-management',
   templateUrl: './customer-management.component.html',
@@ -33,7 +34,8 @@ export class CustomerManagementComponent implements OnInit {
   // customerMobileNumbers = [{ 'mobile': 9965437973 }, { 'mobile': 7418964254 }, { 'mobile': 8325446523 }];
   mobileNumbers;
   selectedMobileNumbers = [];
-  number = ['9965437973'];
+  smsCompleted = false;
+  emailCompleted = false;
   constructor(private fb: FormBuilder,
     private customerManagementService: CustomerManagementService
     , private http: HttpClient) { }
@@ -46,7 +48,7 @@ export class CustomerManagementComponent implements OnInit {
     this.customerDetailsForm = this.fb.group({
       _id: [],
       name: [],
-      phone : [],
+      phone: [],
       email: [],
       address: [],
       message: [],
@@ -85,7 +87,7 @@ export class CustomerManagementComponent implements OnInit {
   shareWhatsapp() {
 
     this.whatsappShareUrl = 'https://api.whatsapp.com/send?phones=91'
-      + this.number + '&text=welcome%20to%20CRM%20'
+      + 9845263436 + '&text=welcome%20to%20CRM%20'
       + 'http://ec2-13-126-16-163.ap-south-1.compute.amazonaws.com:3021/';
 
     window.location.href = this.whatsappShareUrl;
@@ -155,6 +157,9 @@ export class CustomerManagementComponent implements OnInit {
       customerDetailsForm.controls.message.value
     );
     this.customerManagementService.mobileMessage(this.mobileSend).subscribe(data => {
+      if (data.result = 1) {
+        this.smsCompleted = true;
+      }
       console.log(data);
     }, error => {
       console.log(error);
@@ -180,7 +185,9 @@ export class CustomerManagementComponent implements OnInit {
       customerDetailsForm.controls.emailMessage.value
     );
     this.customerManagementService.emailMessage(this.emailSend).subscribe(data => {
-      console.log(data);
+      if (data.result = 1) {
+        this.emailCompleted = true;
+      }
     }, error => {
       console.log(error);
     });

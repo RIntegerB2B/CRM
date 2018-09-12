@@ -4,7 +4,7 @@ import { Customer } from './customer.model';
 import { NavHeaderService } from './nav-header.service';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-nav-header',
@@ -18,6 +18,18 @@ export class NavHeaderComponent implements OnInit {
   whatsappShareUrl: string;
   newCustomer: Customer[] = [];
   customers;
+  layoutConf: any;
+  menuItems: any;
+  menuItemSub: Subscription;
+  egretThemes: any[] = [];
+  currentLang = 'en';
+  availableLangs = [{
+    name: 'English',
+    code: 'en',
+  }, {
+    name: 'Spanish',
+    code: 'es',
+  }];
 
   constructor(public navHeaderService: NavHeaderService, private http: HttpClient) { }
 

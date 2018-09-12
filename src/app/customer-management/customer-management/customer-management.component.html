@@ -1,74 +1,102 @@
-<form [formGroup]="customerDetailsForm" >
-  <div style="text-align:center">
+<form [formGroup]="customerDetailsForm">
+  <div class="row"  style="text-align:center" style="margin-top:10px">
+  <div class="col-md-2">
+      <div class="col-md-2 text-center"><button mat-raised-button color="primary" (click)="getAllCustomer()">All
+          Customer</button></div><br>
+      <div class="col-md-2 text-center"><button mat-raised-button color="primary"  (click)="duplicateCustomerData()">Duplicate
+          Customer</button></div>
+  </div> 
+  <div class="col-md-8">
+      <div class="col-md-2 text-center"></div><br>
+      <div style="text-align:center">
     <input type="file" (change)="uploadingfile($event)" placeholder="Upload file" accept=".xlsx">
-    <button type="button" class="btn btn-info" (click)="Upload()">Upload</button>
+    <button type="button" mat-raised-button color="primary" (click)="Upload()">Upload</button>
   </div>
-  <div class="row" style="text-align:center">
-    <div class="col-md-2 text-center"><button type="button" class="btn btn-danger" (click)="getAllCustomer()">All
-        Customer</button></div>
-        <div class="col-md-2 text-center"><button type="button" class="btn btn-danger" (click)="duplicateCustomerData()">Duplicate
-            Customer</button></div>
+  </div>       
   </div>
   <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-1 text-center"><strong>Name</strong></div>
-    <div class="col-md-2 text-center"><strong>Phone</strong></div>
-    <div class="col-md-2 text-center"><strong>Address</strong></div>
-    <div class="col-md-2 text-center"><strong>Email</strong></div>
-  </div>
-  <div *ngFor="let edit of newCustomer; let i = index;">
-    <div class="col-md-1"><input type="checkbox" [value]="edit.phone" (change)="selectedMobileNumber($event.target.value)" /></div>
-    <div class="row" *ngIf="!edit.editing">
-      <div class="col-md-1 text-center"></div>
-      <div class="col-md-1 text-center">{{edit.name}}</div>
-      <div class="col-md-2 text-center">{{edit.phone}}</div>
-      <div class="col-md-2 text-center">{{edit.address}}</div>
-      <div class="col-md-1"><input type="checkbox" [value]="edit.email" (change)="selectedEmail($event.target.value)" /></div>
-      <div class="col-md-2 text-center">{{edit.email}}</div>
-      <div class="col-md-2 text-center">
-        <input type="button" class="btn btn-success" value="Edit" (click)="editCustomer(edit)"></div>
-    </div><br>
-    <div class="row" *ngIf="edit.editing">
-      <div class="col-md-2 text-center"><input class="form-control" hidden type="text" formControlName="_id" [value]="edit._id" /></div>
-      <div class="col-md-1 text-center"><input class="form-control" type="text" formControlName="name" [ngModel]="edit.name"
-          (ngModelChange)="edit.name=$event" /></div>
-      <div class="col-md-2 text-center"><input class="form-control" type="text" formControlName="phone" [ngModel]="edit.phone"
-          (ngModelChange)="edit.phone=$event" /></div>
-      <div class="col-md-2 text-center"><input class="form-control" type="text" formControlName="address" [ngModel]="edit.address"
-          (ngModelChange)="edit.address=$event" /></div>
-      <div class="col-md-2 text-center"><input class="form-control" type="text" formControlName="email" [ngModel]="edit.email"
-          (ngModelChange)="edit.email=$event" /></div>
-      <div class="col-md-1 text-center"><input type="button" class="btn btn-success" value="Update" (click)="update(customerDetailsForm, edit)"></div>
-      <div class="col-md-1 text-center"><input type="button" class="btn btn-success" value="Delete" (click)="delete(customerDetailsForm, edit)"></div>
-      <div class="col-md-1 text-center"><input type="button" class="btn btn-success" value="Cancel" (click)="cancel(edit)"></div>
-    </div><br>
-  </div><br>
-  <br>
-  <div class="row">
-      <div class="col-md-2 text-center">   
-          
+      <div class="col-md-2"></div>
+      <div class="col-md-1 text-center"><strong>Name</strong></div>
+      <div class="col-md-2 text-center"><strong>Phone</strong></div>
+      <div class="col-md-2 text-center"><strong>Address</strong></div>
+      <div class="col-md-2 text-center"><strong>Email</strong></div>
+    </div>
+    <div *ngFor="let edit of newCustomer; let i = index;">
+        
+        <div class="row" *ngIf="!edit.editing">
+            <div class="col-md-1"></div>
+          <div class="col-md-1"><input type="checkbox" [value]="edit.phone" (change)="selectedMobileNumber($event.target.value)" /></div>
+          <div class="col-md-1 text-center">{{edit.name}}</div>
+          <div class="col-md-2 text-center">{{edit.phone}}</div>
+          <div class="col-md-2 text-center">{{edit.address}}</div>
+          <div class="col-md-1"><input type="checkbox" [value]="edit.email" (change)="selectedEmail($event.target.value)" /></div>
+          <div class="col-md-2 text-center">{{edit.email}}</div>
+          <div class="col-md-2 text-center">
+            <input type="button" class="btn btn-success" value="Edit" (click)="editCustomer(edit)"></div>
+        </div><br>
+        <div class="row" *ngIf="edit.editing">
+          <div class="col-md-2 text-center"><input class="form-control" hidden type="text" formControlName="_id" [value]="edit._id" /></div>
+          <div class="col-md-1 text-center"><input class="form-control" type="text" formControlName="name" [ngModel]="edit.name"
+              (ngModelChange)="edit.name=$event" /></div>
+          <div class="col-md-2 text-center"><input class="form-control" type="text" formControlName="phone" [ngModel]="edit.phone"
+              (ngModelChange)="edit.phone=$event" /></div>
+          <div class="col-md-2 text-center"><input class="form-control" type="text" formControlName="address" [ngModel]="edit.address"
+              (ngModelChange)="edit.address=$event" /></div>
+          <div class="col-md-2 text-center"><input class="form-control" type="text" formControlName="email" [ngModel]="edit.email"
+              (ngModelChange)="edit.email=$event" /></div>
+          <div class="col-md-1 text-center"><input type="button" class="btn btn-success" value="Update" (click)="update(customerDetailsForm, edit)"></div>
+          <div class="col-md-1 text-center"><input type="button" class="btn btn-success" value="Delete" (click)="delete(customerDetailsForm, edit)"></div>
+          <div class="col-md-1 text-center"><input type="button" class="btn btn-success" value="Cancel" (click)="cancel(edit)"></div>
+        </div><br>
       </div>
-    <div class="col-md-4 form-group">
-        <form [formGroup]="customerDetailsForm" (ngSubmit)="sendSms(customerDetailsForm)">
+      <div class="row">
+          <div class="col-md-2 text-center">
+      
+          </div>
+          <div class="col-md-4 form-group">
+            <form [formGroup]="customerDetailsForm" (ngSubmit)="sendSms(customerDetailsForm)">
               <label for="comment">Send Message:</label>
               <textarea class="form-control" formControlName="message" rows="5"></textarea><br>
-              <button class="btn btn-success ">
-                  SMS sent
-                </button>   
-          </form>
-    </div>
-    <div class="col-md-4 form-group">
-        <form [formGroup]="customerDetailsForm" (ngSubmit)="sendEmail(customerDetailsForm)">
+              <button mat-raised-button color="primary">
+                SMS sent
+              </button>
+            </form>
+            <div *ngIf="smsCompleted">
+      
+              <div class="center">
+                <p>
+                  <b>All SMS sent</b>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 form-group">
+            <form [formGroup]="customerDetailsForm" (ngSubmit)="sendEmail(customerDetailsForm)">
               <label for="comment">Email Message:</label>
               <textarea class="form-control" formControlName="emailMessage" rows="5"></textarea><br>
-              <button class="btn btn-success ">
-                  Email sent
-                </button>   
-          </form>
-    </div>
-  </div><br>
-  <div class="row">
-  <div class="col-md-2 text-center">
+              <button mat-raised-button color="primary">
+                Email sent
+              </button>
+            </form>
+            <div *ngIf="smsCompleted">
+      
+              <div class="center">
+                <p>
+                  <b>All Email sent</b>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+</form>
+
+
+  <br>
+  <!-- <div class="row">
+    <div class="col-md-2 text-center">
       <button class="btn btn-success " (click)="shareWhatsapp()">
         SHARE
       </button>
@@ -79,7 +107,7 @@
         facebook
       </button>
     </div>
-  </div>
+  </div> -->
   <!--Check Box-->
   <!-- <div class="row" *ngFor="let mn of customerMobileNumbers; let i = index;">
     <div class="col-md-2"></div>
@@ -87,9 +115,8 @@
     <div class="col-md-2">{{mn.mobile}}</div>
   </div> -->
 
-  <div class="container">
+  <!-- <div class="container">
     <a href="'https://api.whatsapp.com/send?phone=919965437973&text=welcome%20to%20CRM%20'">Hello,
       world!</a>
   </div>
-
-</form>
+ -->
