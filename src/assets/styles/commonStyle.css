@@ -11,13 +11,90 @@ body {
 }
 
 
-  .topbar-button-right {
-    margin-right: 1rem;
-    margin-left: 0 !important;
-  }
+.topbar-button-right {
+  margin-right: 1rem;
+  margin-left: 0 !important;
+}
 
-  .mat-menu-item {
-    width: 48px;
-    height: 48px;
-    padding: 5px;
-  }
+.sidebar-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 100vh;
+  padding-top: 64px;
+  z-index: 10001;
+  width: 15rem;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  transition: all .3s cubic-bezier(.35, 0, .25, 1)
+}
+
+.nav-item-sep {
+  display: none;
+}
+
+.sidenav {
+  padding: 0px;
+}
+
+.sidenav li {
+  cursor: pointer;
+  list-style: none;
+}
+
+ul.submenu {
+  max-height: 0;
+  opacity: 1;
+  overflow: hidden;
+}
+
+.lvl2 a,
+.lvl3 a {
+  height: 44px;
+}
+
+.lvl2 a {
+  padding: 0 16px 0 55px;
+}
+
+lvl3 a {
+  padding: 0 16px 0 64px;
+}
+
+
+.sidenav a {
+  position: relative;
+  width: 100%;
+  padding: 0 16px 0 0;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  flex-direction: row;
+  text-decoration: none;
+}
+
+/*. mat-icon:not(.menu-caret) {
+  text-align: center;
+  margin-right: 3px;
+  height: 48px;
+  width: 48px;
+  line-height: 48px;
+  border-left: 3px solid;
+  border-color: transparent;
+}
+ */
+
+.menu-caret {
+  font-size: 1rem;
+  line-height: 1;
+  height: 16px;
+  width: 16px;
+  transition: transform .3s cubic-bezier(.35, 0, .25, 1);
+}
+
+.sidenav .menu-caret {
+  font-size: 1rem;
+  line-height: 1;
+  height: 16px;
+  width: 16px;
+  transition: transform .3s cubic-bezier(.35, 0, .25, 1);
+}

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Customer } from './customer.model';
+import { Router } from '@angular/router';
 import { AppSetting } from './../../config/appSetting';
 import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
-
 
 @Injectable({
   providedIn: 'root'
@@ -26,10 +25,12 @@ export class NavHeaderService {
       return of(result as T);
     };
   }
-  constructor(private http: Http, private httpClient: HttpClient) { }
-  createCustomer(data: any): Observable<any> {
-    const addUrl = 'customers';
-    const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<Customer[]>(url, data);
+  constructor(private http: Http, private httpClient: HttpClient) {
   }
+
+  /*  createCustomer(data: any): Observable<any> {
+     const addUrl = 'customers';
+     const url: string = this.serviceUrl + addUrl;
+     return this.httpClient.post<Customer[]>(url, data);
+   } */
 }

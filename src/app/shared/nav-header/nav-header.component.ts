@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'ts-xlsx';
-import { Customer } from './customer.model';
 import { NavHeaderService } from './nav-header.service';
 import { map } from 'rxjs/operators';
+
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 
@@ -16,26 +16,15 @@ export class NavHeaderComponent implements OnInit {
   arrayBuffer: any;
   file: File;
   whatsappShareUrl: string;
-  newCustomer: Customer[] = [];
   customers;
   layoutConf: any;
   menuItems: any;
   menuItemSub: Subscription;
-  egretThemes: any[] = [];
-  currentLang = 'en';
-  availableLangs = [{
-    name: 'English',
-    code: 'en',
-  }, {
-    name: 'Spanish',
-    code: 'es',
-  }];
-
   constructor(public navHeaderService: NavHeaderService, private http: HttpClient) { }
 
   ngOnInit() {
-
   }
+
   toggleMenu() {
     this.toggleMenuBar = this.toggleMenuBar === 'colapseMenuBar' ? 'expandMenuBar' : 'colapseMenuBar';
   }
@@ -50,26 +39,26 @@ export class NavHeaderComponent implements OnInit {
 
   }
 
- /*  Upload() {
-    const fileReader = new FileReader();
-    fileReader.onload = (e) => {
-      this.arrayBuffer = fileReader.result;
-      const data = new Uint8Array(this.arrayBuffer);
-      const arr = new Array();
-      for (let i = 0; i !== data.length; ++i) {
-        arr[i] = String.fromCharCode(data[i]);
-      }
-      const bstr = arr.join('');
-      const workbook = XLSX.read(bstr, { type: 'binary' });
-      const first_sheet_name = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[first_sheet_name];
-      this.customers = XLSX.utils.sheet_to_json(worksheet);
-      this.navHeaderService.createCustomer(this.customers).subscribe(detail => {
-        this.newCustomer = detail;
-        console.log(detail);
-      });
-    };
-    fileReader.readAsArrayBuffer(this.file);
-  } */
+  /*  Upload() {
+     const fileReader = new FileReader();
+     fileReader.onload = (e) => {
+       this.arrayBuffer = fileReader.result;
+       const data = new Uint8Array(this.arrayBuffer);
+       const arr = new Array();
+       for (let i = 0; i !== data.length; ++i) {
+         arr[i] = String.fromCharCode(data[i]);
+       }
+       const bstr = arr.join('');
+       const workbook = XLSX.read(bstr, { type: 'binary' });
+       const first_sheet_name = workbook.SheetNames[0];
+       const worksheet = workbook.Sheets[first_sheet_name];
+       this.customers = XLSX.utils.sheet_to_json(worksheet);
+       this.navHeaderService.createCustomer(this.customers).subscribe(detail => {
+         this.newCustomer = detail;
+         console.log(detail);
+       });
+     };
+     fileReader.readAsArrayBuffer(this.file);
+   } */
 }
 

@@ -26,25 +26,28 @@ import {
   MatExpansionModule,
   MatRippleModule,
   MatDialogModule,
-  MatChipsModule
+  MatChipsModule,
+  MatInputModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MatTableModule } from '@angular/material/table';
 import { NavHeaderComponent } from './shared/nav-header/nav-header.component';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { CustomerManagementComponent } from './customer-management/customer-management/customer-management.component';
 import { CustomerManagementService } from './customer-management/customer-management.service';
+import { HeaderSideComponent } from './shared/header-side/header-side.component';
 
-
+import { HeaderSideService } from './shared/header-side/header-side.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavHeaderComponent,
-    CustomerManagementComponent
+    CustomerManagementComponent,
+    HeaderSideComponent
   ],
   imports: [
     BrowserModule,
@@ -73,11 +76,14 @@ import { CustomerManagementService } from './customer-management/customer-manage
     MatChipsModule,
     MatProgressSpinnerModule,
     MatRippleModule,
+    MatTableModule,
     MatDialogModule,
     RouterModule,
+    MatInputModule,
+    NgxDatatableModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [NavHeaderService, CustomerManagementService],
+  providers: [NavHeaderService, CustomerManagementService, HeaderSideService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

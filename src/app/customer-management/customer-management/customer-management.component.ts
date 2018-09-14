@@ -42,6 +42,7 @@ export class CustomerManagementComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.getAllCustomer();
   }
 
   createForm() {
@@ -56,24 +57,24 @@ export class CustomerManagementComponent implements OnInit {
     });
   }
   // CRUD start
-  editCustomer(edit) {
-    edit.editing = true;
+  editCustomer(row) {
+    row.editing = true;
   }
   cancel(edit) {
     edit.editing = false;
   }
 
-  update(customerDetailsForm: FormGroup, edit) {
-    this.customerManagementService.editCustomer(edit).subscribe(data => {
+  update(customerDetailsForm: FormGroup, row) {
+    this.customerManagementService.editCustomer(row).subscribe(data => {
       this.newCustomer = data;
     }, error => {
       console.log(error);
     });
   }
-  delete(customerDetailsForm: FormGroup, edit) {
-    edit.editing = false;
+  delete(customerDetailsForm: FormGroup, row) {
+    row.editing = false;
     customerDetailsForm.reset();
-    this.customerManagementService.deleteCustomer(edit).subscribe(data => {
+    this.customerManagementService.deleteCustomer(row).subscribe(data => {
       this.newCustomer = data;
     }, error => {
       console.log(error);
