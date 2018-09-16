@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 interface IMenuItem {
-  type: string,       // Possible values: link/dropDown/icon/separator/extLink
+  type: string,    // Possible values: link/dropDown/icon/separator/extLink
   name?: string,      // Used as display text for item and title for separator type
   state?: string,     // Router state
   icon?: string,      // Material icon name
-  tooltip?: string,   // Tooltip text 
+  tooltip?: string,   // Tooltip text
   disabled?: boolean,   // If true, item will not be appeared in sidenav.
   sub?: IChildItem[], // Dropdown items
   badges?: IBadge[] 
@@ -69,6 +69,13 @@ export class HeaderSideService {
       type: 'dropDown',
       tooltip: 'email',
       icon: 'email',
+      state: 'tables',
+    },
+    {
+      name: 'UPLOAD',
+      type: 'upload',
+      tooltip: 'email',
+      icon: 'add_to_photos',
       state: 'tables',
     }
   ]

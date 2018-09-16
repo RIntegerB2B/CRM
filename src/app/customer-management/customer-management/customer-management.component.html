@@ -3,16 +3,15 @@
     <div class="col-md-2">
       <div class="col-md-2 text-center"><button mat-raised-button color="primary" (click)="getAllCustomer()">All
           Customer</button></div><br>
-      <div class="col-md-2 text-center"><button mat-raised-button color="primary" (click)="duplicateCustomerData()">Duplicate
-          Customer</button></div>
-    </div> -->
-    <div class="col-md-8">
+ -->      
+    <!--</div>
+     <div class="col-md-8">
       <div class="col-md-2 text-center"></div><br>
       <div style="text-align:center">
         <input type="file" (change)="uploadingfile($event)" placeholder="Upload file" accept=".xlsx">
         <button type="button" mat-raised-button color="primary" (click)="Upload()">Upload</button>
       </div>
-    </div>
+    </div> -->
   <!--</div>
    <div class="row">
     <div class="col-md-2"></div>
@@ -125,26 +124,29 @@
   </div>
  -->
 <form [formGroup]="customerDetailsForm">
-<div class="breadcrumb-title">
-  <h1 class="bc-title">ALL CUSTOMERS</h1>
-</div>
+<div class="breadcrumb-title border-bottom">
+    <div class="col-md-2 text-center"><button mat-raised-button color="primary" (click)="getAllCustomer()">All
+        Customer</button></div>
+  <div class="col-md-2 text-center"><button mat-raised-button color="primary" (click)="duplicateCustomerData()">Duplicate
+      Customer</button></div>
+</div><br>
 <div class="card">
   <ngx-datatable  class="material pl-5 ml-0 mr-0" [rows]="newCustomer" [columnMode]="'flex'" [headerHeight]="50"
     [footerHeight]="50" [draggable]="false" [limit]="10" [rowHeight]="'auto'"
     >
-    <ngx-datatable-column  [sortable]="false" [draggable]="false" name="NAME" [flexGrow]="1">
+    <ngx-datatable-column  [sortable]="false" [draggable]="false" name="CUSTOMER NAME" [flexGrow]="1">
       <ng-template let-row="row" ngx-datatable-cell-template>
-        {{row?.name}}
+        {{row?.customerName}}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column [sortable]="false" [draggable]="false" name="PHONE" [flexGrow]="1">
+    <ngx-datatable-column [sortable]="false" [draggable]="false" name="MOBILE NUMBER" [flexGrow]="1">
       <ng-template let-row="row" ngx-datatable-cell-template>
-        {{row?.phone}}
+        {{row?.mobileNumber}}
       </ng-template>
     </ngx-datatable-column>
     <ngx-datatable-column [sortable]="false" [draggable]="false" name="ADDRESS" [flexGrow]="1">
       <ng-template let-row="row" ngx-datatable-cell-template>
-        {{row?.address}}
+        {{row?.location}}
       </ng-template>
     </ngx-datatable-column>
     <ngx-datatable-column [sortable]="false" [draggable]="false" name="EMAIL" [flexGrow]="1">
@@ -154,7 +156,7 @@
     </ngx-datatable-column>
     <ngx-datatable-column [sortable]="false" [draggable]="false" name="EDIT" [flexGrow]="1">
       <ng-template let-row="row" ngx-datatable-cell-template>
-        <button mat-icon-button mat-sm-button color="primary" (click)="editCustomer(row)">
+        <button mat-icon-button mat-sm-button color="primary" (click)="editCustomer(customerDetailsForm, row)">
           <mat-icon>edit</mat-icon>
         </button>
         <button mat-icon-button mat-sm-button color="accent" (click)="delete(customerDetailsForm, row)">
@@ -164,7 +166,7 @@
     </ngx-datatable-column>
   </ngx-datatable>
 </div>
-<div *ngFor="let edit of newCustomer; let i = index;">
+<!-- <div *ngFor="let edit of newCustomer; let i = index;">
     <div *ngIf="edit.editing">
         <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
@@ -201,5 +203,5 @@
         <button mat-button color="warn" type="button" (click)="cancel(edit)">Cancel</button>
       </div>
     </div>
-    </div>
+    </div> -->
 </form>

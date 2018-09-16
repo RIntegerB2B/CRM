@@ -1,10 +1,13 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import * as XLSX from 'ts-xlsx';
 import { Customer } from './customer.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CustomerManagementService } from './../customer-management.service';
 import { map } from 'rxjs/operators';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+// import {CustomerEditComponent  } from './../customer-management/customer-edit/customer-edit.component';
+import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MobileSend } from './mobile-send.model';
 import { EmailSend } from './email-send.model';
@@ -38,7 +41,7 @@ export class CustomerManagementComponent implements OnInit {
   emailCompleted = false;
   constructor(private fb: FormBuilder,
     private customerManagementService: CustomerManagementService
-    , private http: HttpClient) { }
+    , private http: HttpClient, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.createForm();
@@ -48,18 +51,25 @@ export class CustomerManagementComponent implements OnInit {
   createForm() {
     this.customerDetailsForm = this.fb.group({
       _id: [],
-      name: [],
-      phone: [],
+      emailMessage: [],
+      customerName: [],
+      mobileNumber: [],
+      whatsAppNo: [],
+      landLine: [],
       email: [],
-      address: [],
-      message: [],
-      emailMessage: []
+      companyName: [],
+      companyAddress: [],
+      location: [],
+      gst: [],
+      customerGrade: [],
+      brandName: [],
+      message: []
     });
   }
   // CRUD start
-  editCustomer(row) {
+  /* editCustomer(row) {
     row.editing = true;
-  }
+  } */
   cancel(edit) {
     edit.editing = false;
   }
@@ -81,6 +91,14 @@ export class CustomerManagementComponent implements OnInit {
     });
   }
   // CRUD end
+  editCustomer(customerDetailsForm: FormGroup, row) {
+    const dialogRef = this.dialog.open(CustomerEditComponent, {
+      width: '720px',
+      disableClose: true,
+      data: row
+    });
+    dialogRef.afterClosed();
+  }
 
   uploadingfile(event) {
     this.file = event.target.files[0];
@@ -149,12 +167,12 @@ export class CustomerManagementComponent implements OnInit {
     }
     this.sendEmaillist = this.selectedMobileNumbers.toString();
     console.log(this.selectedMobileNumbers);
-    this.customerDetailsForm.controls.phone.setValue(this.sendEmaillist);
+    this.customerDetailsForm.controls.mobileNumber.setValue(this.sendEmaillist);
   }
   // send message  to mobile//
   sendSms(customerDetailsForm: FormGroup) {
     this.mobileSend = new MobileSend(
-      customerDetailsForm.controls.phone.value,
+      customerDetailsForm.controls.mobileNumber.value,
       customerDetailsForm.controls.message.value
     );
     this.customerManagementService.mobileMessage(this.mobileSend).subscribe(data => {
@@ -210,3 +228,48 @@ export class CustomerManagementComponent implements OnInit {
     } */
 }
 
+@Component({
+  templateUrl: './customer-edit.component.html'
+})
+export class CustomerEditComponent implements OnInit {
+  customerDetailsForm: FormGroup;
+  newCustomer: Customer[] = [];
+  constructor(private fb: FormBuilder, private customerManagementService:
+    CustomerManagementService, public dialogRef: MatDialogRef<CustomerEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Customer) {
+    console.log(data);
+  }
+
+  cancel(): void {
+    this.dialogRef.close();
+  }
+
+  ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
+    this.customerDetailsForm = this.fb.group({
+      _id: [],
+      customerName: [],
+      mobileNumber: [],
+      whatsAppNo: [],
+      Landline: [],
+      email: [],
+      companyName: [],
+      companyAddress: [],
+      location: [],
+      gst: [],
+      customerGrade: [],
+      brandName: []
+    });
+  }
+  update(customerDetailsForm: FormGroup, row) {
+    this.customerManagementService.editCustomer(row).subscribe(data => {
+      this.newCustomer = data;
+    }, error => {
+      console.log(error);
+    });
+    this.dialogRef.close();
+  }
+}

@@ -1,0 +1,49 @@
+<form [formGroup]="customerDetailsForm">
+    <div class="center" *ngIf="smsCompleted">
+        <mat-card>
+              <button mat-raised-button color="accent">
+                  Message sent successfully
+                </button>
+        </mat-card>
+      </div>
+    <div class="breadcrumb-title border-bottom">
+        <div class="col-md-2 text-center"><button mat-stroked-button color="primary">
+          SMS</button></div>
+      </div><br>
+      <div class=" col-sm-12 d-flex border-dark  flex-row">
+        <div class=" col-sm-3 col">
+          <b>MOBILENUMBER</b>
+        </div>
+        <div class="col-sm-3 col">
+          <b>NAME</b>
+        </div>
+        <div class="col-sm-3 col">
+          <b>LOCATION</b>
+        </div>
+        <div class="col-sm-3 col ">
+            <b>EMAIL</b>
+          </div>
+      </div><br>
+      <div *ngFor="let edit of newCustomer;" class="col-sm-12 d-flex  flex-row">
+          <div class=" col-sm-3 col">
+              <mat-checkbox name="{{edit.mobileNumber}}" value="{{edit.mobileNumber}}" (change)="selectedMobileNumber($event, edit.mobileNumber)"
+              class="mail-checkbox"> {{edit.mobileNumber}}</mat-checkbox>
+          </div>
+          <div class="col-sm-3 col">
+              {{edit.name}}
+          </div>
+          <div class="col-sm-3 col">
+              {{edit.location}}
+          </div>
+          <div class="col-sm-3 col">
+              {{edit.email}}
+            </div>
+        </div>
+        <div class="card col-md-6">
+            <label for="comment">Send Message:</label>
+            <textarea class="form-control" formControlName="message" rows="5"></textarea><br>
+            <button mat-raised-button color="primary" (click)="sendSms(customerDetailsForm)">
+              SMS sent
+            </button>
+          </div>
+      </form>
