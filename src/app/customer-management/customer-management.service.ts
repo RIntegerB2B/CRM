@@ -29,11 +29,11 @@ export class CustomerManagementService {
     };
   }
   constructor(private http: Http, private httpClient: HttpClient) { }
-  createCustomer(data: any): Observable<any> {
+  /* createCustomer(data: any): Observable<any> {
     const addUrl = 'customers';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<Customer[]>(url, data);
-  }
+  } */
   // all customer details
   allCustomer(): Observable<any> {
     const addUrl = 'allcustomers';
@@ -50,16 +50,16 @@ export class CustomerManagementService {
     const url: string = this.serviceUrl + addUrl + edit._id;
     return this.httpClient.put<Customer[]>(url, edit);
   }
-  mobileMessage(phone) {
+ /*  mobileMessage(phone) {
     const addUrl = 'customers/phone/';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<ResponseResult>(url, phone);
-  }
-  emailMessage(email) {
+  } */
+ /*  emailMessage(email) {
     const addUrl = 'customers/emailId/';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<ResponseResult>(url, email);
-  }
+  } */
 
   deleteCustomer(edit): Observable<any> {
 

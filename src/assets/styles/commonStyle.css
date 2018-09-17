@@ -72,29 +72,85 @@ lvl3 a {
   text-decoration: none;
 }
 
-/*. mat-icon:not(.menu-caret) {
-  text-align: center;
-  margin-right: 3px;
-  height: 48px;
-  width: 48px;
-  line-height: 48px;
-  border-left: 3px solid;
-  border-color: transparent;
-}
- */
-
-.menu-caret {
-  font-size: 1rem;
-  line-height: 1;
-  height: 16px;
-  width: 16px;
-  transition: transform .3s cubic-bezier(.35, 0, .25, 1);
+.breadcrumb {
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 
-.sidenav .menu-caret {
-  font-size: 1rem;
-  line-height: 1;
-  height: 16px;
-  width: 16px;
-  transition: transform .3s cubic-bezier(.35, 0, .25, 1);
+.breadcrumb-title {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  line-height: 40px;
+}
+
+.bc-title {
+  font-size: 2rem;
+  margin: 0;
+  line-height: 40px;
+}
+
+.card {
+  width: 99%;
+  background: white;
+  padding-bottom: 10px;
+  margin: auto;
+  position: relative;
+  box-shadow: 0 1px 3px white, 0 1px 2px white;
+  transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+.datatable-header-cell {
+  font-weight: bold;
+}
+
+.ngx-datatable .datatable-footer .datatable-pager .pager li a
+{
+    height: 22px;
+    min-width: 24px;
+    line-height: 22px;
+    padding: 0 6px;
+    border-radius: 3px;
+    margin: 6px 3px;
+    text-align: center;
+    color:#3f51b5;
+    text-decoration: none;
+    vertical-align: bottom;
+}
+.ngx-datatable .datatable-footer .datatable-footer-inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.ngx-datatable.material .datatable-footer {
+  border-top: 1px solid rgba(0,0,0,.12);
+  font-size: 12px;
+  padding: 2px;
+  font-weight: 400;
+  color: rgba(0,0,0,.54);
+}
+.ngx-datatable .datatable-footer .datatable-pager .pager, .ngx-datatable .datatable-footer .datatable-pager .pager li {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  list-style: none;
+}
+.ngx-datatable.material .datatable-footer .datatable-pager {
+  margin: 0 10px;
+}
+.ngx-datatable.material .datatable-footer .datatable-pager {
+  margin: 0 10px;
+}
+.ngx-datatable.material .datatable-footer .datatable-pager .datatable-icon-left, .ngx-datatable.material .datatable-footer .datatable-pager .datatable-icon-prev, .ngx-datatable.material .datatable-footer .datatable-pager .datatable-icon-right, .ngx-datatable.material .datatable-footer .datatable-pager .datatable-icon-skip
+{
+  font-size: 20px;
+  line-height: 20px;
+  padding: 0 3px;
+}
+.ngx-datatable.material .datatable-footer .datatable-pager a:hover {
+  color: rgba(0,0,0,.75)
+}
+.ngx-datatable.material .datatable-header {
+  border-bottom: 1px solid rgba(0,0,0,.12);
 }

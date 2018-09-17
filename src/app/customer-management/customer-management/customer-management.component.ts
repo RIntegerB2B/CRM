@@ -118,7 +118,7 @@ export class CustomerManagementComponent implements OnInit {
     window.location.href = this.facebookPostUrl;
   }
 
-  Upload() {
+  /* Upload() {
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
       this.arrayBuffer = fileReader.result;
@@ -139,7 +139,7 @@ export class CustomerManagementComponent implements OnInit {
         });
     };
     fileReader.readAsArrayBuffer(this.file);
-  }
+  } */
   getAllCustomer() {
     this.customerManagementService.allCustomer().subscribe(data => {
       this.newCustomer = data;
@@ -170,7 +170,7 @@ export class CustomerManagementComponent implements OnInit {
     this.customerDetailsForm.controls.mobileNumber.setValue(this.sendEmaillist);
   }
   // send message  to mobile//
-  sendSms(customerDetailsForm: FormGroup) {
+/*   sendSms(customerDetailsForm: FormGroup) {
     this.mobileSend = new MobileSend(
       customerDetailsForm.controls.mobileNumber.value,
       customerDetailsForm.controls.message.value
@@ -183,7 +183,7 @@ export class CustomerManagementComponent implements OnInit {
     }, error => {
       console.log(error);
     });
-  }
+  } */
   // send message  to Email //
   selectedEmail(value) {
     const indexOfEntry = this.selectedEamils.indexOf(value);
@@ -198,7 +198,7 @@ export class CustomerManagementComponent implements OnInit {
   }
 
 
-  sendEmail(customerDetailsForm: FormGroup) {
+  /* sendEmail(customerDetailsForm: FormGroup) {
     this.emailSend = new EmailSend(
       customerDetailsForm.controls.email.value,
       customerDetailsForm.controls.emailMessage.value
@@ -210,7 +210,7 @@ export class CustomerManagementComponent implements OnInit {
     }, error => {
       console.log(error);
     });
-  }
+  } */
 
 
   toggleSelect = function (event) {

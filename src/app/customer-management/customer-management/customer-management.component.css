@@ -1,0 +1,13 @@
+.ngx-datatable .datatable-footer .datatable-pager .pager li a
+{
+    height: 22px;
+    min-width: 24px;
+    line-height: 22px;
+    padding: 0 6px;
+    border-radius: 3px;
+    margin: 6px 3px;
+    text-align: center;
+    color: rgba(0,0,0,.54);
+    text-decoration: none;
+    vertical-align: bottom;
+}

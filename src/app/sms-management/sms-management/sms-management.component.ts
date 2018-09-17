@@ -19,6 +19,7 @@ export class SmsManagementComponent implements OnInit {
   newCustomer: Customer[] = [];
   selectedMobileNumbers = [];
   sendMobileNumber;
+  selectCheckbox = false;
   mobiles;
 
 
@@ -36,7 +37,7 @@ export class SmsManagementComponent implements OnInit {
       customerName: [],
       mobileNumber: [],
       whatsAppNo: [],
-      Landline: [],
+      landLine: [],
       email: [],
       companyName: [],
       companyAddress: [],
@@ -92,11 +93,17 @@ export class SmsManagementComponent implements OnInit {
       this.selectedMobileNumbers.splice(index, 1);
     }
     this.sendMobileNumber = this.selectedMobileNumbers.toString();
-    console.log(this.selectedMobileNumbers);
     this.customerDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
   }
   findIndexToUpdate(value) {
     return value === this;
+  }
+  selectAllMobileNumber(e, value) {
+    this.selectCheckbox = !this.selectCheckbox;
+    value.forEach(element => {
+      this.selectedMobileNumber(e, element.mobileNumber);
+    }
+    );
   }
 }
 

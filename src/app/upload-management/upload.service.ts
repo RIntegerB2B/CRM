@@ -9,7 +9,7 @@ import { ResponseResult } from './../shared/model/response-result.model';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class UploadService {
   serviceUrl: string = AppSetting.serviceUrl;
   headers: Headers = new Headers({
     'Content-Type': 'application/json; charset=utf-8'

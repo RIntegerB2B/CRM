@@ -44,7 +44,7 @@ import { HeaderSideComponent } from './shared/header-side/header-side.component'
 import { HeaderSideService } from './shared/header-side/header-side.service';
 import { SmsManagementComponent } from './sms-management/sms-management/sms-management.component';
 import { EmailManagementComponent } from './email-management/email-mangement/email-management.component';
-import { ProductManagementComponent } from './product-management/product-management/product-management.component';
+import { UploadManagementComponent } from './upload-management/upload-management/upload-management.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,7 @@ import { ProductManagementComponent } from './product-management/product-managem
     HeaderSideComponent,
     SmsManagementComponent,
     EmailManagementComponent,
-    ProductManagementComponent
+    UploadManagementComponent
   ],
   imports: [
     BrowserModule,

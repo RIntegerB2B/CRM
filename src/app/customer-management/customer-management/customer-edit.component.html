@@ -2,14 +2,14 @@
 <div fxLayout="row wrap" fxLayout.lt-sm="column">
 <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput  formControlName="name"  [ngModel]="data.customerName" (ngModelChange)="data.customerName=$event"
-          placeholder="Name">
+        <input matInput  formControlName="customerName"  [ngModel]="data.customerName" (ngModelChange)="data.customerName=$event"
+          placeholder="Customer Name">
       </mat-form-field>
     </div>
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
         <input matInput   formControlName="mobileNumber" [ngModel]="data.mobileNumber" (ngModelChange)="data.mobileNumber=$event"
-          placeholder="phone">
+          placeholder="Mobile Number">
       </mat-form-field>
     </div>
 

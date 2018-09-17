@@ -3,21 +3,21 @@ import { Component, OnInit, Inject } from '@angular/core';
 import * as XLSX from 'ts-xlsx';
 import { Customer } from './../../shared/model/customer.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ProductService } from './../product.service'
+import { UploadService } from './../upload.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-product-management',
-  templateUrl: './product-management.component.html',
-  styleUrls: ['./product-management.component.css']
+  selector: 'app-upload-management',
+  templateUrl: './upload-management.component.html',
+  styleUrls: ['./upload-management.component.css']
 })
-export class ProductManagementComponent implements OnInit {
+export class UploadManagementComponent implements OnInit {
   arrayBuffer: any;
   file: File;
   customerDetailsForm: FormGroup;
   customers;
   newCustomer: Customer[] = [];
-  constructor(private productService: ProductService) { }
+  constructor(private uploadService: UploadService) { }
 
   ngOnInit() {
   }
@@ -35,7 +35,7 @@ export class ProductManagementComponent implements OnInit {
       const first_sheet_name = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[first_sheet_name];
       this.customers = XLSX.utils.sheet_to_json(worksheet);
-      this.productService.createCustomer(this.customers)
+      this.uploadService.createCustomer(this.customers)
         .subscribe(detail => {
           this.newCustomer = detail;
           console.log(detail);

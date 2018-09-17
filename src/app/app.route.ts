@@ -4,12 +4,12 @@ import { HeaderSideComponent } from './shared/header-side/header-side.component'
 import { CustomerManagementComponent } from './customer-management/customer-management/customer-management.component';
 import { SmsManagementComponent } from './sms-management/sms-management/sms-management.component';
 import { EmailManagementComponent } from './email-management/email-mangement/email-management.component';
-import { ProductManagementComponent } from './product-management/product-management/product-management.component';
+import { UploadManagementComponent } from './upload-management/upload-management/upload-management.component';
 
 const routes: Routes = [
     { path: 'navheader', component: NavHeaderComponent },
     { path: 'sms', component: SmsManagementComponent },
-    { path: 'upload', component: ProductManagementComponent },
+    { path: 'upload', component: UploadManagementComponent },
     { path: 'email', component: EmailManagementComponent },
     { path: 'headerside', component: HeaderSideComponent },
     { path: 'customers', component: CustomerManagementComponent },

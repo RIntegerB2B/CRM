@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { NgModel } from '@angular/forms';
 import { EmailSend } from './email.model';
 import { Customer } from '../../shared/model/customer.model';
 import { EmailService } from '../email.service';
@@ -16,10 +17,11 @@ export class EmailManagementComponent implements OnInit {
   smsCompleted = false;
   emailSend: EmailSend;
   newCustomer: Customer[] = [];
-  selectedEamils = [];
+  selectedEmails = [];
   sendEmaillist;
   emailCompleted = false;
-
+  selectCheckbox = false;
+  allValue;
   constructor(private fb: FormBuilder, private emailService: EmailService) { }
 
 
@@ -30,12 +32,19 @@ export class EmailManagementComponent implements OnInit {
   createForm() {
     this.customerDetailsForm = this.fb.group({
       _id: [],
-      name: [],
-      phone: [],
+      emailMessage: [],
+      customerName: [],
+      mobileNumber: [],
+      whatsAppNo: [],
+      landLine: [],
       email: [],
-      address: [],
-      message: [],
-      emailMessage: []
+      companyName: [],
+      companyAddress: [],
+      location: [],
+      gst: [],
+      customerGrade: [],
+      brandName: [],
+      message: []
     });
   }
   getAllCustomer() {
@@ -59,24 +68,31 @@ export class EmailManagementComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+    console.log(this.selectedEmails);
   }
 
   selectedEmail(e, value) {
     if (e.checked) {
-      this.selectedEamils.push(value);
+      this.selectedEmails.push(value);
     } else {
-      const updateItem = this.selectedEamils.find(this.findIndexToUpdate, value);
+      const updateItem = this.selectedEmails.find(this.findIndexToUpdate, value);
 
-      const index = this.selectedEamils.indexOf(updateItem);
+      const index = this.selectedEmails.indexOf(updateItem);
 
-      this.selectedEamils.splice(index, 1);
+      this.selectedEmails.splice(index, 1);
     }
-    this.sendEmaillist = this.selectedEamils.toString();
-    console.log(this.selectedEamils);
+    this.sendEmaillist = this.selectedEmails.toString();
     this.customerDetailsForm.controls.email.setValue(this.sendEmaillist);
   }
   findIndexToUpdate(value) {
     return value === this;
+  }
+  selectEmailAll(e, value) {
+    this.selectCheckbox = !this.selectCheckbox;
+    value.forEach(element => {
+      this.selectedEmail(e, element.email);
+    }
+    );
   }
 }
 
