@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MobileSend } from './sms-model';
 import { Customer } from './../../shared/model/customer.model';
 import { SmsService } from './../sms.service';
+import { Template } from '@angular/compiler/src/render3/r3_ast';
 
 
 
@@ -21,7 +22,8 @@ export class SmsManagementComponent implements OnInit {
   sendMobileNumber;
   selectCheckbox = false;
   mobiles;
-
+  defaultTemplates: [{template: 'Happy New Year'}, {template: 'Happy Diwali'} ];
+  messages = [];
 
   constructor(private fb: FormBuilder, private smsService: SmsService) { }
 
@@ -105,6 +107,9 @@ export class SmsManagementComponent implements OnInit {
     }
     );
   }
+  setNameValue(templateValue) {
+    this.customerDetailsForm.controls.message.setValue(templateValue);
+}
 }
 
 

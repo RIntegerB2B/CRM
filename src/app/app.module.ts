@@ -27,7 +27,8 @@ import {
   MatRippleModule,
   MatDialogModule,
   MatChipsModule,
-  MatInputModule
+  MatInputModule,
+  MatStepperModule
 } from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -84,6 +85,7 @@ import { UploadManagementComponent } from './upload-management/upload-management
     MatChipsModule,
     MatProgressSpinnerModule,
     MatRippleModule,
+    MatStepperModule,
     MatTableModule,
     MatDialogModule,
     RouterModule,
