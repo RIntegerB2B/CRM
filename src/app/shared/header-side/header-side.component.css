@@ -1,36 +1,38 @@
 .example-container {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  .example-is-mobile .example-toolbar {
-    position: fixed;
-    z-index: 2;
-  }
-  .mat-list, .mat-nav-list, .mat-selection-list {
-    transition: transform .3s cubic-bezier(.35, 0, .25, 1);
-    width: 15rem;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
+.example-is-mobile .example-toolbar {
+  position: fixed;
+  z-index: 2;
+}
 
-  h1.example-app-name {
-    margin-left: 8px;
-  }
-  
-  .example-sidenav-container {
-    flex: 1;
-  }
-  
-  .example-is-mobile .example-sidenav-container {
-    flex: 1 0 auto;
-  }
-  .mat-sidenav
-  {
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-    transition: all .0s cubic-bezier(.35, 0, .25, 1)
-  }
+.mat-list,
+.mat-nav-list,
+.mat-selection-list {
+  transition: transform .3s cubic-bezier(.35, 0, .25, 1);
+  width: 15rem;
+}
+
+h1.example-app-name {
+  margin-left: 8px;
+}
+
+.example-sidenav-container {
+  flex: 1;
+}
+
+.example-is-mobile .example-sidenav-container {
+  flex: 1 0 auto;
+}
+
+.mat-sidenav {
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  transition: all .0s cubic-bezier(.35, 0, .25, 1)
+}

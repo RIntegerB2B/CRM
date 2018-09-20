@@ -170,20 +170,20 @@ export class CustomerManagementComponent implements OnInit {
     this.customerDetailsForm.controls.mobileNumber.setValue(this.sendEmaillist);
   }
   // send message  to mobile//
-/*   sendSms(customerDetailsForm: FormGroup) {
-    this.mobileSend = new MobileSend(
-      customerDetailsForm.controls.mobileNumber.value,
-      customerDetailsForm.controls.message.value
-    );
-    this.customerManagementService.mobileMessage(this.mobileSend).subscribe(data => {
-      if (data.result = 1) {
-        this.smsCompleted = true;
-      }
-      console.log(data);
-    }, error => {
-      console.log(error);
-    });
-  } */
+  /*   sendSms(customerDetailsForm: FormGroup) {
+      this.mobileSend = new MobileSend(
+        customerDetailsForm.controls.mobileNumber.value,
+        customerDetailsForm.controls.message.value
+      );
+      this.customerManagementService.mobileMessage(this.mobileSend).subscribe(data => {
+        if (data.result = 1) {
+          this.smsCompleted = true;
+        }
+        console.log(data);
+      }, error => {
+        console.log(error);
+      });
+    } */
   // send message  to Email //
   selectedEmail(value) {
     const indexOfEntry = this.selectedEamils.indexOf(value);
@@ -221,11 +221,6 @@ export class CustomerManagementComponent implements OnInit {
       item.selected = event.target.checked;
     });
   };
-  /*   ApplyFilters(isValid: boolean) {
-      const datas = this.neighbourhoods.filter(function (data) { return data.selected === true });
-      console.log(datas);
-      if (!isValid) return;
-    } */
 }
 
 @Component({

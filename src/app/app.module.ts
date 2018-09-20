@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
+
 import { NavHeaderService } from './shared/nav-header/nav-header.service';
 import {
   MatSidenavModule,
@@ -24,6 +25,7 @@ import {
   MatCardModule,
   MatProgressSpinnerModule,
   MatExpansionModule,
+  MatPaginatorModule,
   MatRippleModule,
   MatDialogModule,
   MatChipsModule,
@@ -87,6 +89,7 @@ import { UploadManagementComponent } from './upload-management/upload-management
     MatRippleModule,
     MatStepperModule,
     MatTableModule,
+    MatPaginatorModule,
     MatDialogModule,
     RouterModule,
     MatInputModule,

@@ -21,8 +21,9 @@ export class SmsManagementComponent implements OnInit {
   selectedMobileNumbers = [];
   sendMobileNumber;
   selectCheckbox = false;
+  selectTemplate: boolean;
   mobiles;
-  defaultTemplates: [{template: 'Happy New Year'}, {template: 'Happy Diwali'} ];
+  messageTemplates = ['Happy New Year', 'Happy Diwali', 'Thanks for purchase', 'Welcome to UCCHAL'];
   messages = [];
 
   constructor(private fb: FormBuilder, private smsService: SmsService) { }
@@ -47,7 +48,8 @@ export class SmsManagementComponent implements OnInit {
       gst: [],
       customerGrade: [],
       brandName: [],
-      message: []
+      message: [],
+      messageTemplates: []
     });
   }
   getAllCustomer() {
@@ -107,9 +109,12 @@ export class SmsManagementComponent implements OnInit {
     }
     );
   }
-  setNameValue(templateValue) {
-    this.customerDetailsForm.controls.message.setValue(templateValue);
-}
-}
+  setNameValue(e, template) {
+    if (e.checked === true) {
+      this.customerDetailsForm.controls.message.setValue(template);
+    } else {
+      this.customerDetailsForm.controls.message.reset();
+    }
 
-
+  }
+}

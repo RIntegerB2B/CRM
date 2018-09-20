@@ -41,22 +41,22 @@
                 </div>
               </li>
               <li>
-                  <div routerLink="/upload">
-                    <a matRipple *ngIf="item.type === 'upload'">
-                      <mat-icon>{{item.icon}}</mat-icon>
-                      <span class="item-name">{{item.name}}</span>
-                      <span fxFlex></span>
-                    </a>
-                  </div>
-                </li>
-  
+                <div routerLink="/upload">
+                  <a matRipple *ngIf="item.type === 'upload'">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span class="item-name">{{item.name}}</span>
+                    <span fxFlex></span>
+                  </a>
+                </div>
+              </li>
+
             </ul>
           </div>
         </div>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-     <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

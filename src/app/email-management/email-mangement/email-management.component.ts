@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgModel } from '@angular/forms';
 import { EmailSend } from './email.model';
 import { Customer } from '../../shared/model/customer.model';
 import { EmailService } from '../email.service';
+import {PageEvent} from '@angular/material';
 
 
 @Component({
@@ -12,7 +13,11 @@ import { EmailService } from '../email.service';
   styleUrls: ['./email-management.component.css']
 })
 
+
+
 export class EmailManagementComponent implements OnInit {
+  @ViewChild('contentWrapper') content: ElementRef;
+  messageTemplates = ['First Template'];
   customerDetailsForm: FormGroup;
   smsCompleted = false;
   emailSend: EmailSend;
@@ -22,12 +27,19 @@ export class EmailManagementComponent implements OnInit {
   emailCompleted = false;
   selectCheckbox = false;
   allValue;
-  constructor(private fb: FormBuilder, private emailService: EmailService) { }
+  htmlTemplate: any;
+  subTitle: any;
+  titleName: any;
+  emailMessage: any;
+  // MatPaginator Output
 
+
+  constructor(private fb: FormBuilder, private emailService: EmailService) { }
 
   ngOnInit() {
     this.createForm();
     this.getAllCustomer();
+    console.log(this.content.nativeElement.innerHTML);
   }
   createForm() {
     this.customerDetailsForm = this.fb.group({
@@ -44,9 +56,12 @@ export class EmailManagementComponent implements OnInit {
       gst: [],
       customerGrade: [],
       brandName: [],
-      message: []
+      message: [],
+      titleName: [],
+      subTitle: [],
     });
   }
+
   getAllCustomer() {
     this.emailService.allCustomer().subscribe(data => {
       this.newCustomer = data;
@@ -56,7 +71,12 @@ export class EmailManagementComponent implements OnInit {
     });
   }
 
+
   sendEmail(customerDetailsForm: FormGroup) {
+   /*  this.htmlTemplate = this.content.nativeElement.innerHTML;
+    */
+   this.htmlTemplate = this.content.nativeElement.innerHTML;
+   this.customerDetailsForm.controls.emailMessage.setValue(this.htmlTemplate);
     this.emailSend = new EmailSend(
       customerDetailsForm.controls.email.value,
       customerDetailsForm.controls.emailMessage.value
@@ -86,6 +106,15 @@ export class EmailManagementComponent implements OnInit {
   }
   findIndexToUpdate(value) {
     return value === this;
+  }
+  selectedTemplate(e) {
+    if (e.checked === true) {
+      this.htmlTemplate = this.content.nativeElement.innerHTML;
+      this.customerDetailsForm.controls.emailMessage.setValue(this.htmlTemplate);
+      console.log(this.htmlTemplate);
+  }    else {
+      this.customerDetailsForm.controls.emailMessage.reset();
+    }
   }
   selectEmailAll(e, value) {
     this.selectCheckbox = !this.selectCheckbox;
