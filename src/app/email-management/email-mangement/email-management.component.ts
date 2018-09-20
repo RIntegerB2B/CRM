@@ -31,7 +31,7 @@ export class EmailManagementComponent implements OnInit {
   subTitle: any;
   titleName: any;
   emailMessage: any;
-  // MatPaginator Output
+
 
 
   constructor(private fb: FormBuilder, private emailService: EmailService) { }
