@@ -23,6 +23,15 @@
                 </div>
               </li>
               <li>
+                <div routerLink="/b2cmarket">
+                  <a matRipple *ngIf="item.type === 'market'">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span class="item-name">{{item.name}}</span>
+                    <span fxFlex></span>
+                  </a>
+                </div>
+              </li>
+              <li>
                 <div routerLink="/sms">
                   <a matRipple *ngIf="item.type === 'link'">
                     <mat-icon>{{item.icon}}</mat-icon>

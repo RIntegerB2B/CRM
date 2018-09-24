@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Customer } from './customer-management/customer.model';
+import { B2cMarket } from './../shared/model/b2cmarket.model';
 import { AppSetting } from './../config/appSetting';
 import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
@@ -9,7 +9,7 @@ import { ResponseResult } from './../shared/model/response-result.model';
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerManagementService {
+export class B2cmarketService {
   serviceUrl: string = AppSetting.serviceUrl;
   headers: Headers = new Headers({
     'Content-Type': 'application/json; charset=utf-8'
@@ -26,44 +26,28 @@ export class CustomerManagementService {
       return of(result as T);
     };
   }
+
   constructor(private http: Http, private httpClient: HttpClient) { }
-  /* createCustomer(data: any): Observable<any> {
-    const addUrl = 'customers';
+  allB2cMarket(): Observable<any> {
+    const addUrl = 'allb2ccustomer';
     const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<Customer[]>(url, data);
-  } */
-  // all customer details
-  allCustomer(): Observable<any> {
-    const addUrl = 'allcustomers';
-    const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.get<Customer[]>(url);
+    return this.httpClient.get<B2cMarket[]>(url);
   }
-  duplicateCustomer(): Observable<any> {
-    const addUrl = 'duplicatecustomers';
+  duplicateB2cMarket(): Observable<any> {
+    const addUrl = 'duplicateb2ccustomer';
     const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.get<Customer[]>(url);
+    return this.httpClient.get<B2cMarket[]>(url);
   }
-  editCustomer(edit): Observable<any> {
-    const addUrl = 'customers/';
+  editB2cMarket(edit): Observable<any> {
+    const addUrl = 'b2cmarket/';
     const url: string = this.serviceUrl + addUrl + edit._id;
-    return this.httpClient.put<Customer[]>(url, edit);
+    return this.httpClient.put<B2cMarket[]>(url, edit);
   }
- /*  mobileMessage(phone) {
-    const addUrl = 'customers/phone/';
-    const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<ResponseResult>(url, phone);
-  } */
- /*  emailMessage(email) {
-    const addUrl = 'customers/emailId/';
-    const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<ResponseResult>(url, email);
-  } */
+  deleteB2cMarket(edit): Observable<any> {
 
-  deleteCustomer(edit): Observable<any> {
-
-    const addUrl = 'customersdelete/';
+    const addUrl = 'b2cmarketdelete/';
 
     const url: string = this.serviceUrl + addUrl + edit._id;
-    return this.httpClient.delete<Customer[]>(url);
-  }
+    return this.httpClient.delete<B2cMarket[]>(url);
+}
 }

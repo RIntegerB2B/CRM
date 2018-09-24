@@ -1,11 +1,28 @@
-
 <div class="breadcrumb-title border-bottom">
-    <div class="col-md-2 text-center"><button mat-stroked-button color="primary">
+  <div class="col-md-2 text-center"><button mat-stroked-button color="primary">
       UPLOAD</button></div>
-  </div><br>
+</div><br>
 <div style="text-align:center">
-    <input type="file" (change)="uploadingfile($event)" placeholder="Upload file" accept=".xlsx">
-    <button type="button" mat-raised-button color="primary" (click)="Upload()">Upload</button>
+  <input type="file" (change)="uploadingfile($event)" placeholder="Upload file" accept=".xlsx">
+  <button type="button" mat-raised-button color="primary" (click)="Upload()">Upload</button>
 </div>
 
 
+<div style="text-align:center">
+  B2C
+</div>
+
+<div style="text-align:center">
+
+  <input type="file" (change)="uploadingB2cMarketfile($event)" placeholder="Upload file" accept=".xlsx">
+  <button type="button" mat-raised-button color="primary" (click)="UploadB2CMarket()">Upload</button>
+</div>
+
+<!-- <button (click)="exportAsXLSX()"> -->
+<div style="text-align:right">
+	Excel sample format<br>
+  <button mat-raised-button color="warn" (click)="exportAsXLSX()">
+    <mat-icon>file_download</mat-icon>
+  </button>
+</div>
+<!-- </button> -->

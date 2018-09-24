@@ -67,9 +67,6 @@ export class CustomerManagementComponent implements OnInit {
     });
   }
   // CRUD start
-  /* editCustomer(row) {
-    row.editing = true;
-  } */
   cancel(edit) {
     edit.editing = false;
   }
@@ -118,28 +115,6 @@ export class CustomerManagementComponent implements OnInit {
     window.location.href = this.facebookPostUrl;
   }
 
-  /* Upload() {
-    const fileReader = new FileReader();
-    fileReader.onload = (e) => {
-      this.arrayBuffer = fileReader.result;
-      const data = new Uint8Array(this.arrayBuffer);
-      const arr = new Array();
-      for (let i = 0; i !== data.length; ++i) {
-        arr[i] = String.fromCharCode(data[i]);
-      }
-      const bstr = arr.join('');
-      const workbook = XLSX.read(bstr, { type: 'binary' });
-      const first_sheet_name = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[first_sheet_name];
-      this.customers = XLSX.utils.sheet_to_json(worksheet);
-      this.customerManagementService.createCustomer(this.customers)
-        .subscribe(detail => {
-          this.newCustomer = detail;
-          console.log(detail);
-        });
-    };
-    fileReader.readAsArrayBuffer(this.file);
-  } */
   getAllCustomer() {
     this.customerManagementService.allCustomer().subscribe(data => {
       this.newCustomer = data;
@@ -170,21 +145,6 @@ export class CustomerManagementComponent implements OnInit {
     this.customerDetailsForm.controls.mobileNumber.setValue(this.sendEmaillist);
   }
   // send message  to mobile//
-  /*   sendSms(customerDetailsForm: FormGroup) {
-      this.mobileSend = new MobileSend(
-        customerDetailsForm.controls.mobileNumber.value,
-        customerDetailsForm.controls.message.value
-      );
-      this.customerManagementService.mobileMessage(this.mobileSend).subscribe(data => {
-        if (data.result = 1) {
-          this.smsCompleted = true;
-        }
-        console.log(data);
-      }, error => {
-        console.log(error);
-      });
-    } */
-  // send message  to Email //
   selectedEmail(value) {
     const indexOfEntry = this.selectedEamils.indexOf(value);
     if (indexOfEntry < 0) {
@@ -196,22 +156,6 @@ export class CustomerManagementComponent implements OnInit {
     console.log(this.selectedEamils);
     this.customerDetailsForm.controls.email.setValue(this.sendMobileNumber);
   }
-
-
-  /* sendEmail(customerDetailsForm: FormGroup) {
-    this.emailSend = new EmailSend(
-      customerDetailsForm.controls.email.value,
-      customerDetailsForm.controls.emailMessage.value
-    );
-    this.customerManagementService.emailMessage(this.emailSend).subscribe(data => {
-      if (data.result = 1) {
-        this.emailCompleted = true;
-      }
-    }, error => {
-      console.log(error);
-    });
-  } */
-
 
   toggleSelect = function (event) {
 

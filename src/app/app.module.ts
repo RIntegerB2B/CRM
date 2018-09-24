@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { Routing } from './app.route';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -32,7 +33,6 @@ import {
   MatInputModule,
   MatStepperModule
 } from '@angular/material';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MatTableModule } from '@angular/material/table';
@@ -43,11 +43,13 @@ import { CustomerManagementComponent,
    CustomerEditComponent } from './customer-management/customer-management/customer-management.component';
 import { CustomerManagementService } from './customer-management/customer-management.service';
 import { HeaderSideComponent } from './shared/header-side/header-side.component';
-
+import { B2cmarketService } from './b2cmarket-management/b2cmarket.service';
 import { HeaderSideService } from './shared/header-side/header-side.service';
 import { SmsManagementComponent } from './sms-management/sms-management/sms-management.component';
 import { EmailManagementComponent } from './email-management/email-mangement/email-management.component';
 import { UploadManagementComponent } from './upload-management/upload-management/upload-management.component';
+import { B2cmarketManagementComponent,
+  B2cmarketEditComponent } from './b2cmarket-management/b2cmarket-management/b2cmarket-management.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { UploadManagementComponent } from './upload-management/upload-management
     HeaderSideComponent,
     SmsManagementComponent,
     EmailManagementComponent,
-    UploadManagementComponent
+    UploadManagementComponent,
+    B2cmarketManagementComponent,
+    B2cmarketEditComponent
   ],
   imports: [
     BrowserModule,
@@ -96,8 +100,8 @@ import { UploadManagementComponent } from './upload-management/upload-management
     NgxDatatableModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [NavHeaderService, CustomerManagementService, HeaderSideService],
+  providers: [NavHeaderService, CustomerManagementService, HeaderSideService, B2cmarketService],
   bootstrap: [AppComponent],
-  entryComponents: [CustomerEditComponent]
+  entryComponents: [CustomerEditComponent, B2cmarketEditComponent]
 })
 export class AppModule { }

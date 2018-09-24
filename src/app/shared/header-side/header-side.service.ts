@@ -32,30 +32,18 @@ export class HeaderSideService {
   constructor() { }
   iconMenu: IMenuItem[] = [
     {
-      name: 'HOME',
-      type: 'icon',
-      tooltip: 'Home',
-      icon: 'home',
-      state: 'home',
-      badges: [{ color: 'accent', value: '100+' }],
-    },
-    {
-      name: 'PROFILE',
-      type: 'icon',
-      tooltip: 'Profile',
-      icon: 'person',
-      state: 'profile/overview'
-    },
-    {
-      type: 'separator',
-      name: 'Main Items'
-    },
-    {
-      name: 'CUSTOMER DETAILS',
+      name: 'B2B CUSTOMER',
       type: 'dashboard',
       tooltip: 'Dashboard',
       icon: 'dashboard',
       state: 'dashboard',
+    },
+    {
+      name: 'B2C MARKET',
+      type: 'market',
+      tooltip: 'market',
+      icon: 'dashboard',
+      state: 'market',
     },
     {
       name: 'SMS',
@@ -77,7 +65,9 @@ export class HeaderSideService {
       tooltip: 'email',
       icon: 'add_to_photos',
       state: 'tables',
-    }
+    },
+    
+
   ]
 
   // Icon menu TITLE at the very top of navigation.

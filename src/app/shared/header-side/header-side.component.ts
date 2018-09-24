@@ -42,9 +42,6 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    // if(this.sidebarPS) {
-    //   this.sidebarPS.destroy();
-    // }
     this.mobileQuery.removeListener(this._mobileQueryListener);
     if (this.menuItemsSub) {
       this.menuItemsSub.unsubscribe();
