@@ -50,6 +50,8 @@ import { EmailManagementComponent } from './email-management/email-mangement/ema
 import { UploadManagementComponent } from './upload-management/upload-management/upload-management.component';
 import { B2cmarketManagementComponent,
   B2cmarketEditComponent } from './b2cmarket-management/b2cmarket-management/b2cmarket-management.component';
+import { LoginComponent } from './user-management/login/login.component';
+import { RegisterComponent } from './user-management/register/register.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { B2cmarketManagementComponent,
     EmailManagementComponent,
     UploadManagementComponent,
     B2cmarketManagementComponent,
-    B2cmarketEditComponent
+    B2cmarketEditComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

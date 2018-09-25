@@ -6,6 +6,8 @@ import { SmsManagementComponent } from './sms-management/sms-management/sms-mana
 import { EmailManagementComponent } from './email-management/email-mangement/email-management.component';
 import { UploadManagementComponent } from './upload-management/upload-management/upload-management.component';
 import { B2cmarketManagementComponent } from './b2cmarket-management/b2cmarket-management/b2cmarket-management.component';
+import { LoginComponent } from './user-management/login/login.component';
+import { RegisterComponent } from './user-management/register/register.component';
 
 const routes: Routes = [
     { path: 'navheader', component: NavHeaderComponent },
@@ -15,8 +17,10 @@ const routes: Routes = [
     { path: 'headerside', component: HeaderSideComponent },
     { path: 'b2cmarket', component: B2cmarketManagementComponent },
     { path: 'customers', component: CustomerManagementComponent },
-    { path: '', redirectTo: 'customers', pathMatch: 'full' },
-    { path: '**', redirectTo: 'customers', pathMatch: 'full' }
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 export const Routing = RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' });
