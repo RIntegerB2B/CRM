@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgModel } from '@angular/forms';
 import { EmailSend } from './email.model';
 import { Customer } from '../../shared/model/customer.model';
 import { EmailService } from '../email.service';
-import {PageEvent} from '@angular/material';
+import { PageEvent } from '@angular/material';
 
 
 @Component({
@@ -18,7 +18,7 @@ import {PageEvent} from '@angular/material';
 export class EmailManagementComponent implements OnInit {
   @ViewChild('contentWrapper') content: ElementRef;
   messageTemplates = ['First Template'];
-  customerDetailsForm: FormGroup;
+  b2cMarketDetailsForm: FormGroup;
   smsCompleted = false;
   emailSend: EmailSend;
   newCustomer: Customer[] = [];
@@ -37,33 +37,61 @@ export class EmailManagementComponent implements OnInit {
   constructor(private fb: FormBuilder, private emailService: EmailService) { }
 
   ngOnInit() {
-    this.createForm();
-    this.getAllCustomer();
+    this.createB2cMarketForm();
+    this.getAllB2cMarketCustomer();
     console.log(this.content.nativeElement.innerHTML);
   }
-  createForm() {
-    this.customerDetailsForm = this.fb.group({
+  /*  createForm() {
+     this.customerDetailsForm = this.fb.group({
+       _id: [],
+       emailMessage: [],
+       customerName: [],
+       mobileNumber: [],
+       whatsAppNo: [],
+       landLine: [],
+       email: [],
+       companyName: [],
+       companyAddress: [],
+       location: [],
+       gst: [],
+       customerGrade: [],
+       brandName: [],
+       message: [],
+       titleName: [],
+       subTitle: [],
+     });
+   }
+ 
+   getAllCustomer() {
+     this.emailService.allCustomer().subscribe(data => {
+       this.newCustomer = data;
+       console.log(this.newCustomer);
+     }, error => {
+       console.log(error);
+     });
+   }
+  */
+
+  createB2cMarketForm() {
+    this.b2cMarketDetailsForm = this.fb.group({
       _id: [],
       emailMessage: [],
       customerName: [],
+      gender: [],
       mobileNumber: [],
-      whatsAppNo: [],
-      landLine: [],
       email: [],
-      companyName: [],
-      companyAddress: [],
+      dateOfBirth: [],
+      nationality: [],
+      categoryType: [],
+      designation: [],
       location: [],
-      gst: [],
-      customerGrade: [],
-      brandName: [],
       message: [],
       titleName: [],
       subTitle: [],
     });
   }
-
-  getAllCustomer() {
-    this.emailService.allCustomer().subscribe(data => {
+  getAllB2cMarketCustomer() {
+    this.emailService.allB2cMarket().subscribe(data => {
       this.newCustomer = data;
       console.log(this.newCustomer);
     }, error => {
@@ -72,14 +100,14 @@ export class EmailManagementComponent implements OnInit {
   }
 
 
-  sendEmail(customerDetailsForm: FormGroup) {
-   /*  this.htmlTemplate = this.content.nativeElement.innerHTML;
-    */
-   this.htmlTemplate = this.content.nativeElement.innerHTML;
-   this.customerDetailsForm.controls.emailMessage.setValue(this.htmlTemplate);
+  sendEmail(b2cMarketDetailsForm: FormGroup) {
+    /*  this.htmlTemplate = this.content.nativeElement.innerHTML;
+     */
+    this.htmlTemplate = this.content.nativeElement.innerHTML;
+    this.b2cMarketDetailsForm.controls.emailMessage.setValue(this.htmlTemplate);
     this.emailSend = new EmailSend(
-      customerDetailsForm.controls.email.value,
-      customerDetailsForm.controls.emailMessage.value
+      b2cMarketDetailsForm.controls.email.value,
+      b2cMarketDetailsForm.controls.emailMessage.value
     );
     this.emailService.emailSender(this.emailSend).subscribe(data => {
       if (data.result = 1) {
@@ -102,7 +130,7 @@ export class EmailManagementComponent implements OnInit {
       this.selectedEmails.splice(index, 1);
     }
     this.sendEmaillist = this.selectedEmails.toString();
-    this.customerDetailsForm.controls.email.setValue(this.sendEmaillist);
+    this.b2cMarketDetailsForm.controls.email.setValue(this.sendEmaillist);
   }
   findIndexToUpdate(value) {
     return value === this;
@@ -110,10 +138,10 @@ export class EmailManagementComponent implements OnInit {
   selectedTemplate(e) {
     if (e.checked === true) {
       this.htmlTemplate = this.content.nativeElement.innerHTML;
-      this.customerDetailsForm.controls.emailMessage.setValue(this.htmlTemplate);
+      this.b2cMarketDetailsForm.controls.emailMessage.setValue(this.htmlTemplate);
       console.log(this.htmlTemplate);
-  }    else {
-      this.customerDetailsForm.controls.emailMessage.reset();
+    } else {
+      this.b2cMarketDetailsForm.controls.emailMessage.reset();
     }
   }
   selectEmailAll(e, value) {

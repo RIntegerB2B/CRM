@@ -40,7 +40,7 @@
       </div>
     </mat-step>
     <mat-step>
-      <form [formGroup]="customerDetailsForm">
+      <form [formGroup]="b2cMarketDetailsForm">
         <ng-template matStepLabel>Email Message</ng-template>
         
         <div class="row">
@@ -85,10 +85,10 @@
                 class="inbox-toggle-all mr-1"><b>{{template}}</b></mat-checkbox>
             </div> -->
             <div class="card col-sm-12 pt-3">
-                <textarea hidden class="form-control value" type="text" [(ngModel)]="emailMessage" formControlName="emailMessage"
+                <textarea hidden class="form-control" type="text" [(ngModel)]="emailMessage" formControlName="emailMessage"
                   rows="5">
                 </textarea>
-                <button mat-raised-button color="primary" (click)="sendEmail(customerDetailsForm)">
+                <button mat-raised-button color="primary" (click)="sendEmail(b2cMarketDetailsForm)">
                   Email sent
                 </button>
               </div>

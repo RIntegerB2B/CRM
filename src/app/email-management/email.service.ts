@@ -6,6 +6,7 @@ import { AppSetting } from './../config/appSetting';
 import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { ResponseResult } from './../shared/model/response-result.model';
+import { B2cMarket } from './../shared/model/b2cmarket.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,10 +30,15 @@ export class EmailService {
   }
   constructor(private http: Http, private httpClient: HttpClient) { }
   // all customer details
-  allCustomer(): Observable<any> {
+  /* allCustomer(): Observable<any> {
     const addUrl = 'allcustomers';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.get<Customer[]>(url);
+  } */
+  allB2cMarket(): Observable<any> {
+    const addUrl = 'allb2ccustomer';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.get<B2cMarket[]>(url);
   }
   emailSender(email) {
     const addUrl = 'customers/emailId/';

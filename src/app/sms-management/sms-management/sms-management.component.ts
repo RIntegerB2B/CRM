@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MobileSend } from './sms-model';
-import { Customer } from './../../shared/model/customer.model';
+/* import { Customer } from './../../shared/model/customer.model'; */
+import { B2cMarket } from './../../shared/model/b2cmarket.model';
 import { SmsService } from './../sms.service';
 import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
@@ -16,10 +17,10 @@ import { PageEvent } from '@angular/material';
 export class SmsManagementComponent implements OnInit, DoCheck {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  customerDetailsForm: FormGroup;
+  b2cMarketDetailsForm: FormGroup;
   smsCompleted = false;
   mobileSend: MobileSend;
-  newCustomer: Customer[] = [];
+  newCustomer: B2cMarket[] = [];
   selectedMobileNumbers = [];
   sendMobileNumber;
   selectCheckbox = false;
@@ -47,8 +48,8 @@ export class SmsManagementComponent implements OnInit, DoCheck {
 
 
   ngOnInit() {
-    this.createForm();
-    this.getAllCustomer();
+    this.createB2cMarketForm() ;
+    this.getAllB2cMarketCustomer();
     this.getArray();
     // this.columns = this.smsService.allCustomer();
     // this.rows = this.temp = this.getAllCustomer();
@@ -58,8 +59,34 @@ export class SmsManagementComponent implements OnInit, DoCheck {
     console.log(this.temp);
   }
 
+  createB2cMarketForm() {
+    this.b2cMarketDetailsForm = this.fb.group({
+      _id: [],
+      customerName: [],
+      gender: [],
+      mobileNumber: [],
+      email: [],
+      dateOfBirth: [],
+      nationality: [],
+      categoryType: [],
+      customerGrade: [],
+      designation: [],
+      location: [],
+      message: ['', Validators.minLength(3)],
+      messageTemplates: [],
+      pagedItems: []
+    });
+  }
+  getAllB2cMarketCustomer() {
+    this.smsService.allB2cMarket().subscribe(data => {
+      this.newCustomer = data;
+      console.log(this.newCustomer);
+    }, error => {
+      console.log(error);
+    });
+  }
 
-  createForm() {
+  /* createForm() {
     this.customerDetailsForm = this.fb.group({
       _id: [],
       emailMessage: [],
@@ -86,14 +113,14 @@ export class SmsManagementComponent implements OnInit, DoCheck {
     }, error => {
       console.log(error);
     });
-  }
+  } */
   handlePage(e: any) {
     this.currentPage = e.pageIndex;
     this.pageSize = e.pageSize;
     this.iterator();
   }
   getArray() {
-    this.smsService.allCustomer()
+    this.smsService.allB2cMarket()
       .subscribe((response) => {
         this.dataSource = new MatTableDataSource<Element>(response);
         this.dataSource.paginator = this.paginator;
@@ -110,18 +137,18 @@ export class SmsManagementComponent implements OnInit, DoCheck {
     console.log(this.dataSource);
   }
 
-  sendSms(customerDetailsForm: FormGroup) {
-    if (customerDetailsForm.controls.mobileNumber.value === null) {
+  sendSms(b2cMarketDetailsForm: FormGroup) {
+    if (b2cMarketDetailsForm.controls.mobileNumber.value === null) {
       this.showMobileNumber = true;
       this.showMessage = false;
     } else {
-      if (customerDetailsForm.controls.message.value === '') {
+      if (b2cMarketDetailsForm.controls.message.value === '') {
         this.showMessage = true;
         this.showMobileNumber = false;
       } else {
         this.mobileSend = new MobileSend(
-          customerDetailsForm.controls.mobileNumber.value,
-          customerDetailsForm.controls.message.value
+          b2cMarketDetailsForm.controls.mobileNumber.value,
+          b2cMarketDetailsForm.controls.message.value
         );
         this.smsService.mobileMessage(this.mobileSend).subscribe(data => {
           if (data.result = 1) {
@@ -156,7 +183,7 @@ export class SmsManagementComponent implements OnInit, DoCheck {
         this.selectedMobileNumbers.splice(index, 1);
       }
       this.sendMobileNumber = this.selectedMobileNumbers.toString();
-      this.customerDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
+      this.b2cMarketDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
     }
     findIndexToUpdate(value) {
       return value === this;
@@ -170,9 +197,9 @@ export class SmsManagementComponent implements OnInit, DoCheck {
     }
     setNameValue(e, template) {
       if (e.checked === true) {
-        this.customerDetailsForm.controls.message.setValue(template);
+        this.b2cMarketDetailsForm.controls.message.setValue(template);
       } else {
-        this.customerDetailsForm.controls.message.reset();
+        this.b2cMarketDetailsForm.controls.message.reset();
       }
     }
     updateFilter(event) {
