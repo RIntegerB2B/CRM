@@ -5,7 +5,6 @@
       <mat-icon>menu</mat-icon>
     </button>
   </mat-toolbar>
-
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
       fixedTopGap="56">
@@ -14,8 +13,10 @@
           <div class="sidenav-hold">
             <ul class="sidenav" *ngFor="let item of menuItems">
               <li>
-                <div routerLink="/customers">
-                  <a matRipple class="nav-item-sep" *ngIf="item.type === 'dashboard'">
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                  true}"
+                  routerLink="/customers">
+                  <a matRipple class="nav-item-sep" *ngIf="item.type === 'bcustomer'">
                     <mat-icon>{{item.icon}}</mat-icon>
                     <span>{{item.name}}</span>
                     <span fxFlex></span>
@@ -23,8 +24,20 @@
                 </div>
               </li>
               <li>
-                <div routerLink="/b2cmarket">
-                  <a matRipple *ngIf="item.type === 'market'">
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                  true}"
+                  routerLink="/b2cmarket">
+                  <a matRipple class="nav-item-sep" *ngIf="item.type === 'cmarket'">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span>{{item.name}}</span>
+                    <span fxFlex></span>
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div [routerLinkActive]="['activeLink']"  [routerLinkActiveOptions]="{exact:
+                  true}">
+                  <a matRipple *ngIf="item.type === 'ccustomer'">
                     <mat-icon>{{item.icon}}</mat-icon>
                     <span class="item-name">{{item.name}}</span>
                     <span fxFlex></span>
@@ -32,7 +45,39 @@
                 </div>
               </li>
               <li>
-                <div routerLink="/sms">
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                  true}">
+                  <a matRipple *ngIf="item.type === 'bmarket'">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span class="item-name">{{item.name}}</span>
+                    <span fxFlex></span>
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                  true}">
+                  <a matRipple *ngIf="item.type === 'employee'">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span class="item-name">{{item.name}}</span>
+                    <span fxFlex></span>
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                  true}">
+                  <a matRipple *ngIf="item.type === 'vendor'">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span class="item-name">{{item.name}}</span>
+                    <span fxFlex></span>
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                  true}"
+                  routerLink="/sms">
                   <a matRipple *ngIf="item.type === 'link'">
                     <mat-icon>{{item.icon}}</mat-icon>
                     <span class="item-name">{{item.name}}</span>
@@ -41,7 +86,9 @@
                 </div>
               </li>
               <li>
-                <div routerLink="/email">
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                  true}"
+                  routerLink="/email">
                   <a matRipple *ngIf="item.type === 'dropDown'">
                     <mat-icon>{{item.icon}}</mat-icon>
                     <span class="item-name">{{item.name}}</span>
@@ -50,7 +97,20 @@
                 </div>
               </li>
               <li>
-                <div routerLink="/upload">
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                  true}"
+                  routerLink="/register">
+                  <a matRipple *ngIf="item.type === 'user'">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span class="item-name">{{item.name}}</span>
+                    <span fxFlex></span>
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                  true}"
+                  routerLink="/upload">
                   <a matRipple *ngIf="item.type === 'upload'">
                     <mat-icon>{{item.icon}}</mat-icon>
                     <span class="item-name">{{item.name}}</span>
@@ -58,7 +118,16 @@
                   </a>
                 </div>
               </li>
-
+              <li>
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                  true}">
+                  <a matRipple *ngIf="item.type === 'backup'">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span class="item-name">{{item.name}}</span>
+                    <span fxFlex></span>
+                  </a>
+                </div>
+              </li>
             </ul>
           </div>
         </div>

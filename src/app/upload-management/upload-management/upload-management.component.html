@@ -2,6 +2,12 @@
   <div class="col-md-2 text-center"><button mat-stroked-button color="primary">
       UPLOAD</button></div>
 </div><br>
+<div style="text-align:right; padding:50px">
+    sample Excel B2C market format
+   <button mat-raised-button color="warn" (click)="exportAsXLSX()">
+     <mat-icon>file_download</mat-icon>
+   </button>
+ </div> 
 <div style="text-align:center">
   <input type="file" (change)="uploadingfile($event)" placeholder="Upload file" accept=".xlsx">
   <button type="button" mat-raised-button color="primary" (click)="Upload()">Upload</button>
@@ -9,7 +15,7 @@
 
 
 <div style="text-align:center">
-  B2C
+  B2C Customer
 </div>
 
 <div style="text-align:center">
@@ -19,10 +25,4 @@
 </div>
 
 <!-- <button (click)="exportAsXLSX()"> -->
-<div style="text-align:right">
-	Excel sample format<br>
-  <button mat-raised-button color="warn" (click)="exportAsXLSX()">
-    <mat-icon>file_download</mat-icon>
-  </button>
-</div>
 <!-- </button> -->

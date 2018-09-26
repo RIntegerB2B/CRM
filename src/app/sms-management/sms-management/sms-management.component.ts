@@ -25,7 +25,8 @@ export class SmsManagementComponent implements OnInit, DoCheck {
   selectCheckbox = false;
   selectTemplate: boolean;
   mobiles;
-  showData = false;
+  showMobileNumber = false;
+  showMessage = false;
   messageTemplates = ['Happy New Year', 'Happy Diwali', 'Thanks for purchase', 'Welcome to UCCHAL'];
   messages = [];
   // array of all items to be paged
@@ -110,87 +111,91 @@ export class SmsManagementComponent implements OnInit, DoCheck {
   }
 
   sendSms(customerDetailsForm: FormGroup) {
-    if ((customerDetailsForm.controls.mobileNumber.value !== 'null' &&
-      customerDetailsForm.controls.message.value !== '')) {
-        this.showData = true;
-
-    }     else {
-      this.mobileSend = new MobileSend(
-        customerDetailsForm.controls.mobileNumber.value,
-        customerDetailsForm.controls.message.value
-      );
-      this.smsService.mobileMessage(this.mobileSend).subscribe(data => {
-        if (data.result = 1) {
-          this.smsCompleted = true;
-        }
-        console.log(data);
-      }, error => {
-        console.log(error);
-      });
+    if (customerDetailsForm.controls.mobileNumber.value === null) {
+      this.showMobileNumber = true;
+      this.showMessage = false;
+    } else {
+      if (customerDetailsForm.controls.message.value === '') {
+        this.showMessage = true;
+        this.showMobileNumber = false;
+      } else {
+        this.mobileSend = new MobileSend(
+          customerDetailsForm.controls.mobileNumber.value,
+          customerDetailsForm.controls.message.value
+        );
+        this.smsService.mobileMessage(this.mobileSend).subscribe(data => {
+          if (data.result = 1) {
+            this.smsCompleted = true;
+          }
+          console.log(data);
+        }, error => {
+          console.log(error);
+        });
+      }
     }
   }
-  /* selectedMobileNumber(value) {
-    const indexOfEntry = this.selectedMobileNumbers.indexOf(value);
-      if (indexOfEntry < 0) {
+    /* selectedMobileNumber(value) {
+      const indexOfEntry = this.selectedMobileNumbers.indexOf(value);
+        if (indexOfEntry < 0) {
+          this.selectedMobileNumbers.push(value);
+        } else {
+          this.selectedMobileNumbers.splice(indexOfEntry, 1);
+        }
+        this.sendMobileNumber = this.selectedMobileNumbers.toString();
+        console.log(this.selectedMobileNumbers);
+        this.customerDetailsForm.controls.phone.setValue(this.sendMobileNumber);
+      } */
+    selectedMobileNumber(e, value) {
+      if (e.checked) {
         this.selectedMobileNumbers.push(value);
       } else {
-        this.selectedMobileNumbers.splice(indexOfEntry, 1);
+        const updateItem = this.selectedMobileNumbers.find(this.findIndexToUpdate, value);
+
+        const index = this.selectedMobileNumbers.indexOf(updateItem);
+
+        this.selectedMobileNumbers.splice(index, 1);
       }
       this.sendMobileNumber = this.selectedMobileNumbers.toString();
-      console.log(this.selectedMobileNumbers);
-      this.customerDetailsForm.controls.phone.setValue(this.sendMobileNumber);
-    } */
-  selectedMobileNumber(e, value) {
-    if (e.checked) {
-      this.selectedMobileNumbers.push(value);
-    } else {
-      const updateItem = this.selectedMobileNumbers.find(this.findIndexToUpdate, value);
-
-      const index = this.selectedMobileNumbers.indexOf(updateItem);
-
-      this.selectedMobileNumbers.splice(index, 1);
+      this.customerDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
     }
-    this.sendMobileNumber = this.selectedMobileNumbers.toString();
-    this.customerDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
-  }
-  findIndexToUpdate(value) {
-    return value === this;
-  }
-  selectAllMobileNumber(e, value) {
-    this.selectCheckbox = !this.selectCheckbox;
-    value.map(element => {
-      this.selectedMobileNumber(e, element.mobileNumber);
+    findIndexToUpdate(value) {
+      return value === this;
     }
-    );
-  }
-  setNameValue(e, template) {
-    if (e.checked === true) {
-      this.customerDetailsForm.controls.message.setValue(template);
-    } else {
-      this.customerDetailsForm.controls.message.reset();
-    }
-  }
-  updateFilter(event) {
-    this.showData = true;
-    const val = event.target.value.toLowerCase();
-    /* if (this.dataSource.length !== 0) { */
-    const filterCustomer = Object.keys(this.temp[0]);
-    // Removes last "$$index" from "column"
-    filterCustomer.splice(filterCustomer.length - 1);
-
-    console.log(filterCustomer);
-    if (!filterCustomer.length) {
-      return;
-    }
-    const rows = this.temp.filter(function (d) {
-      for (let i = 0; i <= filterCustomer.length; i++) {
-        const column = filterCustomer[i];
-        console.log(d[column]);
-        if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
-          return true;
-        }
+    selectAllMobileNumber(e, value) {
+      this.selectCheckbox = !this.selectCheckbox;
+      value.map(element => {
+        this.selectedMobileNumber(e, element.mobileNumber);
       }
-    });
-    this.dataSource = rows;
+      );
+    }
+    setNameValue(e, template) {
+      if (e.checked === true) {
+        this.customerDetailsForm.controls.message.setValue(template);
+      } else {
+        this.customerDetailsForm.controls.message.reset();
+      }
+    }
+    updateFilter(event) {
+      // this.showData = true;
+      const val = event.target.value.toLowerCase();
+      /* if (this.dataSource.length !== 0) { */
+      const filterCustomer = Object.keys(this.temp[0]);
+      // Removes last "$$index" from "column"
+      filterCustomer.splice(filterCustomer.length - 1);
+
+      console.log(filterCustomer);
+      if (!filterCustomer.length) {
+        return;
+      }
+      const rows = this.temp.filter(function (d) {
+        for (let i = 0; i <= filterCustomer.length; i++) {
+          const column = filterCustomer[i];
+          console.log(d[column]);
+          if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
+            return true;
+          }
+        }
+      });
+      this.dataSource = rows;
+    }
   }
-}

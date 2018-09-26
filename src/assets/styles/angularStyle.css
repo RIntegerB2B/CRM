@@ -20,22 +20,22 @@
     position: relative;
     text-align: left;
   }
-  .mat-icon{
+  /* .mat-icon{
     text-align: center;
     margin-right: 3px;
-    height: 48px;
-    width: 48px;
-    line-height: 48px;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
     border-left: 3px solid;
     border-color: transparent;
-  }
+  } */
   .sidenav-hold .sidenav a .mat-icon:not(.menu-caret) 
   {
     text-align: center;
     margin-right: 3px;
-    height: 48px;
-    width: 48px;
-    line-height: 48px;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
     border-left: 3px solid;
     border-color: transparent;
   }

@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
 
     this.userManagementService.logIn(this.login).subscribe(data => {
       if (data !== null) {
-        this.router.navigate(['/customers']);
+        this.router.navigate(['/register']);
       }      else      {
         this.showError = true;
       }
@@ -45,5 +45,4 @@ export class LoginComponent implements OnInit {
       console.log(error);
     });
   }
-
 }

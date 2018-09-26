@@ -33,17 +33,45 @@ export class HeaderSideService {
   iconMenu: IMenuItem[] = [
     {
       name: 'B2B CUSTOMER',
-      type: 'dashboard',
+      type: 'bcustomer',
       tooltip: 'Dashboard',
       icon: 'dashboard',
       state: 'dashboard',
     },
     {
       name: 'B2C MARKET',
-      type: 'market',
+      type: 'cmarket',
+      tooltip: 'dashboard',
+      icon: 'dashboard',
+      state: 'tables',
+    },
+    {
+      name: 'B2C CUSTOMER',
+      type: 'ccustomer',
+      tooltip: 'dashboard',
+      icon: 'dashboard',
+      state: 'tables',
+    },
+    {
+      name: 'B2B MARKET',
+      type: 'bmarket',
       tooltip: 'market',
       icon: 'dashboard',
       state: 'market',
+    },
+    {
+      name: 'EMPLOYEE',
+      type: 'employee',
+      tooltip: 'email',
+      icon: 'dashboard',
+      state: 'tables',
+    },
+    {
+      name: 'VENDOR',
+      type: 'vendor',
+      tooltip: 'email',
+      icon: 'dashboard',
+      state: 'tables',
     },
     {
       name: 'SMS',
@@ -60,15 +88,28 @@ export class HeaderSideService {
       state: 'tables',
     },
     {
+      name: 'USER MANAGEMENT',
+      type: 'user',
+      tooltip: 'user',
+      icon: 'account_circle',
+      state: 'tables',
+    },
+    {
       name: 'UPLOAD',
       type: 'upload',
       tooltip: 'email',
-      icon: 'add_to_photos',
+      icon: 'cloud_upload',
       state: 'tables',
     },
-    
+    {
+      name: 'BACKUP',
+      type: 'backup',
+      tooltip: 'email',
+      icon: 'cloud_download',
+      state: 'tables',
+    },
+  ];
 
-  ]
 
   // Icon menu TITLE at the very top of navigation.
   // This title will appear if any icon type item is present in menu.
