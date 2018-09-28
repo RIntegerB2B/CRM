@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   accessForm: FormGroup;
   register: Register;
   accessPermission: AccessPermission;
-  @Input( )  deletePermissionDisabled = false;
+  /* @Input( )  deletePermissionDisabled = false; */
   userTypes = ['operation', 'mananger'];
   selectedPermissions = [];
   manager_id;
@@ -56,10 +56,10 @@ export class RegisterComponent implements OnInit {
       registerForm.controls.mobileNumber.value,
       registerForm.controls.email.value,
       registerForm.controls.userType.value,
-   /*    registerForm.controls.smsPermission.value,
-      registerForm.controls.emailPermission.value,
-      registerForm.controls.editPermission.value,
-      registerForm.controls.deletePermission.value */
+      /*    registerForm.controls.smsPermission.value,
+         registerForm.controls.emailPermission.value,
+         registerForm.controls.editPermission.value,
+         registerForm.controls.deletePermission.value */
     );
     this.userManagementService.registration(this.register).subscribe(data => {
       console.log(data);
@@ -104,10 +104,6 @@ export class RegisterComponent implements OnInit {
     );
     this.userManagementService.permissionUsers(this.accessPermission).subscribe(data => {
       console.log(data);
-      /* if (data.userType = 'mananger') {
-        this.manager_id = data._id;
-        this.manager_id.deletPermissionDisabled = true;
-      } */
     }, error => {
       console.log(error);
     });

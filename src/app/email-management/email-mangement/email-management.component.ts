@@ -5,6 +5,7 @@ import { EmailSend } from './email.model';
 import { Customer } from '../../shared/model/customer.model';
 import { EmailService } from '../email.service';
 import { PageEvent } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 
 @Component({
@@ -17,6 +18,7 @@ import { PageEvent } from '@angular/material';
 
 export class EmailManagementComponent implements OnInit {
   @ViewChild('contentWrapper') content: ElementRef;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   messageTemplates = ['First Template'];
   b2cMarketDetailsForm: FormGroup;
   smsCompleted = false;
@@ -31,7 +33,14 @@ export class EmailManagementComponent implements OnInit {
   subTitle: any;
   titleName: any;
   emailMessage: any;
+  array: any;
+  displayedColumns = ['', '', '', '', ''];
+  dataSource: any = [];
 
+  public pageSize = 10;
+  public currentPage = 0;
+  public totalSize = 0;
+  public searchString: string;
 
 
   constructor(private fb: FormBuilder, private emailService: EmailService) { }
@@ -39,6 +48,7 @@ export class EmailManagementComponent implements OnInit {
   ngOnInit() {
     this.createB2cMarketForm();
     this.getAllB2cMarketCustomer();
+    this.getArray();
     console.log(this.content.nativeElement.innerHTML);
   }
   /*  createForm() {
@@ -97,6 +107,28 @@ export class EmailManagementComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+  handlePage(e: any) {
+    this.currentPage = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.iterator();
+  }
+  getArray() {
+    this.emailService.allB2cMarket()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource<Element>(response);
+        this.dataSource.paginator = this.paginator;
+        this.array = response;
+        this.totalSize = this.array.length;
+        this.iterator();
+      });
+  }
+  iterator() {
+    const end = (this.currentPage + 1) * this.pageSize;
+    const start = this.currentPage * this.pageSize;
+    const part = this.array.slice(start, end);
+    this.dataSource = part;
+    console.log(this.dataSource);
   }
 
 

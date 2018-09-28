@@ -48,7 +48,7 @@ export class SmsManagementComponent implements OnInit, DoCheck {
 
 
   ngOnInit() {
-    this.createB2cMarketForm() ;
+    this.createB2cMarketForm();
     this.getAllB2cMarketCustomer();
     this.getArray();
     // this.columns = this.smsService.allCustomer();
@@ -161,72 +161,76 @@ export class SmsManagementComponent implements OnInit, DoCheck {
       }
     }
   }
-    /* selectedMobileNumber(value) {
-      const indexOfEntry = this.selectedMobileNumbers.indexOf(value);
-        if (indexOfEntry < 0) {
-          this.selectedMobileNumbers.push(value);
-        } else {
-          this.selectedMobileNumbers.splice(indexOfEntry, 1);
-        }
-        this.sendMobileNumber = this.selectedMobileNumbers.toString();
-        console.log(this.selectedMobileNumbers);
-        this.customerDetailsForm.controls.phone.setValue(this.sendMobileNumber);
-      } */
-    selectedMobileNumber(e, value) {
-      if (e.checked) {
+  /* selectedMobileNumber(value) {
+    const indexOfEntry = this.selectedMobileNumbers.indexOf(value);
+      if (indexOfEntry < 0) {
+        this.selectedMobileNumbers.push(value);
+      } else {
+        this.selectedMobileNumbers.splice(indexOfEntry, 1);
+      }
+      this.sendMobileNumber = this.selectedMobileNumbers.toString();
+      console.log(this.selectedMobileNumbers);
+      this.customerDetailsForm.controls.phone.setValue(this.sendMobileNumber);
+    } */
+  selectedMobileNumber(e, value) {
+    if (e.checked) {
+      if (value.length > 10) {
         const lengthOf = value.length - 10;
         const newValue = value.substr(lengthOf);
         console.log(newValue);
         this.selectedMobileNumbers.push(newValue);
       } else {
-        const updateItem = this.selectedMobileNumbers.find(this.findIndexToUpdate, value);
+        this.selectedMobileNumbers.push(value);
+      }
+    } else {
+      const updateItem = this.selectedMobileNumbers.find(this.findIndexToUpdate, value);
 
-        const index = this.selectedMobileNumbers.indexOf(updateItem);
+      const index = this.selectedMobileNumbers.indexOf(updateItem);
 
-        this.selectedMobileNumbers.splice(index, 1);
-      }
-      this.sendMobileNumber = this.selectedMobileNumbers.toString();
-      this.b2cMarketDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
-      console.log(this.selectedMobileNumbers);
+      this.selectedMobileNumbers.splice(index, 1);
     }
-    findIndexToUpdate(value) {
-      return value === this;
+    this.sendMobileNumber = this.selectedMobileNumbers.toString();
+    this.b2cMarketDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
+    console.log(this.selectedMobileNumbers);
+  }
+  findIndexToUpdate(value) {
+    return value === this;
+  }
+  selectAllMobileNumber(e, value) {
+    this.selectCheckbox = !this.selectCheckbox;
+    value.map(element => {
+      this.selectedMobileNumber(e, element.mobileNumber);
     }
-    selectAllMobileNumber(e, value) {
-      this.selectCheckbox = !this.selectCheckbox;
-      value.map(element => {
-        this.selectedMobileNumber(e, element.mobileNumber);
-      }
-      );
-    }
-    setNameValue(e, template) {
-      if (e.checked === true) {
-        this.b2cMarketDetailsForm.controls.message.setValue(template);
-      } else {
-        this.b2cMarketDetailsForm.controls.message.reset();
-      }
-    }
-    updateFilter(event) {
-      // this.showData = true;
-      const val = event.target.value.toLowerCase();
-      /* if (this.dataSource.length !== 0) { */
-      const filterCustomer = Object.keys(this.temp[0]);
-      // Removes last "$$index" from "column"
-      filterCustomer.splice(filterCustomer.length - 1);
-
-      console.log(filterCustomer);
-      if (!filterCustomer.length) {
-        return;
-      }
-      const rows = this.temp.filter(function (d) {
-        for (let i = 0; i <= filterCustomer.length; i++) {
-          const column = filterCustomer[i];
-          console.log(d[column]);
-          if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
-            return true;
-          }
-        }
-      });
-      this.dataSource = rows;
+    );
+  }
+  setNameValue(e, template) {
+    if (e.checked === true) {
+      this.b2cMarketDetailsForm.controls.message.setValue(template);
+    } else {
+      this.b2cMarketDetailsForm.controls.message.reset();
     }
   }
+  updateFilter(event) {
+    // this.showData = true;
+    const val = event.target.value.toLowerCase();
+    /* if (this.dataSource.length !== 0) { */
+    const filterCustomer = Object.keys(this.temp[0]);
+    // Removes last "$$index" from "column"
+    filterCustomer.splice(filterCustomer.length - 1);
+
+    console.log(filterCustomer);
+    if (!filterCustomer.length) {
+      return;
+    }
+    const rows = this.temp.filter(function (d) {
+      for (let i = 0; i <= filterCustomer.length; i++) {
+        const column = filterCustomer[i];
+        console.log(d[column]);
+        if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
+          return true;
+        }
+      }
+    });
+    this.dataSource = rows;
+  }
+}
