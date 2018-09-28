@@ -16,21 +16,36 @@ export class UploadManagementComponent implements OnInit {
   arrayBuffer: any;
   file: File;
   customerDetailsForm: FormGroup;
-  b2cMarket: B2cMarket [];
+  b2cMarket: B2cMarket[];
   customers;
   b2cMarketCustomer;
   newCustomer: Customer[] = [];
-  excelData:  any = [{
-    customerName: 'custerName1',
+  excelData: any = [{
+    customerName: 'customerName1',
     gender: 'male/Female',
     mobileNumber: '9988776655',
-    email: 'ucchal@gmail.com',
+    email: 'sample@gmail.com',
     dateOfBirth: '01/01/2018',
     nationality: 'indian',
     categoryType: 'IT or ITES',
     designation: 'developer',
     location: 'bangalore',
   }];
+  excelB2BCustomerData: any = [
+    {
+      customerName : 'customerName1',
+      mobileNumber : 'Male/Female',
+      whatsAppNo : '9988776655',
+      landLine : '080-4455666',
+      email: 'sample@gmail.com',
+      companyName: 'Company Name',
+      companyAddress : 'Company Address',
+      location: 'bangalore',
+      gstNumber: 'GSTINBN123',
+      customerGrade: 'A',
+      brandName:   'Test'
+    }
+  ];
   constructor(private uploadService: UploadService) { }
 
   ngOnInit() {
@@ -86,8 +101,10 @@ export class UploadManagementComponent implements OnInit {
     this.file = event.target.files[0];
   }
   exportAsXLSX() {
-    this.uploadService.exportAsExcelFile(this.excelData, 'sample');
+    this.uploadService.exportAsExcelFile(this.excelData, 'B2Cmarket');
   }
-
+  b2bCustomerExportAsXLSX() {
+    this.uploadService.b2bCustomerExportAsExcelFile(this.excelB2BCustomerData, 'B2Bcustomer');
+  }
 }
 

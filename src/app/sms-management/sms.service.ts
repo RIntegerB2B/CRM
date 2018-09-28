@@ -30,7 +30,7 @@ export class SmsService {
   }
   constructor(private http: Http, private httpClient: HttpClient) { }
   // all customer details
-  /* allCustomer(): Observable<any> {
+ /*  allCustomer(): Observable<any> {
     const addUrl = 'allcustomers';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.get<Customer[]>(url);

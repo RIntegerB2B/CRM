@@ -79,7 +79,7 @@ export class SmsManagementComponent implements OnInit, DoCheck {
   }
   getAllB2cMarketCustomer() {
     this.smsService.allB2cMarket().subscribe(data => {
-      this.newCustomer = data;
+      this.dataSource = data;
       console.log(this.newCustomer);
     }, error => {
       console.log(error);
@@ -105,8 +105,8 @@ export class SmsManagementComponent implements OnInit, DoCheck {
       messageTemplates: [],
       pagedItems: []
     });
-  }
-  getAllCustomer() {
+  } */
+  /* getAllCustomer() {
     this.smsService.allCustomer().subscribe(data => {
       this.newCustomer = data;
       console.log(this.newCustomer);

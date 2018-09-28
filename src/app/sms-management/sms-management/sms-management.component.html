@@ -22,7 +22,7 @@
       </div>
       <div>
         <mat-form-field class="margin-333" style="width: 100%">
-          <input matInput placeholder="Type to filter all columns"  (keyup)='updateFilter($event)'>
+          <input matInput placeholder="Type to filter all columns" (keyup)='updateFilter($event)'>
         </mat-form-field>
         <div *ngFor="let edit of dataSource;  let i = index" class="col-sm-12 d-flex   flex-row">
           <div class=" col-sm-4 col">
@@ -40,7 +40,7 @@
                     </div> -->
 
         </div><br>
-        <mat-paginator  #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"
+        <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"
           [length]="totalSize" [pageIndex]="currentPage" (page)="handlePage($event)">
         </mat-paginator>
       </div>
@@ -49,7 +49,7 @@
       </div>
     </mat-step>
     <mat-step>
-      <form [formGroup]="b2cMarketDetailsForm"  (ngSubmit)="sendSms(b2cMarketDetailsForm)">
+      <form [formGroup]="b2cMarketDetailsForm" (ngSubmit)="sendSms(b2cMarketDetailsForm)">
         <ng-template matStepLabel>Message</ng-template>
         <label for="comment">Select Message</label>
         <div class="row">
