@@ -1,7 +1,7 @@
 export class B2cMarket {
     customerName: string;
     gender: string;
-    mobileNumber: number;
+    mobileNumber: string;
     email: string;
     dateOfBirth: string;
     nationality: string;
@@ -11,7 +11,7 @@ export class B2cMarket {
     constructor(
         customerName: string,
         gender: string,
-        mobileNumber: number,
+        mobileNumber: string,
         email: string,
         dateOfBirth: string,
         nationality: string,

@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { ResponseResult } from './../shared/model/response-result.model';
 import { Register } from './register/register.model';
-
+import { AccessPermission } from './register/accessPermission.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -40,5 +40,15 @@ export class UserManagementService {
     const addUrl = 'register';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<Register>(url, data);
+  }
+  allRegister(): Observable<any> {
+    const addUrl = 'allregister';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.get<Register[]>(url);
+  }
+  permissionUsers(data: AccessPermission) {
+    const addUrl = 'userdetails';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.post<AccessPermission>(url, data);
   }
 }

@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit {
   onLoginForm: FormGroup;
   login: LogIn;
   showError = false;
-
+  manager_id;
+  deletePermissionDisabled = false;
   constructor(
     private fb: FormBuilder, private router: Router, private userManagementService: UserManagementService
 
@@ -32,14 +33,22 @@ export class LoginComponent implements OnInit {
   loginSubmit(onAdminForm: FormGroup) {
     this.login = new LogIn(
       onAdminForm.controls.userName.value,
-      onAdminForm.controls.password.value,
+      onAdminForm.controls.password.value
     );
 
     this.userManagementService.logIn(this.login).subscribe(data => {
-      if (data !== null) {
+      /* if (data !== null) {
         this.router.navigate(['/register']);
       }      else      {
         this.showError = true;
+      } */
+      if (data.userType === 'mananger') {
+        this.manager_id = data._id;
+        this.deletePermissionDisabled = true;
+        this.router.navigate(['/register']);
+      }      else {
+        this.router.navigate(['/register']);
+        this.deletePermissionDisabled = false;
       }
     }, error => {
       console.log(error);

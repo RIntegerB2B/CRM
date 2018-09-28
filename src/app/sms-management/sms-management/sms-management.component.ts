@@ -174,7 +174,10 @@ export class SmsManagementComponent implements OnInit, DoCheck {
       } */
     selectedMobileNumber(e, value) {
       if (e.checked) {
-        this.selectedMobileNumbers.push(value);
+        const lengthOf = value.length - 10;
+        const newValue = value.substr(lengthOf);
+        console.log(newValue);
+        this.selectedMobileNumbers.push(newValue);
       } else {
         const updateItem = this.selectedMobileNumbers.find(this.findIndexToUpdate, value);
 
@@ -184,6 +187,7 @@ export class SmsManagementComponent implements OnInit, DoCheck {
       }
       this.sendMobileNumber = this.selectedMobileNumbers.toString();
       this.b2cMarketDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
+      console.log(this.selectedMobileNumbers);
     }
     findIndexToUpdate(value) {
       return value === this;

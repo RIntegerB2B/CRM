@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef } from '
 // import PerfectScrollbar from 'perfect-scrollbar';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
 import { Subscription } from 'rxjs';
-import {MediaMatcher} from '@angular/cdk/layout';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 
 
@@ -20,17 +20,17 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterViewInit {
   menuItemsSub: Subscription;
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
-    shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
-    fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
-  constructor( private headerSideService: HeaderSideService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
+  fillerNav = Array.from({ length: 50 }, (_, i) => `Nav Item ${i + 1}`);
+  constructor(private headerSideService: HeaderSideService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
   ngOnInit() {
-      this.menuItemsSub = this.headerSideService.menuItems$.subscribe(menuItem => {
-        this.menuItems = menuItem.filter(item => item.type !== 'icon' && item.type !== 'separator');
-        this.hasIconTypeMenuItem = !!this.menuItems.filter(item => item.type === 'icon').length;
+    this.menuItemsSub = this.headerSideService.menuItems$.subscribe(menuItem => {
+      this.menuItems = menuItem.filter(item => item.type !== 'icon' && item.type !== 'separator');
+      this.hasIconTypeMenuItem = !!this.menuItems.filter(item => item.type === 'icon').length;
     });
   }
   ngAfterViewInit() {
@@ -47,5 +47,4 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterViewInit {
       this.menuItemsSub.unsubscribe();
     }
   }
-
 }
