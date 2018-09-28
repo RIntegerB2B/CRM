@@ -33,17 +33,17 @@ export class UploadManagementComponent implements OnInit {
   }];
   excelB2BCustomerData: any = [
     {
-      customerName : 'customerName1',
-      mobileNumber : 'Male/Female',
-      whatsAppNo : '9988776655',
-      landLine : '080-4455666',
+      customerName: 'customerName1',
+      mobileNumber: 'Male/Female',
+      whatsAppNo: '9988776655',
+      landLine: '080-4455666',
       email: 'sample@gmail.com',
       companyName: 'Company Name',
-      companyAddress : 'Company Address',
+      companyAddress: 'Company Address',
       location: 'bangalore',
       gstNumber: 'GSTINBN123',
       customerGrade: 'A',
-      brandName:   'Test'
+      brandName: 'Test'
     }
   ];
   constructor(private uploadService: UploadService) { }

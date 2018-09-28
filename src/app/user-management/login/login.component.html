@@ -1,4 +1,4 @@
-<form  [formGroup]="onLoginForm" (ngSubmit)="loginSubmit(onLoginForm)" novalidate style="padding-top:60px">
+<form  [formGroup]="onLoginForm"  (ngSubmit)="loginSubmit(onLoginForm)" novalidate style="padding-top:60px">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 mx-auto">
@@ -34,3 +34,4 @@
     </div>
   </div>
 </form>
+<router-outlet></router-outlet>

@@ -9,7 +9,9 @@ import { B2cmarketManagementComponent } from './b2cmarket-management/b2cmarket-m
 import { LoginComponent } from './user-management/login/login.component';
 import { RegisterComponent } from './user-management/register/register.component';
 
+
 const routes: Routes = [
+
     { path: 'navheader', component: NavHeaderComponent },
     { path: 'sms', component: SmsManagementComponent },
     { path: 'upload', component: UploadManagementComponent },
@@ -17,8 +19,15 @@ const routes: Routes = [
     { path: 'headerside', component: HeaderSideComponent },
     { path: 'b2cmarket', component: B2cmarketManagementComponent },
     { path: 'customers', component: CustomerManagementComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
+    { path: 'login', component: LoginComponent,
+    children: [{ path: ':id:name', component: LoginComponent }
+] },
+    {
+        path: 'register', component: RegisterComponent,
+        children: [{ path: ':id', component: RegisterComponent }
+            , { path: ':id/sms', component: SmsManagementComponent }
+        ]
+    },
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserManagementService } from './../user-management.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Register } from './register.model';
 import { AccessPermission } from './accessPermission.model';
 @Component({
@@ -14,13 +14,19 @@ export class RegisterComponent implements OnInit {
   accessForm: FormGroup;
   register: Register;
   accessPermission: AccessPermission;
-  /* @Input( )  deletePermissionDisabled = false; */
+  @Input( )  deletePermissionDisabled = false;
   userTypes = ['operation', 'mananger'];
   selectedPermissions = [];
   manager_id;
+  paramsValue: Params[];
+  allowEdit = false;
   constructor(
-    private fb: FormBuilder, private userManagementService: UserManagementService, private router: Router
-  ) { }
+    private fb: FormBuilder,
+     private userManagementService: UserManagementService, private router: Router, public route: ActivatedRoute
+  ) {
+    this.paramsValue = this.route.snapshot.children.map(d => d.params);
+    console.log(this.paramsValue);
+   }
 
   ngOnInit() {
     this.userRegister();

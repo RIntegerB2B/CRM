@@ -1,5 +1,5 @@
 
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { LogIn } from './login/login.model';
 import { AppSetting } from './../config/appSetting';
@@ -12,7 +12,9 @@ import { AccessPermission } from './register/accessPermission.model';
   providedIn: 'root'
 })
 
+
 export class UserManagementService {
+  menuTransparent: boolean;
   serviceUrl: string = AppSetting.serviceUrl;
   headers: Headers = new Headers({
     'Content-Type': 'application/json; charset=utf-8'
@@ -29,6 +31,7 @@ export class UserManagementService {
       return of(result as T);
     };
   }
+  
   constructor(private http: Http, private httpClient: HttpClient) { }
 
   logIn(data: LogIn): Observable<any> {

@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   manager_id;
   deletePermissionDisabled = false;
   constructor(
-    private fb: FormBuilder, private router: Router, private userManagementService: UserManagementService
+    private fb: FormBuilder, private router: Router, public userManagementService: UserManagementService
 
   ) { }
 
@@ -43,12 +43,9 @@ export class LoginComponent implements OnInit {
         this.showError = true;
       } */
       if (data.userType === 'mananger') {
-        this.manager_id = data._id;
-        this.deletePermissionDisabled = true;
-        this.router.navigate(['/register']);
+        this.router.navigate(['/register', data._id, 'sms'], {queryParams: {allowEdit: '1'} } );
       }      else {
         this.router.navigate(['/register']);
-        this.deletePermissionDisabled = false;
       }
     }, error => {
       console.log(error);
