@@ -74,7 +74,7 @@ export class UploadService {
   }
   }
 
-  b2bCustomersaveAsExcelFile(buffer: any, fileName: string): void {
+  b2bCustomerSaveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], {
       type: EXCEL_TYPE
     });

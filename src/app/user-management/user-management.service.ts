@@ -1,8 +1,10 @@
-
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Injectable, Input } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { LogIn } from './login/login.model';
 import { AppSetting } from './../config/appSetting';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { ResponseResult } from './../shared/model/response-result.model';
@@ -14,8 +16,9 @@ import { AccessPermission } from './register/accessPermission.model';
 
 
 export class UserManagementService {
-  menuTransparent: boolean;
   serviceUrl: string = AppSetting.serviceUrl;
+  /* private registerSource = new BehaviorSubject<string>('defaultMessage'); */
+  /* currentRegister = this.registerSource.asObservable(); */
   headers: Headers = new Headers({
     'Content-Type': 'application/json; charset=utf-8'
   });
@@ -31,8 +34,9 @@ export class UserManagementService {
       return of(result as T);
     };
   }
-  
-  constructor(private http: Http, private httpClient: HttpClient) { }
+  constructor(private http: Http, private httpClient: HttpClient, private router: Router
+    , private route: ActivatedRoute) {
+  }
 
   logIn(data: LogIn): Observable<any> {
     const addUrl = 'admin/validate';
@@ -54,4 +58,7 @@ export class UserManagementService {
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<AccessPermission>(url, data);
   }
+  /* changeRegister(message: string) {
+    this.registerSource.next(message);
+  } */
 }

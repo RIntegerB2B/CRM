@@ -8,28 +8,37 @@ import { UploadManagementComponent } from './upload-management/upload-management
 import { B2cmarketManagementComponent } from './b2cmarket-management/b2cmarket-management/b2cmarket-management.component';
 import { LoginComponent } from './user-management/login/login.component';
 import { RegisterComponent } from './user-management/register/register.component';
-
+import { AuthGuard } from './user-management/auth-guard.service';
 
 const routes: Routes = [
-
-    { path: 'navheader', component: NavHeaderComponent },
-    { path: 'sms', component: SmsManagementComponent },
-    { path: 'upload', component: UploadManagementComponent },
-    { path: 'email', component: EmailManagementComponent },
-    { path: 'headerside', component: HeaderSideComponent },
-    { path: 'b2cmarket', component: B2cmarketManagementComponent },
-    { path: 'customers', component: CustomerManagementComponent },
-    { path: 'login', component: LoginComponent,
-    children: [{ path: ':id:name', component: LoginComponent }
-] },
-    {
-        path: 'register', component: RegisterComponent,
-        children: [{ path: ':id', component: RegisterComponent }
-            , { path: ':id/sms', component: SmsManagementComponent }
-        ]
+    { path: 'sms', canActivate: [AuthGuard], component: SmsManagementComponent },
+    { path: 'headerside', component: HeaderSideComponent
     },
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: '**', redirectTo: 'login', pathMatch: 'full' }
+    { path: 'upload', canActivate: [AuthGuard], component: UploadManagementComponent },
+    { path: 'b2cmarket', canActivate: [AuthGuard], component: B2cmarketManagementComponent },
+    { path: 'customers', canActivate: [AuthGuard], component: CustomerManagementComponent},
+/*
+    { path: 'navheader', canActivate: [AuthGuard], component: NavHeaderComponent,  },
+    ,
+
+    { path: 'customers', component: CustomerManagementComponent,
+    children: [{ path: ':id', component: CustomerManagementComponent }
+        ]
+ }, */
+    {
+        path: 'login', component: LoginComponent,
+        /* children: [{ path: ':id', component: LoginComponent }
+        ] */
+    },
+    { path: 'email', component: EmailManagementComponent, canActivate: [AuthGuard] },
+    {
+        path: 'register',
+         component: RegisterComponent, canActivate: [AuthGuard]
+        /* children: [{ path: ':id', component: RegisterComponent }
+        ] */
+    }
+    /* { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '**', redirectTo: 'login', pathMatch: 'full' } */
 ];
 
 export const Routing = RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' });

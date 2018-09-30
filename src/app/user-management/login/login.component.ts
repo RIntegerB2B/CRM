@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LogIn } from './login.model';
 import { Router } from '@angular/router';
 import { UserManagementService } from './../user-management.service';
+import { HeaderSideService} from './../../shared/header-side/header-side.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,15 +16,19 @@ export class LoginComponent implements OnInit {
   onLoginForm: FormGroup;
   login: LogIn;
   showError = false;
+  logOutSession: false;
   manager_id;
+  returnUrl: string;
   deletePermissionDisabled = false;
   constructor(
-    private fb: FormBuilder, private router: Router, public userManagementService: UserManagementService
-
+    private fb: FormBuilder, private router: Router, private route: ActivatedRoute, public userManagementService: UserManagementService,
+     private authService: AuthService, private headerSideService: HeaderSideService
   ) { }
 
   ngOnInit() {
     this.createForm();
+    
+    this.returnUrl = '/register';
   }
   createForm() {
     this.onLoginForm = this.fb.group({
@@ -42,13 +49,25 @@ export class LoginComponent implements OnInit {
       }      else      {
         this.showError = true;
       } */
-      if (data.userType === 'mananger') {
-        this.router.navigate(['/register', data._id, 'sms'], {queryParams: {allowEdit: '1'} } );
-      }      else {
-        this.router.navigate(['/register']);
+
+      if (this.login.userName === data.userName && this.login.password === data.password ) {
+          /* localStorage.setItem('userID', JSON.stringify(userID));  */
+        // this.router.navigate(['/register', data._id], { queryParams: { allowEdit: '1' } });
+        localStorage.setItem('isLoggedIn', 'true');
+        sessionStorage.setItem('isLoggedIn', 'true');
+        sessionStorage.setItem('token', this.login.userName);
+        this.router.navigate([this.returnUrl]);
+        this.headerSideService.hideMenuTransparent();
+      } else {
+        /* const userID = data;
+        localStorage.setItem('userID', JSON.stringify(userID)); */
+        this.router.navigate(['/register', data.userName], { queryParams: { allowEdit: '1' } });
       }
+
     }, error => {
       console.log(error);
     });
+  
   }
 }
+

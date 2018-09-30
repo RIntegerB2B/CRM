@@ -1,8 +1,8 @@
 export class MobileSend {
-    mobileNumber: [number];
+    mobileNumber: [string];
     message: string;
     constructor(
-        mobileNumber: [number],
+        mobileNumber: [string],
         message: string,
     ) {
         this.mobileNumber = mobileNumber;

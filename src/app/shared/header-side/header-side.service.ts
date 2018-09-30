@@ -28,7 +28,7 @@ interface IBadge {
 @Injectable()
 
 export class HeaderSideService {
-
+  menuTransparent: string;
   constructor() { }
   iconMenu: IMenuItem[] = [
     {
@@ -124,5 +124,12 @@ export class HeaderSideService {
         this.menuItems.next(this.iconMenu);
         break;
     }
+  }
+  makeMenuTransparent() {
+    this.menuTransparent = 'menuTransparent';
+}
+
+  hideMenuTransparent() {
+      this.menuTransparent = '';
   }
 }

@@ -1,7 +1,7 @@
 export class Customer {
     _id: string;
     customerName: string;
-    mobileNumber: number;
+    mobileNumber: string;
     whatsAppNo: number;
     landLine: number;
     email: string;
@@ -13,7 +13,7 @@ export class Customer {
     brandName: string;
     constructor(
         customerName: string,
-        mobileNumber: number,
+        mobileNumber: string,
         whatsAppNo: number,
         landLine: number,
         email: string,

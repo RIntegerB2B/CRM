@@ -1,4 +1,11 @@
-<form *ngIf="paramsValue[0] ? allowEdit : !allowEdit" [formGroup]="registerForm" (ngSubmit)="registerForm.valid && regSubmit(registerForm)" novalidate style="padding-top:60px">
+<!-- <div class="class text-right">
+  <button (click)="logOutCompleted()" mat-raised-button color="accent" type="submit">Log Out</button>
+</div> -->
+<!-- *ngIf= "paramsValue[0].id === 'admin' && !allowEdit" -->
+
+<div>
+<form  [formGroup]="registerForm" (ngSubmit)="registerForm.valid && regSubmit(registerForm)"
+  novalidate style="padding-top:60px">
   <div class="container-fluid ">
     <div class="row">
       <div class="col-md-6 text-center  mx-auto">
@@ -48,6 +55,11 @@
             </button>
           </mat-form-field>
         </div>
+        <!-- <div *ngIf= "paramsValue[0].id === 'admin' && !allowEdit" >
+        {{
+          paramsValue[0].id === 'admin'
+        }}
+      </div> -->
 
         <div class="form-group">
           <mat-form-field>
@@ -69,7 +81,7 @@
     </div>
   </div>
 </form>
-<form *ngIf="paramsValue[0] ? allowEdit : !allowEdit" [formGroup]="accessForm" novalidate style="padding-top:60px; padding-bottom:60px">
+<form [formGroup]="accessForm" novalidate style="padding-top:60px; padding-bottom:60px">
   <div class="row border-bottom">
     <div class="col-sm-2">User Name</div>
     <div class="col-sm-2">Mobile Number</div>
@@ -103,3 +115,4 @@
     <button mat-raised-button color="accent" (click)="sendPermission(accessForm, edit._id, edit.userType)" type="submit">Approve</button>
   </div><br>
 </form>
+</div>

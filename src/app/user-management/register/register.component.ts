@@ -1,9 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserManagementService } from './../user-management.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Register } from './register.model';
 import { AccessPermission } from './accessPermission.model';
+import { AuthService } from '../auth.service';
+import { HeaderSideService } from '../../shared/header-side/header-side.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -14,26 +16,34 @@ export class RegisterComponent implements OnInit {
   accessForm: FormGroup;
   register: Register;
   accessPermission: AccessPermission;
-  @Input( )  deletePermissionDisabled = false;
   userTypes = ['operation', 'mananger'];
   selectedPermissions = [];
+  logOutSession = false;
   manager_id;
-  paramsValue: Params[];
+  paramsValue: Params;
   allowEdit = false;
+  message: string;
+  newReg: string;
   constructor(
     private fb: FormBuilder,
-     private userManagementService: UserManagementService, private router: Router, public route: ActivatedRoute
+    private userManagementService: UserManagementService, private router: Router, public route: ActivatedRoute,
+    public authService: AuthService, private headerSideService: HeaderSideService
   ) {
     this.paramsValue = this.route.snapshot.children.map(d => d.params);
     console.log(this.paramsValue);
-   }
+  }
 
   ngOnInit() {
     this.userRegister();
     this.getAllRegister();
     this.userAccess();
+    // this.authService.logout();
+    this.headerSideService.hideMenuTransparent();
+    /* this.userManagementService.currentRegister.subscribe(message => this.message = message ); */
   }
-
+  newRegister() {
+   /* this.userManagementService.changeRegister(); */
+}
   userRegister() {
     this.registerForm = this.fb.group({
       _id: [''],
@@ -114,4 +124,7 @@ export class RegisterComponent implements OnInit {
       console.log(error);
     });
   }
+  /* logOutCompleted() {
+    this.userManagementService.logOut();
+  } */
 }

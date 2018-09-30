@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { AuthGuard } from './user-management/auth-guard.service';
+import { AuthService } from './user-management/auth.service';
 import { Routing } from './app.route';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -104,7 +105,7 @@ import { RegisterComponent } from './user-management/register/register.component
     NgxDatatableModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [NavHeaderService, CustomerManagementService, HeaderSideService, B2cmarketService],
+  providers: [NavHeaderService, CustomerManagementService, HeaderSideService, B2cmarketService, AuthService, AuthGuard],
   bootstrap: [AppComponent],
   entryComponents: [CustomerEditComponent, B2cmarketEditComponent]
 })

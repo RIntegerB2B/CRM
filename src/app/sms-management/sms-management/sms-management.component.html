@@ -26,8 +26,8 @@
         </mat-form-field>
         <div *ngFor="let edit of dataSource;  let i = index" class="col-sm-12 d-flex   flex-row">
           <div class=" col-sm-4 col">
-            <mat-checkbox [checked]="selectCheckbox" name="{{edit.mobileNumber}}" value="{{edit.mobileNumber}}"
-              (change)="selectedMobileNumber($event, edit.mobileNumber)" class="mail-checkbox"> {{edit.mobileNumber}}</mat-checkbox>
+            <mat-checkbox [checked]="selectCheckbox" name="{{edit.mobileNumber}}" value="{{edit.mobileNumber}}" (change)="selectedMobileNumber($event, edit.mobileNumber)"
+              class="mail-checkbox"> {{edit.mobileNumber}}</mat-checkbox>
           </div>
           <div class="col-sm-4 col">
             {{edit.customerName}}
@@ -40,8 +40,8 @@
                     </div> -->
 
         </div><br>
-        <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"
-          [length]="totalSize" [pageIndex]="currentPage" (page)="handlePage($event)">
+        <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSize"
+          [pageIndex]="currentPage" (page)="handlePage($event)">
         </mat-paginator>
       </div>
       <div>
@@ -55,8 +55,7 @@
         <div class="row">
           <div class="col-md-5">
             <div class="card col-sm-12" *ngFor="let template of messageTemplates; let i = index">
-              <mat-checkbox [checked]="selected === i" (change)="selected = i" (change)="setNameValue($event, template)"
-                class="inbox-toggle-all mr-1"><b>{{template}}</b></mat-checkbox>
+              <mat-checkbox [checked]="selected === i" (change)="selected = i" (change)="setNameValue($event, template)" class="inbox-toggle-all mr-1"><b>{{template}}</b></mat-checkbox>
             </div><br>
           </div>
           <div class="col-md-2">
