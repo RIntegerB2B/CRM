@@ -36,9 +36,9 @@ const routes: Routes = [
          component: RegisterComponent, canActivate: [AuthGuard]
         /* children: [{ path: ':id', component: RegisterComponent }
         ] */
-    }
-    /* { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: '**', redirectTo: 'login', pathMatch: 'full' } */
+    },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 export const Routing = RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' });

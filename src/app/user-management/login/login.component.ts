@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    
     this.returnUrl = '/register';
   }
   createForm() {
