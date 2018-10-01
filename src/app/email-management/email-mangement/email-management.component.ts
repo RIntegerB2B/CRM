@@ -21,6 +21,7 @@ export class EmailManagementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   messageTemplates = ['First Template'];
   b2cMarketDetailsForm: FormGroup;
+  customerDetailsForm: FormGroup;
   smsCompleted = false;
   emailSend: EmailSend;
   newCustomer: Customer[] = [];
@@ -47,11 +48,11 @@ export class EmailManagementComponent implements OnInit {
 
   ngOnInit() {
     this.createB2cMarketForm();
-    this.getAllB2cMarketCustomer();
+  //     this.getAllB2cMarketCustomer();
     this.getArray();
     console.log(this.content.nativeElement.innerHTML);
   }
-  /*  createForm() {
+   createForm() {
      this.customerDetailsForm = this.fb.group({
        _id: [],
        emailMessage: [],
@@ -71,16 +72,14 @@ export class EmailManagementComponent implements OnInit {
        subTitle: [],
      });
    }
- 
    getAllCustomer() {
      this.emailService.allCustomer().subscribe(data => {
-       this.newCustomer = data;
+       this.dataSource = data;
        console.log(this.newCustomer);
      }, error => {
        console.log(error);
      });
    }
-  */
 
   createB2cMarketForm() {
     this.b2cMarketDetailsForm = this.fb.group({
@@ -102,7 +101,7 @@ export class EmailManagementComponent implements OnInit {
   }
   getAllB2cMarketCustomer() {
     this.emailService.allB2cMarket().subscribe(data => {
-      this.newCustomer = data;
+      this.dataSource = data;
       console.log(this.newCustomer);
     }, error => {
       console.log(error);

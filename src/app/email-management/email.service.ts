@@ -30,11 +30,11 @@ export class EmailService {
   }
   constructor(private http: Http, private httpClient: HttpClient) { }
   // all customer details
-  /* allCustomer(): Observable<any> {
+   allCustomer(): Observable<any> {
     const addUrl = 'allcustomers';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.get<Customer[]>(url);
-  } */
+  }
   allB2cMarket(): Observable<any> {
     const addUrl = 'allb2ccustomer';
     const url: string = this.serviceUrl + addUrl;

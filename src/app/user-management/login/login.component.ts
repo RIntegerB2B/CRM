@@ -22,8 +22,9 @@ export class LoginComponent implements OnInit {
   deletePermissionDisabled = false;
   constructor(
     private fb: FormBuilder, private router: Router, private route: ActivatedRoute, public userManagementService: UserManagementService,
-     private authService: AuthService, private headerSideService: HeaderSideService
-  ) { }
+     private authService: AuthService, public headerSideService: HeaderSideService
+  ) { 
+  }
 
   ngOnInit() {
     this.createForm();
@@ -66,7 +67,6 @@ export class LoginComponent implements OnInit {
     }, error => {
       console.log(error);
     });
-  
   }
 }
 

@@ -1,17 +1,17 @@
 <!-- Navigation -->
 <div   class="example-container" [class.example-is-mobile]="mobileQuery.matches">
-  <mat-toolbar [ngClass]="headerSideService?.menuTransparent " color="primary" class="example-toolbar">
+  <mat-toolbar [ngClass]="headerSideService.menuTransparent" color="primary" class="example-toolbar">
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
     <span class="example-spacer"></span>
     <span flex></span>
-    <button  mat-icon-button>
-      <small (click)="logout()">Logout</small>
+    <button (click)="logout()" mat-icon-button>
+      <small>Logout</small>
     </button>
   </mat-toolbar>
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav [ngClass]="headerSideService.menuTransparent" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
+    <mat-sidenav [ngClass]="headerSideService.menuTransparent " #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches"
       fixedTopGap="56">
 
       <mat-nav-list>
@@ -40,7 +40,7 @@
                   </a>
                 </div>
               </li>
-              <li>
+             <!--  <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}">
                   <a matRipple *ngIf="item.type === 'ccustomer'">
@@ -49,8 +49,8 @@
                     <span fxFlex></span>
                   </a>
                 </div>
-              </li>
-              <li>
+              </li> -->
+              <!-- <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}">
                   <a matRipple *ngIf="item.type === 'bmarket'">
@@ -59,8 +59,8 @@
                     <span fxFlex></span>
                   </a>
                 </div>
-              </li>
-              <li>
+              </li> -->
+             <!--  <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}">
                   <a matRipple *ngIf="item.type === 'employee'">
@@ -69,8 +69,8 @@
                     <span fxFlex></span>
                   </a>
                 </div>
-              </li>
-              <li>
+              </li> -->
+             <!--  <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}">
                   <a matRipple *ngIf="item.type === 'vendor'">
@@ -79,8 +79,8 @@
                     <span fxFlex></span>
                   </a>
                 </div>
-              </li>
-              <li>
+              </li> -->
+             <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
                   routerLink="/sms">
@@ -90,7 +90,7 @@
                     <span fxFlex></span>
                   </a>
                 </div>
-              </li>
+              </li> 
               <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
@@ -113,7 +113,7 @@
                   </a>
                 </div>
               </li>
-              <!-- <li>
+              <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
                   routerLink="/upload">
@@ -123,8 +123,8 @@
                     <span fxFlex></span>
                   </a>
                 </div>
-              </li> -->
-              <!-- <li>
+              </li>
+              <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}">
                   <a matRipple *ngIf="item.type === 'backup'">
@@ -133,7 +133,7 @@
                     <span fxFlex></span>
                   </a>
                 </div>
-              </li> -->
+              </li>
             </ul>
           </div>
         </div>

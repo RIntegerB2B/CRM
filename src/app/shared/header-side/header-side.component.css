@@ -47,10 +47,10 @@ h1.example-app-name {
  background-color: #6610f2;
  color: #ffff;
 }
-/* 
-.menuTransparent {
+
+.menuTransparent2 {
   background-color: #570015 !important;
-} */
+}
 .menuTransparent
 {
   display: none;

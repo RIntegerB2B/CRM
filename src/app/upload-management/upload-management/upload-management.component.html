@@ -2,33 +2,36 @@
   <div class="col-md-2 text-center"><button mat-stroked-button color="primary">
       UPLOAD</button></div>
 </div><br>
-<div style="text-align:right;padding:10px;">
-  sample Excel B2C market format
-  <button mat-raised-button color="warn" (click)="exportAsXLSX()">
-    <mat-icon>file_download</mat-icon>
-  </button>
-</div>
-<div style="text-align:right; padding:10px;">
-  sample Excel B2B customer format
-  <button mat-raised-button color="warn" (click)="b2bCustomerExportAsXLSX()">
-    <mat-icon>file_download</mat-icon>
-  </button>
-</div>
-<div style="text-align:center">
-  <input type="file" (change)="uploadingfile($event)" placeholder="Upload file" accept=".xlsx">
-  <button type="button" mat-raised-button color="primary" (click)="Upload()">Upload</button>
-</div>
+<div  class="card">
+    <div class="form-group">
+        <label for="name"><strong>B2B Customers</strong></label>
+        <br>
+        <input type="file" 
+        (change)="uploadingfile($event)"
+         placeholder="Upload file"
+          accept=".xlsx">
+        <button type="button"
+         mat-raised-button color="primary"
+        (click)="UploadB2CMarket()">Upload</button>&nbsp; &nbsp;&nbsp;
+        Excel format for B2B Customers
+        <button mat-raised-button color="warn" (click)="b2bCustomerExportAsXLSX()">
+            <mat-icon>file_download</mat-icon>
+          </button>
+      </div>
 
-
-<div style="text-align:center">
-  B2C Customer
-</div>
-
-<div style="text-align:center">
-
-  <input type="file" (change)="uploadingB2cMarketfile($event)" placeholder="Upload file" accept=".xlsx">
-  <button type="button" mat-raised-button color="primary" (click)="UploadB2CMarket()">Upload</button>
-</div>
-
-<!-- <button (click)="exportAsXLSX()"> -->
-<!-- </button> -->
+    <div class="form-group">
+      <label for="name"><strong>B2C market</strong></label>
+      <br>
+      <input type="file" 
+      (change)="uploadingB2cMarketfile($event)"
+       placeholder="Upload file"
+        accept=".xlsx">
+      <button type="button"
+       mat-raised-button color="primary"
+      (click)="UploadB2CMarket()">Upload</button>&nbsp; &nbsp;&nbsp;
+        Excel format for B2C Market &nbsp; &nbsp;&nbsp;
+        <button mat-raised-button color="warn" (click)="exportAsXLSX()">
+            <mat-icon>file_download</mat-icon>
+          </button>
+    </div>
+  </div>

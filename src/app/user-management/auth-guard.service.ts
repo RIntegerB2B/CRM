@@ -28,7 +28,7 @@
                      state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       return this.canActivate(route, state);
     }
-  } 
+  }
  */
 import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';

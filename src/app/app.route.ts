@@ -12,30 +12,18 @@ import { AuthGuard } from './user-management/auth-guard.service';
 
 const routes: Routes = [
     { path: 'sms', canActivate: [AuthGuard], component: SmsManagementComponent },
-    { path: 'headerside', component: HeaderSideComponent
+    { path: 'headerside', canActivate: [AuthGuard], component: HeaderSideComponent
     },
     { path: 'upload', canActivate: [AuthGuard], component: UploadManagementComponent },
     { path: 'b2cmarket', canActivate: [AuthGuard], component: B2cmarketManagementComponent },
     { path: 'customers', canActivate: [AuthGuard], component: CustomerManagementComponent},
-/*
-    { path: 'navheader', canActivate: [AuthGuard], component: NavHeaderComponent,  },
-    ,
-
-    { path: 'customers', component: CustomerManagementComponent,
-    children: [{ path: ':id', component: CustomerManagementComponent }
-        ]
- }, */
     {
-        path: 'login', component: LoginComponent,
-        /* children: [{ path: ':id', component: LoginComponent }
-        ] */
+        path: 'login', component: LoginComponent
     },
     { path: 'email', component: EmailManagementComponent, canActivate: [AuthGuard] },
     {
         path: 'register',
          component: RegisterComponent, canActivate: [AuthGuard]
-        /* children: [{ path: ':id', component: RegisterComponent }
-        ] */
     },
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '**', redirectTo: 'login', pathMatch: 'full' }

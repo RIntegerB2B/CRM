@@ -17,8 +17,8 @@ import { AccessPermission } from './register/accessPermission.model';
 
 export class UserManagementService {
   serviceUrl: string = AppSetting.serviceUrl;
-  /* private registerSource = new BehaviorSubject<string>('defaultMessage'); */
-  /* currentRegister = this.registerSource.asObservable(); */
+  private registerSource = new BehaviorSubject<any>('');
+  currentRegister = this.registerSource.asObservable();
   headers: Headers = new Headers({
     'Content-Type': 'application/json; charset=utf-8'
   });
@@ -58,7 +58,7 @@ export class UserManagementService {
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<AccessPermission>(url, data);
   }
-  /* changeRegister(message: string) {
+  changeRegister(message: any) {
     this.registerSource.next(message);
-  } */
+  }
 }

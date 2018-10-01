@@ -23,11 +23,10 @@ export class RegisterComponent implements OnInit {
   paramsValue: Params;
   allowEdit = false;
   message: string;
-  newReg: string;
   constructor(
     private fb: FormBuilder,
     private userManagementService: UserManagementService, private router: Router, public route: ActivatedRoute,
-    public authService: AuthService, private headerSideService: HeaderSideService
+    public authService: AuthService, public headerSideService: HeaderSideService
   ) {
     this.paramsValue = this.route.snapshot.children.map(d => d.params);
     console.log(this.paramsValue);
@@ -38,11 +37,12 @@ export class RegisterComponent implements OnInit {
     this.getAllRegister();
     this.userAccess();
     // this.authService.logout();
-    this.headerSideService.hideMenuTransparent();
-    /* this.userManagementService.currentRegister.subscribe(message => this.message = message ); */
+    this.userManagementService.currentRegister.subscribe(message => this.message = message );
+    this.newRegister();
   }
   newRegister() {
-   /* this.userManagementService.changeRegister(); */
+   this.userManagementService.changeRegister(this.register);
+   console.log(this.register);
 }
   userRegister() {
     this.registerForm = this.fb.group({

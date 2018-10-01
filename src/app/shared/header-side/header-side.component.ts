@@ -45,7 +45,6 @@ export class HeaderSideComponent implements OnInit, OnDestroy {
       this.hasIconTypeMenuItem = !!this.menuItems.filter(item => item.type === 'icon').length;
     });
     /* this.userManagementService.logIn().subscribe(data => data); */
-    this.headerSideService.makeMenuTransparent();
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

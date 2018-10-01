@@ -18,6 +18,7 @@ export class SmsManagementComponent implements OnInit, DoCheck {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   b2cMarketDetailsForm: FormGroup;
+  customerDetailsForm: FormGroup;
   smsCompleted = false;
   mobileSend: MobileSend;
   newCustomer: B2cMarket[] = [];
@@ -49,8 +50,8 @@ export class SmsManagementComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     this.createB2cMarketForm();
-    this.getAllB2cMarketCustomer();
-    this.getArray();
+    // this.getAllB2cMarketCustomer();
+   // this.getArray();
     // this.columns = this.smsService.allCustomer();
     // this.rows = this.temp = this.getAllCustomer();
   }
@@ -86,7 +87,7 @@ export class SmsManagementComponent implements OnInit, DoCheck {
     });
   }
 
-  /* createForm() {
+  createForm() {
     this.customerDetailsForm = this.fb.group({
       _id: [],
       emailMessage: [],
@@ -105,15 +106,15 @@ export class SmsManagementComponent implements OnInit, DoCheck {
       messageTemplates: [],
       pagedItems: []
     });
-  } */
-  /* getAllCustomer() {
+  }
+  getAllCustomer() {
     this.smsService.allCustomer().subscribe(data => {
-      this.newCustomer = data;
+      this.dataSource = data;
       console.log(this.newCustomer);
     }, error => {
       console.log(error);
     });
-  } */
+  }
   handlePage(e: any) {
     this.currentPage = e.pageIndex;
     this.pageSize = e.pageSize;

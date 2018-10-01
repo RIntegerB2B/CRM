@@ -128,7 +128,6 @@ export class HeaderSideService {
   makeMenuTransparent() {
     this.menuTransparent = 'menuTransparent';
 }
-
   hideMenuTransparent() {
       this.menuTransparent = '';
   }
