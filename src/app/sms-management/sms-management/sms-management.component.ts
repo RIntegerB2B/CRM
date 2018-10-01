@@ -50,15 +50,12 @@ export class SmsManagementComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     this.createB2cMarketForm();
-    // this.getAllB2cMarketCustomer();
-    // this.columns = this.smsService.allCustomer();
-    // this.rows = this.temp = this.getAllCustomer();
+    
   }
   ngDoCheck() {
-    this.temp = this.newCustomer;
     console.log(this.temp);
   }
-
+// b2c market Form//
   createB2cMarketForm() {
     this.b2cMarketDetailsForm = this.fb.group({
       _id: [],
@@ -77,16 +74,7 @@ export class SmsManagementComponent implements OnInit, DoCheck {
       pagedItems: []
     });
   }
-  getAllB2cMarketCustomer() {
-    this.smsService.allB2cMarket().subscribe(data => {
-      this.dataSource = data;
-      console.log(this.newCustomer);
-      this.getArray();
-    }, error => {
-      console.log(error);
-    });
-  }
-
+// b2b customer Form//
   createForm() {
     this.customerDetailsForm = this.fb.group({
       _id: [],
@@ -107,39 +95,38 @@ export class SmsManagementComponent implements OnInit, DoCheck {
       pagedItems: []
     });
   }
-  getArrayCustomer() {
+  // get B2B Customer //
+
+    getAllB2bCustomer() {
     this.smsService.allCustomer()
       .subscribe((response) => {
         this.dataSource = new MatTableDataSource<Element>(response);
         this.dataSource.paginator = this.paginator;
         this.array = response;
+        this.newCustomer = response;
         this.totalSize = this.array.length;
         this.iterator();
       });
+      this.temp = this.dataSource;
   }
-  getAllCustomer() {
-    this.smsService.allCustomer().subscribe(data => {
-      this.dataSource = data;
-      console.log(this.newCustomer);
-      this.getArrayCustomer();
-    }, error => {
-      console.log(error);
-    }); 
-  }
-  handlePage(e: any) {
-    this.currentPage = e.pageIndex;
-    this.pageSize = e.pageSize;
-    this.iterator();
-  }
-  getArray() {
+  // get B2C Market //
+  getAllB2cMarketCustomer() {
     this.smsService.allB2cMarket()
       .subscribe((response) => {
         this.dataSource = new MatTableDataSource<Element>(response);
         this.dataSource.paginator = this.paginator;
         this.array = response;
         this.totalSize = this.array.length;
+        this.newCustomer = response;
         this.iterator();
+        this.updateFilter(event);
       });
+  }
+
+  handlePage(e: any) {
+    this.currentPage = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.iterator();
   }
   iterator() {
     const end = (this.currentPage + 1) * this.pageSize;
@@ -173,17 +160,6 @@ export class SmsManagementComponent implements OnInit, DoCheck {
       }
     }
   }
-  /* selectedMobileNumber(value) {
-    const indexOfEntry = this.selectedMobileNumbers.indexOf(value);
-      if (indexOfEntry < 0) {
-        this.selectedMobileNumbers.push(value);
-      } else {
-        this.selectedMobileNumbers.splice(indexOfEntry, 1);
-      }
-      this.sendMobileNumber = this.selectedMobileNumbers.toString();
-      console.log(this.selectedMobileNumbers);
-      this.customerDetailsForm.controls.phone.setValue(this.sendMobileNumber);
-    } */
   selectedMobileNumber(e, value) {
     if (e.checked) {
       if (value.length > 10) {
@@ -211,7 +187,7 @@ export class SmsManagementComponent implements OnInit, DoCheck {
   selectAllMobileNumber(e, value) {
     this.selectCheckbox = !this.selectCheckbox;
     value.map(element => {
-      this.selectedMobileNumber(e, element.mobileNumber);
+      this.dataSource(e, element.mobileNumber);
     }
     );
   }
