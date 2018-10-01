@@ -48,8 +48,8 @@ export class EmailManagementComponent implements OnInit {
 
   ngOnInit() {
     this.createB2cMarketForm();
-  //     this.getAllB2cMarketCustomer();
-    this.getArray();
+   //    this.getAllB2cMarketCustomer();
+    // this.getArray();
     console.log(this.content.nativeElement.innerHTML);
   }
    createForm() {
@@ -76,10 +76,21 @@ export class EmailManagementComponent implements OnInit {
      this.emailService.allCustomer().subscribe(data => {
        this.dataSource = data;
        console.log(this.newCustomer);
+       this.getArrayCustomer();
      }, error => {
        console.log(error);
      });
    }
+   getArrayCustomer() {
+    this.emailService.allCustomer()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource<Element>(response);
+        this.dataSource.paginator = this.paginator;
+        this.array = response;
+        this.totalSize = this.array.length;
+        this.iterator();
+      });
+  }
 
   createB2cMarketForm() {
     this.b2cMarketDetailsForm = this.fb.group({
@@ -102,6 +113,7 @@ export class EmailManagementComponent implements OnInit {
   getAllB2cMarketCustomer() {
     this.emailService.allB2cMarket().subscribe(data => {
       this.dataSource = data;
+      this.getArray();
       console.log(this.newCustomer);
     }, error => {
       console.log(error);

@@ -51,7 +51,6 @@ export class SmsManagementComponent implements OnInit, DoCheck {
   ngOnInit() {
     this.createB2cMarketForm();
     // this.getAllB2cMarketCustomer();
-   // this.getArray();
     // this.columns = this.smsService.allCustomer();
     // this.rows = this.temp = this.getAllCustomer();
   }
@@ -82,6 +81,7 @@ export class SmsManagementComponent implements OnInit, DoCheck {
     this.smsService.allB2cMarket().subscribe(data => {
       this.dataSource = data;
       console.log(this.newCustomer);
+      this.getArray();
     }, error => {
       console.log(error);
     });
@@ -107,13 +107,24 @@ export class SmsManagementComponent implements OnInit, DoCheck {
       pagedItems: []
     });
   }
+  getArrayCustomer() {
+    this.smsService.allCustomer()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource<Element>(response);
+        this.dataSource.paginator = this.paginator;
+        this.array = response;
+        this.totalSize = this.array.length;
+        this.iterator();
+      });
+  }
   getAllCustomer() {
     this.smsService.allCustomer().subscribe(data => {
       this.dataSource = data;
       console.log(this.newCustomer);
+      this.getArrayCustomer();
     }, error => {
       console.log(error);
-    });
+    }); 
   }
   handlePage(e: any) {
     this.currentPage = e.pageIndex;
