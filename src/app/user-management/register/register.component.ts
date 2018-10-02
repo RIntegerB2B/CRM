@@ -22,7 +22,8 @@ export class RegisterComponent implements OnInit {
   manager_id;
   paramsValue: Params;
   allowEdit = false;
-  message: string;
+  message: Register;
+
   constructor(
     private fb: FormBuilder,
     private userManagementService: UserManagementService, private router: Router, public route: ActivatedRoute,
@@ -37,13 +38,11 @@ export class RegisterComponent implements OnInit {
     this.getAllRegister();
     this.userAccess();
     // this.authService.logout();
-    this.userManagementService.currentRegister.subscribe(message => this.message = message );
-    this.newRegister();
+    this.headerSideService.currentRegister.subscribe(message => this.message = message);
+    console.log(this.message.userType);
+   //  this.newRegister();
   }
-  newRegister() {
-   this.userManagementService.changeRegister(this.register);
-   console.log(this.register);
-}
+
   userRegister() {
     this.registerForm = this.fb.group({
       _id: [''],

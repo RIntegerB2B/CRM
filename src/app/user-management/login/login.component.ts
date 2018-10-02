@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { UserManagementService } from './../user-management.service';
 import { HeaderSideService} from './../../shared/header-side/header-side.service';
 import { AuthService } from '../auth.service';
+import { Register } from '../register/register.model';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
   manager_id;
   returnUrl: string;
   deletePermissionDisabled = false;
+  message: Register;
   constructor(
     private fb: FormBuilder, private router: Router, private route: ActivatedRoute, public userManagementService: UserManagementService,
      private authService: AuthService, public headerSideService: HeaderSideService
@@ -29,6 +31,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.returnUrl = '/register';
+    // this.headerSideService.currentRegister.subscribe(message => this.message = message);
   }
   createForm() {
     this.onLoginForm = this.fb.group({
@@ -49,10 +52,11 @@ export class LoginComponent implements OnInit {
       }      else      {
         this.showError = true;
       } */
-
       if (this.login.userName === data.userName && this.login.password === data.password ) {
           /* localStorage.setItem('userID', JSON.stringify(userID));  */
         // this.router.navigate(['/register', data._id], { queryParams: { allowEdit: '1' } });
+        this.message = data;
+        this.headerSideService.changeRegister(this.message);
         localStorage.setItem('isLoggedIn', 'true');
         sessionStorage.setItem('isLoggedIn', 'true');
         sessionStorage.setItem('token', this.login.userName);

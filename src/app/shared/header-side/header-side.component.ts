@@ -8,6 +8,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { AuthService } from '../../user-management/auth.service';
+import { Register } from '../../user-management/register/register.model';
 
 @Component({
   selector: 'app-header-side',
@@ -24,6 +25,7 @@ export class HeaderSideComponent implements OnInit, OnDestroy {
   allowEdit: false;
   paramsVal;
   paramsValue: Params[];
+  message: Register;
   private _mobileQueryListener: () => void;
   shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
   fillerNav = Array.from({ length: 50 }, (_, i) => `Nav Item ${i + 1}`);
@@ -45,6 +47,8 @@ export class HeaderSideComponent implements OnInit, OnDestroy {
       this.hasIconTypeMenuItem = !!this.menuItems.filter(item => item.type === 'icon').length;
     });
     /* this.userManagementService.logIn().subscribe(data => data); */
+    this.headerSideService.currentRegister.subscribe(message => this.message = message);
+    console.log(this.message.userType);
     this.headerSideService.makeMenuTransparent();
   }
   ngOnDestroy(): void {

@@ -1,3 +1,4 @@
+<!-- *ngIf = "message.userType === admin ? !allowEdit : allowEdit" -->
 <form  [formGroup]="registerForm" (ngSubmit)="registerForm.valid && regSubmit(registerForm)"
   novalidate style="padding-top:60px">
   <div class="container-fluid ">
@@ -49,12 +50,7 @@
             </button>
           </mat-form-field>
         </div>
-        <!-- <div *ngIf= "paramsValue[0].id === 'admin' && !allowEdit" >
-        {{
-          paramsValue[0].id === 'admin'
-        }}
-      </div> -->
-
+        <!-- *ngIf= "paramsValue[0].id === 'admin' && !allowEdit" -->
         <div class="form-group">
           <mat-form-field>
             <mat-select formControlName="userType" placeholder="User Type">
@@ -109,3 +105,4 @@
     <button mat-raised-button color="accent" (click)="sendPermission(accessForm, edit._id, edit.userType)" type="submit">Approve</button>
   </div><br>
 </form>
+<a (click)="newRegister()">Value</a>

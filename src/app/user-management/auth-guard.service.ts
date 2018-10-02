@@ -53,7 +53,7 @@ export class AuthGuard implements CanActivate {
     }
     isLoggedIn() {
         let status = false;
-        if ( sessionStorage.getItem('isLoggedIn') === 'true') {
+        if (sessionStorage.getItem('isLoggedIn') === 'true') {
           status = true;
         }         else {
           status = false;

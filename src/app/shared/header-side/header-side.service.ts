@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Register } from '../../user-management/register/register.model';
 
 interface IMenuItem {
   type: string,    // Possible values: link/dropDown/icon/separator/extLink
@@ -29,6 +30,8 @@ interface IBadge {
 
 export class HeaderSideService {
   menuTransparent: string;
+  registerSource = new BehaviorSubject<any>('');
+  currentRegister = this.registerSource.asObservable();
   constructor() { }
   iconMenu: IMenuItem[] = [
     {
@@ -130,5 +133,8 @@ export class HeaderSideService {
 }
   hideMenuTransparent() {
       this.menuTransparent = '';
+  }
+  changeRegister(message: Register) {
+    this.registerSource.next(message);
   }
 }
