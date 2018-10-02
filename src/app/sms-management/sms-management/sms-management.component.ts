@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MobileSend } from './sms-model';
 /* import { Customer } from './../../shared/model/customer.model'; */
@@ -14,14 +14,14 @@ import { PageEvent } from '@angular/material';
   templateUrl: './sms-management.component.html',
   styleUrls: ['./sms-management.component.css']
 })
-export class SmsManagementComponent implements OnInit, DoCheck {
+export class SmsManagementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   b2cMarketDetailsForm: FormGroup;
   customerDetailsForm: FormGroup;
   smsCompleted = false;
   mobileSend: MobileSend;
-  newCustomer: B2cMarket[] = [];
+  newCustomer: any;
   selectedMobileNumbers = [];
   sendMobileNumber;
   selectCheckbox = false;
@@ -39,7 +39,7 @@ export class SmsManagementComponent implements OnInit, DoCheck {
   columns: any = [];
   temp: any = [];
   // pageEvent: PageEvent;
-  public pageSize = 10;
+  public pageSize = 50;
   public currentPage = 0;
   public totalSize = 0;
   public searchString: string;
@@ -50,11 +50,11 @@ export class SmsManagementComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     this.createB2cMarketForm();
-    
+ 
   }
-  ngDoCheck() {
+ /*  ngDoCheck() {
     console.log(this.temp);
-  }
+  } */
 // b2c market Form//
   createB2cMarketForm() {
     this.b2cMarketDetailsForm = this.fb.group({
@@ -160,18 +160,18 @@ export class SmsManagementComponent implements OnInit, DoCheck {
       }
     }
   }
-  selectedMobileNumber(e, value) {
+  selectedMobileNumber(e, mobileData) {
     if (e.checked) {
-      if (value.length > 10) {
-        const lengthOf = value.length - 10;
-        const newValue = value.substr(lengthOf);
+      if (mobileData.length > 10) {
+        const lengthOf = mobileData.length - 10;
+        const newValue = mobileData.substr(lengthOf);
         console.log(newValue);
         this.selectedMobileNumbers.push(newValue);
       } else {
-        this.selectedMobileNumbers.push(value);
+        this.selectedMobileNumbers.push(mobileData);
       }
     } else {
-      const updateItem = this.selectedMobileNumbers.find(this.findIndexToUpdate, value);
+      const updateItem = this.selectedMobileNumbers.find(this.findIndexToUpdate, mobileData);
 
       const index = this.selectedMobileNumbers.indexOf(updateItem);
 
@@ -181,15 +181,13 @@ export class SmsManagementComponent implements OnInit, DoCheck {
     this.b2cMarketDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
     console.log(this.selectedMobileNumbers);
   }
-  findIndexToUpdate(value) {
-    return value === this;
+  findIndexToUpdate(mobileData) {
+    return mobileData === this;
   }
-  selectAllMobileNumber(e, value) {
+  selectAllMobileNumber(e, mobileData) {
     this.selectCheckbox = !this.selectCheckbox;
-    value.map(element => {
-      this.dataSource(e, element.mobileNumber);
-    }
-    );
+    mobileData.map(element => element.mobileNumber);
+    this.selectedMobileNumber(e, mobileData);
   }
   setNameValue(e, template) {
     if (e.checked === true) {

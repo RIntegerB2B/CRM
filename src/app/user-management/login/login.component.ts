@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.returnUrl = '/register';
-    // this.headerSideService.currentRegister.subscribe(message => this.message = message);
   }
   createForm() {
     this.onLoginForm = this.fb.group({
@@ -65,7 +64,7 @@ export class LoginComponent implements OnInit {
       } else {
         /* const userID = data;
         localStorage.setItem('userID', JSON.stringify(userID)); */
-        this.router.navigate(['/register', data.userName], { queryParams: { allowEdit: '1' } });
+        // this.router.navigate(['/register', data.userName], { queryParams: { allowEdit: '1' } });
       }
 
     }, error => {

@@ -1,4 +1,3 @@
-<!-- *ngIf = "message.userType === admin ? !allowEdit : allowEdit" -->
 <form  [formGroup]="registerForm" (ngSubmit)="registerForm.valid && regSubmit(registerForm)"
   novalidate style="padding-top:60px">
   <div class="container-fluid ">
@@ -50,7 +49,6 @@
             </button>
           </mat-form-field>
         </div>
-        <!-- *ngIf= "paramsValue[0].id === 'admin' && !allowEdit" -->
         <div class="form-group">
           <mat-form-field>
             <mat-select formControlName="userType" placeholder="User Type">
@@ -70,38 +68,4 @@
       </div>
     </div>
   </div>
-</form>
-<form [formGroup]="accessForm" novalidate style="padding-top:60px; padding-bottom:60px">
-  <div class="row border-bottom">
-    <div class="col-sm-2">User Name</div>
-    <div class="col-sm-2">Mobile Number</div>
-    <div class="col-sm-2">User Type</div>
-    <div class="col-sm-1">SMS</div>
-    <div class="col-sm-1">Email</div>
-    <div class="col-sm-1">Edit</div>
-    <div class="col-sm-1">Delete</div>
-  </div>
-  <div class="row" *ngFor="let edit of register;  let i = index">
-
-    <div class="col-sm-2">{{edit.userName}}</div>
-    <div class="col-sm-2">{{edit.mobileNumber}}</div>
-    <div class="col-sm-2">{{edit.userType}}</div>
-    <div class="col-sm-1">
-      <mat-checkbox formControlName="smsPermission" class="mail-checkbox">
-      </mat-checkbox>
-    </div>
-    <div class="col-sm-1">
-      <mat-checkbox formControlName="emailPermission" class="mail-checkbox">
-      </mat-checkbox>
-    </div>
-    <div class="col-sm-1">
-      <mat-checkbox formControlName="editPermission" class="mail-checkbox" class="mail-checkbox">
-      </mat-checkbox>
-    </div>
-    <div class="col-sm-1">
-      <mat-checkbox formControlName="deletePermission" class="mail-checkbox">
-      </mat-checkbox>
-    </div>
-    <button mat-raised-button color="accent" (click)="sendPermission(accessForm, edit._id, edit.userType)" type="submit">Approve</button>
-  </div><br>
 </form>

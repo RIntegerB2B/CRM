@@ -9,11 +9,10 @@ import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { ResponseResult } from './../shared/model/response-result.model';
 import { Register } from './register/register.model';
-import { AccessPermission } from './register/accessPermission.model';
+import { AccessPermission } from './permission/accessPermission.model';
 @Injectable({
   providedIn: 'root'
 })
-
 
 export class UserManagementService {
   serviceUrl: string = AppSetting.serviceUrl;

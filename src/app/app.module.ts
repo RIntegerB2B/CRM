@@ -53,6 +53,7 @@ import { B2cmarketManagementComponent,
   B2cmarketEditComponent } from './b2cmarket-management/b2cmarket-management/b2cmarket-management.component';
 import { LoginComponent } from './user-management/login/login.component';
 import { RegisterComponent } from './user-management/register/register.component';
+import { PermissionComponent } from './user-management/permission/permission.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { RegisterComponent } from './user-management/register/register.component
     B2cmarketManagementComponent,
     B2cmarketEditComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PermissionComponent
   ],
   imports: [
     BrowserModule,

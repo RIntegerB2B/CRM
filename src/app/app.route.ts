@@ -9,6 +9,7 @@ import { B2cmarketManagementComponent } from './b2cmarket-management/b2cmarket-m
 import { LoginComponent } from './user-management/login/login.component';
 import { RegisterComponent } from './user-management/register/register.component';
 import { AuthGuard } from './user-management/auth-guard.service';
+import { PermissionComponent } from './user-management/permission/permission.component';
 
 const routes: Routes = [
     { path: 'sms', canActivate: [AuthGuard], component: SmsManagementComponent },
@@ -24,6 +25,10 @@ const routes: Routes = [
     {
         path: 'register',
          component: RegisterComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'permission',
+         component: PermissionComponent, canActivate: [AuthGuard]
     },
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '**', redirectTo: 'login', pathMatch: 'full' }

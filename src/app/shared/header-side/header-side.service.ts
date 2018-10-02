@@ -98,6 +98,20 @@ export class HeaderSideService {
       state: 'tables',
     },
     {
+      name: 'REGISTER',
+      type: 'register',
+      tooltip: 'register',
+      icon: 'subject',
+      state: 'tables',
+    },
+    {
+      name: 'PERMISSION',
+      type: 'permission',
+      tooltip: 'permission',
+      icon: 'lock_outline',
+      state: 'tables',
+    },
+    {
       name: 'UPLOAD',
       type: 'upload',
       tooltip: 'email',
