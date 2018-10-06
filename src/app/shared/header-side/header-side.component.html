@@ -84,7 +84,9 @@
               <li>
                 <div [routerLinkActive]="['activeLink']"
                  [routerLinkActiveOptions]="{exact:
-                  true}">
+                  true}"
+                  routerLink="/vendor"
+                  >
                   <a matRipple *ngIf="item.type === 'vendor'">
                     <mat-icon>{{item.icon}}</mat-icon>
                     <span class="item-name">{{item.name}}</span>

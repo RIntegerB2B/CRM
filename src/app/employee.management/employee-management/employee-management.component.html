@@ -10,7 +10,7 @@
     <div class="card" *ngFor="let data of role.b2cMarket">
       <ngx-datatable class="material pl-5 ml-0 mr-0" [rows]="newCustomer" [columnMode]="'flex'" [headerHeight]="50"
         [footerHeight]="50" [draggable]="false" [limit]="10" [rowHeight]="'auto'">
-        <ngx-datatable-column [sortable]="false" [draggable]="false" name="CUSTOMER NAME" [flexGrow]="1">
+        <ngx-datatable-column [sortable]="false" [draggable]="false" name="EMP NAME" [flexGrow]="1">
           <ng-template let-row="row" ngx-datatable-cell-template>
             {{row?.empName}}
           </ng-template>
@@ -35,7 +35,7 @@
             <button mat-icon-button
              mat-sm-button color="primary"
              [disabled]="data.editPermission"
-              (click)="editEmployee(employeeDetailsForm, row) ">
+              (click)="getEditEmployee(employeeDetailsForm, row) ">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button 

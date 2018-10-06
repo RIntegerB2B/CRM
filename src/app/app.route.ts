@@ -12,6 +12,7 @@ import { AuthGuard } from './user-management/auth-guard.service';
 import { PermissionComponent } from './user-management/permission/permission.component';
 import { B2bmarketManagementComponent } from './b2bmarket-management/b2bmarket-management/b2bmarket-management.component';
 import { B2ccustomerManagementComponent } from './b2ccustomer-management/b2ccustomer-management/b2ccustomer-management.component';
+import { VendorManagementComponent } from './vendor-management/vendor-management/vendor-management.component';
 import { EmployeeManagementComponent } from './employee.management/employee-management/employee-management.component';
 
 
@@ -36,6 +37,10 @@ const routes: Routes = [
         component: EmployeeManagementComponent, canActivate: [AuthGuard]
     },
     {
+        path: 'vendor',
+        component: VendorManagementComponent, canActivate: [AuthGuard]
+    },
+    {
         path: 'login', component: LoginComponent
     },
     { path: 'email', component: EmailManagementComponent, canActivate: [AuthGuard] },
@@ -47,7 +52,6 @@ const routes: Routes = [
         path: 'permission',
         component: PermissionComponent, canActivate: [AuthGuard]
     },
-   
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

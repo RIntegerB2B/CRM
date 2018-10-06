@@ -68,6 +68,7 @@ import { B2ccustomerManagementComponent,
 import { EmployeeManagementComponent,
   EmployeeEditComponent
  } from './employee.management/employee-management/employee-management.component';
+import { VendorManagementComponent, VendoorEditComponent } from './vendor-management/vendor-management/vendor-management.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { EmployeeManagementComponent,
     CustomerEditComponent,
     B2bmarketEditComponent,
     B2ccustomerEditComponent,
+    VendoorEditComponent,
     EmployeeEditComponent,
     HeaderSideComponent,
     SmsManagementComponent,
@@ -89,7 +91,8 @@ import { EmployeeManagementComponent,
     PermissionComponent,
     B2bmarketManagementComponent,
     B2ccustomerManagementComponent,
-    EmployeeManagementComponent
+    EmployeeManagementComponent,
+    VendorManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -135,6 +138,7 @@ import { EmployeeManagementComponent,
       B2cmarketService, AuthService, AuthGuard],
   bootstrap: [AppComponent],
   entryComponents: [CustomerEditComponent,
+    VendoorEditComponent,
      B2cmarketEditComponent,
      B2bmarketEditComponent,
       B2ccustomerEditComponent,

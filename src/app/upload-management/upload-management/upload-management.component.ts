@@ -6,6 +6,7 @@ import { Customer } from './../../shared/model/customer.model';
 import { B2cMarket } from './../../shared/model/b2cmarket.model';
 import { B2bMarket } from './../../shared/model/b2bmarket.model';
 import { B2cCustomer } from './../../shared/model/b2ccustomer.model';
+import { Vendor } from './../../shared/model/vendor.model';
 import { Employee } from './../../shared/model/employee.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UploadService } from './../upload.service';
@@ -24,6 +25,8 @@ export class UploadManagementComponent implements OnInit {
   b2bMarket: B2bMarket[];
   b2cCustomer: B2cCustomer[];
   employee: Employee[];
+  vendor: Vendor[];
+  fullVendor;
   customers;
   b2cMarketCustomer;
   fullb2cCustomer;
@@ -198,6 +201,31 @@ export class UploadManagementComponent implements OnInit {
   }
   b2bCustomerExportAsXLSX() {
     this.uploadService.b2bCustomerExportAsExcelFile(this.excelB2BCustomerData, 'B2Bcustomer');
+  }
+  UploadVendor() {
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      this.arrayBuffer = fileReader.result;
+      const data = new Uint8Array(this.arrayBuffer);
+      const arr = new Array();
+      for (let i = 0; i !== data.length; ++i) {
+        arr[i] = String.fromCharCode(data[i]);
+      }
+      const bstr = arr.join('');
+      const workbook = XLSX.read(bstr, { type: 'binary' });
+      const first_sheet_name = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[first_sheet_name];
+      this.fullVendor = XLSX.utils.sheet_to_json(worksheet);
+      this.uploadService.createVendor(this.fullVendor)
+        .subscribe(detail => {
+          this.employee = detail;
+          console.log(detail);
+        });
+    };
+    fileReader.readAsArrayBuffer(this.file);
+  }
+  uploadingVendorfile(event) {
+    this.file = event.target.files[0];
   }
 }
 

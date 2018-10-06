@@ -82,7 +82,7 @@ export class EmployeeManagementComponent implements OnInit {
     });
   }
   // CRUD end
-  editEmployee(employeeDetailsForm: FormGroup, row) {
+  getEditEmployee(employeeDetailsForm: FormGroup, row) {
     const dialogRef = this.dialog.open(EmployeeEditComponent, {
       width: '720px',
       disableClose: true,

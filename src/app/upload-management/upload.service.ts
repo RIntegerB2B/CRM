@@ -5,6 +5,7 @@ import { B2cMarket } from './../shared/model/b2cmarket.model';
 import { B2bMarket } from './../shared/model/b2bmarket.model';
 import { B2cCustomer } from './../shared/model/b2ccustomer.model';
 import { Employee } from './../shared/model/employee.model';
+import { Vendor } from './../shared/model/vendor.model';
 import { AppSetting } from './../config/appSetting';
 import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
@@ -61,6 +62,11 @@ export class UploadService {
     const addUrl = 'employee';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<Employee[]>(url, data);
+  }
+  createVendor(data: any): Observable<any> {
+    const addUrl = 'vendor';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.post<Vendor[]>(url, data);
   }
   exportAsExcelFile(json: any[], excelFileName: string) {
     try {
