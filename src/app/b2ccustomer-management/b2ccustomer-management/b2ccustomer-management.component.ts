@@ -1,34 +1,36 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import * as XLSX from 'ts-xlsx';
-import { B2cMarket } from './../../shared/model/b2cmarket.model';
+import { B2cCustomer } from './../../shared/model/b2ccustomer.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { B2cmarketService } from './../b2cmarket.service';
+import { B2ccustomerService } from './../b2ccustomer.service';
 import { map } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { CustomerEditComponent } from './../../customer-management/customer-management/customer-management.component';
+// import { CustomerEditComponent } from './../../customer-management/customer-management/customer-management.component';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
 import { AccessPermission } from './../../user-management/permission/accessPermission.model';
 
+
 @Component({
-  selector: 'app-b2cmarket-management',
-  templateUrl: './b2cmarket-management.component.html',
-  styleUrls: ['./b2cmarket-management.component.css']
+  selector: 'app-b2ccustomer-management',
+  templateUrl: './b2ccustomer-management.component.html',
+  styleUrls: ['./b2ccustomer-management.component.css']
 })
-export class B2cmarketManagementComponent implements OnInit {
-  newCustomer: B2cMarket[] = [];
+export class B2ccustomerManagementComponent implements OnInit {
+
+  newCustomer: B2cCustomer[] = [];
   role: AccessPermission;
-  b2cMarketDetailsForm: FormGroup;
+  b2cCustomerDetailsForm: FormGroup;
   constructor(private fb: FormBuilder,
     private headerSideService: HeaderSideService,
-    private b2cmarketService: B2cmarketService, private dialog: MatDialog) { }
+    private b2ccustomerService: B2ccustomerService, private dialog: MatDialog) { }
   ngOnInit() {
-    this.createB2cMarketForm();
-    this.getAllB2cMarketCustomer();
+    this.createB2cCustomerForm();
+    this.getAllB2cCustomer();
     this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
-  createB2cMarketForm() {
-    this.b2cMarketDetailsForm = this.fb.group({
+  createB2cCustomerForm() {
+    this.b2cCustomerDetailsForm = this.fb.group({
       _id: [],
       customerName: [],
       gender: [],
@@ -42,8 +44,8 @@ export class B2cmarketManagementComponent implements OnInit {
       location: []
     });
   }
-  getAllB2cMarketCustomer() {
-    this.b2cmarketService.allB2cMarket().subscribe(data => {
+  getAllB2cCustomer() {
+    this.b2ccustomerService.allB2cCustomer().subscribe(data => {
       this.newCustomer = data;
       console.log(this.newCustomer);
     }, error => {
@@ -51,8 +53,8 @@ export class B2cmarketManagementComponent implements OnInit {
     });
   }
 
-  duplicateB2cMarketCustomer() {
-    this.b2cmarketService.duplicateB2cMarket().subscribe(data => {
+  getDuplicateB2cCustomer() {
+    this.b2ccustomerService.duplicateB2cCustomer().subscribe(data => {
       this.newCustomer = data;
       console.log(this.newCustomer);
     }, error => {
@@ -60,29 +62,29 @@ export class B2cmarketManagementComponent implements OnInit {
     });
   }
   // CRUD start
-  cancelB2cMarketCustomer(edit) {
+  cancelB2cCustomer(edit) {
     edit.editing = false;
   }
 
-  updateB2cMarketCustomer(b2cMarketDetailsForm: FormGroup, row) {
-    this.b2cmarketService.editB2cMarket(row).subscribe(data => {
+  updateB2cCustomer(b2cCustomerDetailsForm: FormGroup, row) {
+    this.b2ccustomerService.editB2cCustomer(row).subscribe(data => {
       this.newCustomer = data;
     }, error => {
       console.log(error);
     });
   }
-  deleteB2cMarketCustomer(b2cMarketDetailsForm: FormGroup, row) {
+  getDeleteB2cCustomer(b2cCustomerDetailsForm: FormGroup, row) {
     row.editing = false;
-    b2cMarketDetailsForm.reset();
-    this.b2cmarketService.deleteB2cMarket(row).subscribe(data => {
+    b2cCustomerDetailsForm.reset();
+    this.b2ccustomerService.deleteB2cCustomer(row).subscribe(data => {
       this.newCustomer = data;
     }, error => {
       console.log(error);
     });
   }
   // CRUD end
-  editB2cMarketCustomer(b2cMarketDetailsForm: FormGroup, row) {
-    const dialogRef = this.dialog.open(B2cmarketEditComponent, {
+  getEditB2cCustomer(b2cCustomerDetailsForm: FormGroup, row) {
+    const dialogRef = this.dialog.open(B2ccustomerEditComponent, {
       width: '720px',
       disableClose: true,
       data: row
@@ -93,14 +95,14 @@ export class B2cmarketManagementComponent implements OnInit {
 
 
 @Component({
-  templateUrl: './b2cmarket-edit.component.html'
+  templateUrl: './b2ccustomer-edit.component.html'
 })
-export class B2cmarketEditComponent implements OnInit {
-  b2cMarketDetailsForm: FormGroup;
-  newCustomer: B2cMarket[] = [];
-  constructor(private fb: FormBuilder, private b2cmarketService:
-    B2cmarketService, public dialogRef: MatDialogRef<B2cmarketEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: B2cMarket) {
+export class B2ccustomerEditComponent implements OnInit {
+  b2cCustomerDetailsForm: FormGroup;
+  newCustomer: B2cCustomer[] = [];
+  constructor(private fb: FormBuilder, private b2ccustomerService:
+    B2ccustomerService, public dialogRef: MatDialogRef<B2ccustomerEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: B2cCustomer) {
     console.log(data);
   }
 
@@ -113,7 +115,7 @@ export class B2cmarketEditComponent implements OnInit {
   }
 
   createB2cMarketForm() {
-    this.b2cMarketDetailsForm = this.fb.group({
+    this.b2cCustomerDetailsForm = this.fb.group({
       _id: [],
       customerName: [],
       gender: [],
@@ -127,8 +129,8 @@ export class B2cmarketEditComponent implements OnInit {
       location: []
     });
   }
-  updateB2cMarketCustomer(b2cMarketDetailsForm: FormGroup, row) {
-    this.b2cmarketService.editB2cMarket(row).subscribe(data => {
+  updateB2cCustomer(b2cCustomerDetailsForm: FormGroup, row) {
+    this.b2ccustomerService.editB2cCustomer(row).subscribe(data => {
       this.newCustomer = data;
     }, error => {
       console.log(error);
@@ -136,3 +138,4 @@ export class B2cmarketEditComponent implements OnInit {
     this.dialogRef.close();
   }
 }
+

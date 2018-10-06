@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Customer } from './../shared/model/customer.model';
 import { B2cMarket } from './../shared/model/b2cmarket.model';
+import { B2bMarket } from './../shared/model/b2bmarket.model';
+import { B2cCustomer } from './../shared/model/b2ccustomer.model';
+import { Employee } from './../shared/model/employee.model';
 import { AppSetting } from './../config/appSetting';
 import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
@@ -43,6 +46,21 @@ export class UploadService {
     const addUrl = 'b2cmarket';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<B2cMarket[]>(url, data);
+  }
+  createB2bMarket(data: any): Observable<any> {
+    const addUrl = 'b2bmarket';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.post<B2bMarket[]>(url, data);
+  }
+  createB2cCustomer(data: any): Observable<any> {
+    const addUrl = 'b2ccustomer';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.post<B2cCustomer[]>(url, data);
+  }
+  createEmployee(data: any): Observable<any> {
+    const addUrl = 'employee';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.post<Employee[]>(url, data);
   }
   exportAsExcelFile(json: any[], excelFileName: string) {
     try {

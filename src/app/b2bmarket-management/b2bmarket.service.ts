@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { B2cMarket } from './../shared/model/b2cmarket.model';
+import { B2bMarket } from './../shared/model/b2bmarket.model';
 import { AppSetting } from './../config/appSetting';
 import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
@@ -9,7 +9,7 @@ import { ResponseResult } from './../shared/model/response-result.model';
 @Injectable({
   providedIn: 'root'
 })
-export class B2cmarketService {
+export class B2bmarketService {
   serviceUrl: string = AppSetting.serviceUrl;
   headers: Headers = new Headers({
     'Content-Type': 'application/json; charset=utf-8'
@@ -28,26 +28,25 @@ export class B2cmarketService {
   }
 
   constructor(private http: Http, private httpClient: HttpClient) { }
-  allB2cMarket(): Observable<any> {
-    const addUrl = 'allb2cmarket';
+  allB2bMarket(): Observable<any> {
+    const addUrl = 'allb2bmarket';
     const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.get<B2cMarket[]>(url);
+    return this.httpClient.get<B2bMarket[]>(url);
   }
-  duplicateB2cMarket(): Observable<any> {
-    const addUrl = 'duplicateb2cmarket';
+  duplicateB2bMarket(): Observable<any> {
+    const addUrl = 'duplicateb2bmarket';
     const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.get<B2cMarket[]>(url);
+    return this.httpClient.get<B2bMarket[]>(url);
   }
-  editB2cMarket(edit): Observable<any> {
-    const addUrl = 'b2cmarket/';
+  editB2bMarket(edit): Observable<any> {
+    const addUrl = 'b2bmarket/';
     const url: string = this.serviceUrl + addUrl + edit._id;
-    return this.httpClient.put<B2cMarket[]>(url, edit);
+    return this.httpClient.put<B2bMarket[]>(url, edit);
   }
-  deleteB2cMarket(edit): Observable<any> {
+  deleteB2bMarket(edit): Observable<any> {
 
-    const addUrl = 'b2cmarketdelete/';
-
+    const addUrl = 'b2bmarketdelete/';
     const url: string = this.serviceUrl + addUrl + edit._id;
-    return this.httpClient.delete<B2cMarket[]>(url);
+    return this.httpClient.delete<B2bMarket[]>(url);
 }
 }

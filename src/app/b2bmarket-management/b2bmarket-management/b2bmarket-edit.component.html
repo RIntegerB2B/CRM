@@ -1,0 +1,36 @@
+<form [formGroup]="b2bMarketDetailsForm">
+        <div fxLayout="row wrap" fxLayout.lt-sm="column">
+        <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput  formControlName="customerName"  [ngModel]="data.customerName" (ngModelChange)="data.customerName=$event"
+                  placeholder="Customer Name">
+              </mat-form-field>
+            </div>
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput   formControlName="mobileNumber" [ngModel]="data.mobileNumber" (ngModelChange)="data.mobileNumber=$event"
+                  placeholder="Mobile Number">
+              </mat-form-field>
+            </div>
+        
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput   formControlName="location" [ngModel]="data.location" (ngModelChange)="data.location=$event"
+                  name="location" placeholder="Location">
+              </mat-form-field>
+            </div>
+        
+            <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput  formControlName="email"  [ngModel]="data.email" (ngModelChange)="data.email=$event"
+                  name="email" placeholder="email">
+              </mat-form-field>
+            </div>
+        
+            <div fxFlex="100" class="mt-1">
+              <button mat-raised-button color="primary" (click)="updateB2bMarketCustomer(b2bMarketDetailsForm, data)">Save</button>
+              <span fxFlex></span>
+              <button mat-button color="warn" type="button" (click)="cancel()">Cancel</button>
+            </div>
+          </div>
+        </form>

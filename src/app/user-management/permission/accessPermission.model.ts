@@ -1,24 +1,21 @@
 
 export class AccessPermission {
-    _id: string;
     userType: string;
-    smsPermission: boolean;
-    emailPermission: boolean;
-    editPermission: boolean;
-    deletePermission: boolean;
+    currentDate: string;
+    b2bCustomer: [string];
+    b2cMarket: [string];
+    menuList: [string];
     constructor(
-        _id: string,
         userType: string,
-        smsPermission: boolean,
-        emailPermission: boolean,
-        editPermission: boolean,
-        deletePermission: boolean
+        currentDate: string,
+        b2bCustomer: [string],
+        b2cMarket: [string],
+        menuList: [string]
     ) {
-        this._id = _id;
         this.userType = userType;
-        this.smsPermission = smsPermission;
-        this.emailPermission = emailPermission;
-        this.editPermission = editPermission;
-        this.deletePermission = deletePermission;
+        this.currentDate = currentDate;
+        this.b2bCustomer = b2bCustomer;
+        this.b2cMarket = b2cMarket;
+        this.menuList = menuList;
     }
 }

@@ -22,11 +22,19 @@ export class AuthService {
 
 
 
-
   constructor() { }
 
   logout() {
+   /*  const defaultValue = {'menuList': [ {
+      b2bCustomerPermission: true,
+      b2cMarketPermission: true,
+      backupPermission: true,
+      emailMenuPermission: true,
+      smsMenuPermission: true,
+      uploadPermission: true
+  }]}; */
+  /*   sessionStorage.setItem('role', JSON.stringify(defaultValue)  ); */
     sessionStorage.setItem('isLoggedIn', 'false');
-    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('role');
   }
 }

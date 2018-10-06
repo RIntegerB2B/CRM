@@ -9,6 +9,7 @@ import { Router, ActivatedRoute, Params, ParamMap } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { AuthService } from '../../user-management/auth.service';
 import { Register } from '../../user-management/register/register.model';
+import { AccessPermission } from './../../user-management/permission/accessPermission.model';
 
 @Component({
   selector: 'app-header-side',
@@ -25,7 +26,9 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterContentCheck
   allowEdit: false;
   paramsVal;
   paramsValue: Params[];
-  message: Register;
+  // message: Register;
+  role: AccessPermission;
+  message;
   private _mobileQueryListener: () => void;
   shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
   fillerNav = Array.from({ length: 50 }, (_, i) => `Nav Item ${i + 1}`);
@@ -37,8 +40,6 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterContentCheck
     this.mobileQuery.addListener(this._mobileQueryListener);
     this.paramsValue = this.route.snapshot.children.map(d => d.params);
     console.log(this.paramsValue);
-    const loginDetails: any = localStorage.getItem('userID');
-    console.log(loginDetails);
   }
 
   ngOnInit() {
@@ -47,7 +48,8 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterContentCheck
       this.hasIconTypeMenuItem = !!this.menuItems.filter(item => item.type === 'icon').length;
     });
     /* this.userManagementService.logIn().subscribe(data => data); */
-    this.headerSideService.makeMenuTransparent();
+    // this.role = sessionStorage.getItem('role');
+    this.role = JSON.parse(sessionStorage.getItem('role'));
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
@@ -57,8 +59,6 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterContentCheck
     this.authService.logout();
   }
   ngAfterContentChecked() {
-    this.headerSideService.currentRegister.subscribe(message => this.message = message);
-    console.log(this.message.userType);
   }
   logout() {
     console.log('Logout');

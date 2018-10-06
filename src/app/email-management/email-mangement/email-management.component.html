@@ -1,17 +1,19 @@
 <div class=" col-sm-12 d-flex border-dark p-3 flex-row">
-    <div class=" col-sm-2 col">
-      <button mat-raised-button [routerLinkActive]="['activeLink']" (click)="getAllCustomer()">
-        B2B Customers</button>
-    </div>
-    <div class="col-sm-1 col">
-    </div>
-    <div class="col-sm-2 col">
-  
-    <button mat-raised-button [routerLinkActive]="['activeLink']" (click)="getAllB2cMarketCustomer()">B2C Market</button>
-    </div>
-    <div class="col-sm-7 col">
-    </div>
+  <div class=" col-sm-2 col" *ngFor="let data of role.b2bCustomer">
+    <button mat-raised-button color="primary" *ngIf="data.emailPermission" [routerLinkActive]="['activeLink']"
+      (click)="getAllCustomer()">
+      B2B Customers</button>
   </div>
+  <div class="col-sm-1 col">
+  </div>
+  <div class="col-sm-2 col" *ngFor="let data of role.b2cMarket">
+
+    <button mat-raised-button color="primary" *ngIf="data.emailPermission" [routerLinkActive]="['activeLink']"
+      (click)="getAllB2cMarketCustomer()">B2C Market</button>
+  </div>
+  <div class="col-sm-7 col">
+  </div>
+</div>
 <div class="col-sm-12 card">
   <mat-horizontal-stepper #stepper>
     <mat-step>
@@ -81,7 +83,7 @@
                 {{titleName}}
             </textarea>
             </div> -->
-            
+
             <div class="col-sm-12">
               <div class="row">
                 <div style="font-weight: bold; font-size: 16px;text-align: center;">&nbsp;{{titleName}}</div>

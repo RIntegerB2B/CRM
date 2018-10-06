@@ -1,11 +1,14 @@
 <form [formGroup]="customerDetailsForm">
-  <div class="breadcrumb-title border-bottom">
-    <div class="col-md-2 text-center"><button mat-raised-button color="primary" (click)="getAllCustomer()">All
+  <div class="breadcrumb-title border-bottom" >
+    <div class="col-md-2 text-center">
+      <button mat-raised-button
+       color="primary"
+       (click)="getAllCustomer()">All
         Customer</button></div>
     <div class="col-md-2 text-center"><button mat-raised-button color="primary" (click)="duplicateCustomerData()">Duplicate
         Customer</button></div>
   </div><br>
-  <div class="card">
+  <div class="card" *ngFor="let data of role.b2bCustomer" >
     <ngx-datatable class="material pl-5 ml-0 mr-0" [rows]="newCustomer" [columnMode]="'flex'" [headerHeight]="50"
       [footerHeight]="50" [draggable]="false" [limit]="10" [rowHeight]="'auto'">
       <ngx-datatable-column [sortable]="false" [draggable]="false" name="CUSTOMER NAME" [flexGrow]="1">
@@ -29,11 +32,14 @@
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column [sortable]="false" [draggable]="false" name="EDIT" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          <button mat-icon-button mat-sm-button color="primary" (click)="editCustomer(customerDetailsForm, row)">
+        <ng-template  let-row="row" ngx-datatable-cell-template>
+          <button mat-icon-button mat-sm-button color="primary"
+          [disabled]="data.addPermission"
+           (click)="editCustomer(customerDetailsForm, row)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button mat-sm-button color="accent" (click)="delete(customerDetailsForm, row)">
+          <button [disabled]="data.deletePermission"
+          mat-icon-button mat-sm-button color="accent" (click)="delete(customerDetailsForm, row)">
             <mat-icon>delete</mat-icon>
           </button>
         </ng-template>

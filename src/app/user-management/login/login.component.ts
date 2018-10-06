@@ -1,3 +1,5 @@
+/* B2B Customer */
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -7,7 +9,7 @@ import { UserManagementService } from './../user-management.service';
 import { HeaderSideService} from './../../shared/header-side/header-side.service';
 import { AuthService } from '../auth.service';
 import { Register } from '../register/register.model';
-
+import { AccessPermission } from './../../user-management/permission/accessPermission.model';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -22,10 +24,11 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   deletePermissionDisabled = false;
   message: Register;
+  role: AccessPermission;
   constructor(
     private fb: FormBuilder, private router: Router, private route: ActivatedRoute, public userManagementService: UserManagementService,
      private authService: AuthService, public headerSideService: HeaderSideService
-  ) { 
+  ) {
   }
 
   ngOnInit() {
@@ -46,19 +49,15 @@ export class LoginComponent implements OnInit {
     );
 
     this.userManagementService.logIn(this.login).subscribe(data => {
-      /* if (data !== null) {
-        this.router.navigate(['/register']);
-      }      else      {
-        this.showError = true;
-      } */
-      if (this.login.userName === data.userName && this.login.password === data.password ) {
-          /* localStorage.setItem('userID', JSON.stringify(userID));  */
-        // this.router.navigate(['/register', data._id], { queryParams: { allowEdit: '1' } });
-        this.message = data;
+      const fullData = Object.assign(data[0], data[1]);
+      if (this.login.userName === fullData.userName
+         && this.login.password === fullData.password ) {
+        this.message = fullData;
+        console.log(fullData);
+        console.log(this.message);
         this.headerSideService.changeRegister(this.message);
-        localStorage.setItem('isLoggedIn', 'true');
         sessionStorage.setItem('isLoggedIn', 'true');
-        sessionStorage.setItem('token', this.login.userName);
+        sessionStorage.setItem('role', JSON.stringify(fullData));
         this.router.navigate([this.returnUrl]);
         this.headerSideService.hideMenuTransparent();
       } else {
@@ -66,7 +65,6 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userID', JSON.stringify(userID)); */
         // this.router.navigate(['/register', data.userName], { queryParams: { allowEdit: '1' } });
       }
-
     }, error => {
       console.log(error);
     });

@@ -1,8 +1,12 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
 import * as XLSX from 'ts-xlsx';
+
 import { Customer } from './../../shared/model/customer.model';
 import { B2cMarket } from './../../shared/model/b2cmarket.model';
+import { B2bMarket } from './../../shared/model/b2bmarket.model';
+import { B2cCustomer } from './../../shared/model/b2ccustomer.model';
+import { Employee } from './../../shared/model/employee.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UploadService } from './../upload.service';
 import { HttpClient } from '@angular/common/http';
@@ -17,8 +21,14 @@ export class UploadManagementComponent implements OnInit {
   file: File;
   customerDetailsForm: FormGroup;
   b2cMarket: B2cMarket[];
+  b2bMarket: B2bMarket[];
+  b2cCustomer: B2cCustomer[];
+  employee: Employee[];
   customers;
   b2cMarketCustomer;
+  fullb2cCustomer;
+  fullEmployee;
+  b2bMarketCustomer;
   newCustomer: Customer[] = [];
   excelData: any = [{
     customerName: 'customerName1',
@@ -50,6 +60,8 @@ export class UploadManagementComponent implements OnInit {
 
   ngOnInit() {
   }
+  /* b2b customer */
+
   Upload() {
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
@@ -75,6 +87,34 @@ export class UploadManagementComponent implements OnInit {
   uploadingfile(event) {
     this.file = event.target.files[0];
   }
+  /* b2c customer */
+  UploadB2CCustomer() {
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      this.arrayBuffer = fileReader.result;
+      const data = new Uint8Array(this.arrayBuffer);
+      const arr = new Array();
+      for (let i = 0; i !== data.length; ++i) {
+        arr[i] = String.fromCharCode(data[i]);
+      }
+      const bstr = arr.join('');
+      const workbook = XLSX.read(bstr, { type: 'binary' });
+      const first_sheet_name = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[first_sheet_name];
+      this.fullb2cCustomer = XLSX.utils.sheet_to_json(worksheet);
+      this.uploadService.createB2cCustomer(this.fullb2cCustomer)
+        .subscribe(detail => {
+          this.b2cCustomer = detail;
+          console.log(detail);
+        });
+    };
+    fileReader.readAsArrayBuffer(this.file);
+  }
+  uploadingB2cCustomerfile(event) {
+    this.file = event.target.files[0];
+  }
+
+  /* b2c market */
   UploadB2CMarket() {
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
@@ -100,6 +140,59 @@ export class UploadManagementComponent implements OnInit {
   uploadingB2cMarketfile(event) {
     this.file = event.target.files[0];
   }
+  /* b2b market */
+  UploadB2BMarket() {
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      this.arrayBuffer = fileReader.result;
+      const data = new Uint8Array(this.arrayBuffer);
+      const arr = new Array();
+      for (let i = 0; i !== data.length; ++i) {
+        arr[i] = String.fromCharCode(data[i]);
+      }
+      const bstr = arr.join('');
+      const workbook = XLSX.read(bstr, { type: 'binary' });
+      const first_sheet_name = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[first_sheet_name];
+      this.b2bMarketCustomer = XLSX.utils.sheet_to_json(worksheet);
+      this.uploadService.createB2bMarket(this.b2bMarketCustomer)
+        .subscribe(detail => {
+          this.b2bMarket = detail;
+          console.log(detail);
+        });
+    };
+    fileReader.readAsArrayBuffer(this.file);
+  }
+  uploadingB2BMarketfile(event) {
+    this.file = event.target.files[0];
+  }
+
+  UploadEmployee() {
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      this.arrayBuffer = fileReader.result;
+      const data = new Uint8Array(this.arrayBuffer);
+      const arr = new Array();
+      for (let i = 0; i !== data.length; ++i) {
+        arr[i] = String.fromCharCode(data[i]);
+      }
+      const bstr = arr.join('');
+      const workbook = XLSX.read(bstr, { type: 'binary' });
+      const first_sheet_name = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[first_sheet_name];
+      this.fullEmployee = XLSX.utils.sheet_to_json(worksheet);
+      this.uploadService.createEmployee(this.fullEmployee)
+        .subscribe(detail => {
+          this.employee = detail;
+          console.log(detail);
+        });
+    };
+    fileReader.readAsArrayBuffer(this.file);
+  }
+  uploadingEmployeefile(event) {
+    this.file = event.target.files[0];
+  }
+
   exportAsXLSX() {
     this.uploadService.exportAsExcelFile(this.excelData, 'B2Cmarket');
   }

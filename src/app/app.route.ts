@@ -10,26 +10,44 @@ import { LoginComponent } from './user-management/login/login.component';
 import { RegisterComponent } from './user-management/register/register.component';
 import { AuthGuard } from './user-management/auth-guard.service';
 import { PermissionComponent } from './user-management/permission/permission.component';
+import { B2bmarketManagementComponent } from './b2bmarket-management/b2bmarket-management/b2bmarket-management.component';
+import { B2ccustomerManagementComponent } from './b2ccustomer-management/b2ccustomer-management/b2ccustomer-management.component';
+import { EmployeeManagementComponent } from './employee.management/employee-management/employee-management.component';
+
 
 const routes: Routes = [
     { path: 'sms', canActivate: [AuthGuard], component: SmsManagementComponent },
-    { path: 'headerside', canActivate: [AuthGuard], component: HeaderSideComponent
+    {
+        path: 'headerside', canActivate: [AuthGuard], component: HeaderSideComponent
     },
     { path: 'upload', canActivate: [AuthGuard], component: UploadManagementComponent },
     { path: 'b2cmarket', canActivate: [AuthGuard], component: B2cmarketManagementComponent },
-    { path: 'customers', canActivate: [AuthGuard], component: CustomerManagementComponent},
+    { path: 'customers', canActivate: [AuthGuard], component: CustomerManagementComponent },
+    {
+        path: 'b2bmarket',
+        component: B2bmarketManagementComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'b2ccustomer',
+        component: B2ccustomerManagementComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'employee',
+        component: EmployeeManagementComponent, canActivate: [AuthGuard]
+    },
     {
         path: 'login', component: LoginComponent
     },
     { path: 'email', component: EmailManagementComponent, canActivate: [AuthGuard] },
     {
         path: 'register',
-         component: RegisterComponent, canActivate: [AuthGuard]
+        component: RegisterComponent, canActivate: [AuthGuard]
     },
     {
         path: 'permission',
-         component: PermissionComponent, canActivate: [AuthGuard]
+        component: PermissionComponent, canActivate: [AuthGuard]
     },
+   
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

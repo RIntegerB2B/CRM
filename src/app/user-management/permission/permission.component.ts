@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { UserManagementService } from './../user-management.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Register } from '../register/register.model';
@@ -20,6 +20,7 @@ export class PermissionComponent implements OnInit {
   allowEdit = false;
   message: Register;
 
+
   constructor(
     private fb: FormBuilder,
     private userManagementService: UserManagementService,
@@ -37,12 +38,31 @@ export class PermissionComponent implements OnInit {
 
   userAccess() {
     this.accessForm = this.fb.group({
-      _id: [''],
+      _id: ['', Validators.required],
       userType: ['', Validators.required],
-      smsPermission: [false, Validators.required],
-      emailPermission: [false, Validators.required],
-      editPermission: [false, Validators.required],
-      deletePermission: [false, Validators.required]
+      currentDate: ['', Validators.required],
+      b2bCustomer: this.fb.group({
+        addPermission: new FormControl(false, Validators.required),
+        editPermission: new FormControl(false, Validators.required),
+        deletePermission: new FormControl(false, Validators.required),
+        smsPermission: new FormControl(false, Validators.required),
+        emailPermission: new FormControl(false, Validators.required)
+      }),
+      b2cMarket: this.fb.group( {
+        addPermission: new FormControl(false, Validators.required),
+        editPermission: new FormControl(false, Validators.required),
+        deletePermission: new FormControl(false, Validators.required),
+        smsPermission: new FormControl(false, Validators.required),
+        emailPermission: new FormControl(false, Validators.required)
+      }),
+      menuList: this.fb.group( {
+        b2bCustomerPermission: new FormControl(false, Validators.required),
+        b2cMarketPermission: new FormControl(false, Validators.required),
+        smsMenuPermission: new FormControl(false, Validators.required),
+        emailMenuPermission: new FormControl(false, Validators.required),
+        uploadPermission: new FormControl(false, Validators.required),
+        backupPermission: new FormControl(false, Validators.required),
+      })
     });
   }
   getAllRegister() {
@@ -68,17 +88,17 @@ export class PermissionComponent implements OnInit {
   findIndexToUpdate(value) {
     return value === this;
   }
-  sendPermission(accessForm: FormGroup, id, userType) {
-    accessForm.controls._id.setValue(id);
-    accessForm.controls.userType.setValue(userType);
+  sendPermission(accessForm: FormGroup) {
+    /* accessForm.controls._id.setValue(id);
+    accessForm.controls.userType.setValue(userType); */
     this.accessPermission = new AccessPermission(
-      accessForm.controls._id.value,
       accessForm.controls.userType.value,
-      accessForm.controls.smsPermission.value,
-      accessForm.controls.emailPermission.value,
-      accessForm.controls.editPermission.value,
-      accessForm.controls.deletePermission.value
+      accessForm.controls.currentDate.value,
+      accessForm.controls.b2bCustomer.value,
+      accessForm.controls.b2cMarket.value,
+      accessForm.controls.menuList.value
     );
+    console.log(this.accessPermission);
     this.userManagementService.permissionUsers(this.accessPermission).subscribe(data => {
       console.log(data);
     }, error => {

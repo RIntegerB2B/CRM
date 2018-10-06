@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   accessForm: FormGroup;
   register: Register;
-  userTypes = ['operation', 'mananger'];
+  userTypes = ['operation', 'mananger', 'testoperator'];
   selectedPermissions = [];
   logOutSession = false;
   manager_id;

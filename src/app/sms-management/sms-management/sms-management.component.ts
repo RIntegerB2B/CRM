@@ -7,7 +7,8 @@ import { SmsService } from './../sms.service';
 import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { PageEvent } from '@angular/material';
-
+import { HeaderSideService } from '../../shared/header-side/header-side.service';
+import { AccessPermission } from './../../user-management/permission/accessPermission.model';
 
 @Component({
   selector: 'app-sms-management',
@@ -38,19 +39,21 @@ export class SmsManagementComponent implements OnInit {
   rows: any = [];
   columns: any = [];
   temp: any = [];
+  role: AccessPermission;
   // pageEvent: PageEvent;
   public pageSize = 50;
   public currentPage = 0;
   public totalSize = 0;
   public searchString: string;
 
-  constructor(private fb: FormBuilder, private smsService: SmsService) {
+  constructor(private fb: FormBuilder, private smsService: SmsService, private headerSideService: HeaderSideService) {
   }
 
 
   ngOnInit() {
     this.createB2cMarketForm();
- 
+    this.headerSideService.hideMenuTransparent();
+    this.role = JSON.parse(sessionStorage.getItem('role'));
   }
  /*  ngDoCheck() {
     console.log(this.temp);

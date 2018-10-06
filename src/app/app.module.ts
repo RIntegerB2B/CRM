@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { NavHeaderService } from './shared/nav-header/nav-header.service';
 import {
@@ -32,7 +33,8 @@ import {
   MatDialogModule,
   MatChipsModule,
   MatInputModule,
-  MatStepperModule
+  MatStepperModule,
+  MatDatepickerModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -45,6 +47,9 @@ import { CustomerManagementComponent,
 import { CustomerManagementService } from './customer-management/customer-management.service';
 import { HeaderSideComponent } from './shared/header-side/header-side.component';
 import { B2cmarketService } from './b2cmarket-management/b2cmarket.service';
+import { B2bmarketService } from './b2bmarket-management/b2bmarket.service';
+import { B2ccustomerService } from './b2ccustomer-management/b2ccustomer.service';
+import { EmployeeService } from './employee.management/employee.service';
 import { HeaderSideService } from './shared/header-side/header-side.service';
 import { SmsManagementComponent } from './sms-management/sms-management/sms-management.component';
 import { EmailManagementComponent } from './email-management/email-mangement/email-management.component';
@@ -54,6 +59,15 @@ import { B2cmarketManagementComponent,
 import { LoginComponent } from './user-management/login/login.component';
 import { RegisterComponent } from './user-management/register/register.component';
 import { PermissionComponent } from './user-management/permission/permission.component';
+import { B2bmarketManagementComponent,
+  B2bmarketEditComponent
+ } from './b2bmarket-management/b2bmarket-management/b2bmarket-management.component';
+import { B2ccustomerManagementComponent,
+  B2ccustomerEditComponent
+ } from './b2ccustomer-management/b2ccustomer-management/b2ccustomer-management.component';
+import { EmployeeManagementComponent,
+  EmployeeEditComponent
+ } from './employee.management/employee-management/employee-management.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +75,9 @@ import { PermissionComponent } from './user-management/permission/permission.com
     NavHeaderComponent,
     CustomerManagementComponent,
     CustomerEditComponent,
+    B2bmarketEditComponent,
+    B2ccustomerEditComponent,
+    EmployeeEditComponent,
     HeaderSideComponent,
     SmsManagementComponent,
     EmailManagementComponent,
@@ -69,7 +86,10 @@ import { PermissionComponent } from './user-management/permission/permission.com
     B2cmarketEditComponent,
     LoginComponent,
     RegisterComponent,
-    PermissionComponent
+    PermissionComponent,
+    B2bmarketManagementComponent,
+    B2ccustomerManagementComponent,
+    EmployeeManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -101,14 +121,23 @@ import { PermissionComponent } from './user-management/permission/permission.com
     MatStepperModule,
     MatTableModule,
     MatPaginatorModule,
+    MatDatepickerModule,
     MatDialogModule,
     RouterModule,
     MatInputModule,
+    FlexLayoutModule,
     NgxDatatableModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [NavHeaderService, CustomerManagementService, HeaderSideService, B2cmarketService, AuthService, AuthGuard],
+  providers: [NavHeaderService, CustomerManagementService,
+     HeaderSideService, B2bmarketService,
+     B2ccustomerService, EmployeeService,
+      B2cmarketService, AuthService, AuthGuard],
   bootstrap: [AppComponent],
-  entryComponents: [CustomerEditComponent, B2cmarketEditComponent]
+  entryComponents: [CustomerEditComponent,
+     B2cmarketEditComponent,
+     B2bmarketEditComponent,
+      B2ccustomerEditComponent,
+      EmployeeEditComponent ]
 })
 export class AppModule { }

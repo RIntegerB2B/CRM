@@ -6,6 +6,9 @@ import { Customer } from '../../shared/model/customer.model';
 import { EmailService } from '../email.service';
 import { PageEvent } from '@angular/material';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { HeaderSideService } from '../../shared/header-side/header-side.service';
+import { AccessPermission } from './../../user-management/permission/accessPermission.model';
+
 
 
 @Component({
@@ -13,8 +16,6 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
   templateUrl: './email-management.component.html',
   styleUrls: ['./email-management.component.css']
 })
-
-
 
 export class EmailManagementComponent implements OnInit {
   @ViewChild('contentWrapper') content: ElementRef;
@@ -37,6 +38,7 @@ export class EmailManagementComponent implements OnInit {
   array: any;
   displayedColumns = ['', '', '', '', ''];
   dataSource: any = [];
+  role: AccessPermission;
 
   public pageSize = 10;
   public currentPage = 0;
@@ -44,13 +46,18 @@ export class EmailManagementComponent implements OnInit {
   public searchString: string;
 
 
-  constructor(private fb: FormBuilder, private emailService: EmailService) { }
+  constructor(private fb: FormBuilder,
+     private emailService: EmailService,
+     private headerSideService: HeaderSideService
+     ) { }
 
   ngOnInit() {
     this.createB2cMarketForm();
    //    this.getAllB2cMarketCustomer();
     // this.getArray();
     console.log(this.content.nativeElement.innerHTML);
+    this.headerSideService.hideMenuTransparent();
+    this.role = JSON.parse(sessionStorage.getItem('role'));
   }
    createForm() {
      this.customerDetailsForm = this.fb.group({

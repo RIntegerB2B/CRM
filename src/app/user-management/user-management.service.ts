@@ -2,6 +2,7 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { Injectable, Input } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import * as rxjs from 'rxjs';
 import { LogIn } from './login/login.model';
 import { AppSetting } from './../config/appSetting';
 import { Router, ActivatedRoute } from '@angular/router';

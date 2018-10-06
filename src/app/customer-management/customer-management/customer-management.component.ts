@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, AfterContentChecked } from '@angular/core';
 import * as XLSX from 'ts-xlsx';
 import { Customer } from './customer.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -11,7 +11,8 @@ import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MobileSend } from './mobile-send.model';
 import { EmailSend } from './email-send.model';
-
+import { HeaderSideService } from '../../shared/header-side/header-side.service';
+import { AccessPermission } from './../../user-management/permission/accessPermission.model';
 
 
 
@@ -21,7 +22,7 @@ import { EmailSend } from './email-send.model';
   styleUrls: ['./customer-management.component.css']
 })
 
-export class CustomerManagementComponent implements OnInit {
+export class CustomerManagementComponent implements OnInit, AfterContentChecked {
   arrayBuffer: any;
   file: File;
   customerDetailsForm: FormGroup;
@@ -39,13 +40,23 @@ export class CustomerManagementComponent implements OnInit {
   selectedMobileNumbers = [];
   smsCompleted = false;
   emailCompleted = false;
+  message: any;
+  role: AccessPermission;
   constructor(private fb: FormBuilder,
     private customerManagementService: CustomerManagementService
-    , private http: HttpClient, private dialog: MatDialog) { }
+    , private http: HttpClient, private dialog: MatDialog,
+    private headerSideService: HeaderSideService
+    ) { }
 
   ngOnInit() {
     this.createForm();
     this.getAllCustomer();
+    this.headerSideService.hideMenuTransparent();
+    this.role = JSON.parse(sessionStorage.getItem('role'));
+  }
+  ngAfterContentChecked() {
+    this.headerSideService.currentRegister.subscribe(message => this.message = message);
+    console.log(this.message.userType);
   }
 
   createForm() {
