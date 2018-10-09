@@ -1,4 +1,5 @@
-<form [formGroup]="vendorDetailsForm" (ngSubmit)="vendorDetailsForm.valid && 
+<form [formGroup]="vendorDetailsForm"
+ (ngSubmit)="vendorDetailsForm.valid && 
 addMember(vendorDetailsForm)">
   <div fxLayout="row wrap" fxLayout.lt-sm="column">
     <div fxFlex="50" class="pr-1">

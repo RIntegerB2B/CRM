@@ -73,6 +73,8 @@ import { EmployeeManagementComponent,
 import { VendorManagementComponent, VendoorEditComponent,
   VendorAddComponent } from './vendor-management/vendor-management/vendor-management.component';
 import { BackupComponent } from './backup-management/backup/backup.component';
+import { AgentManagementComponent } from './agent-management/agent-management/agent-management.component';
+import { OtherCustomerComponent } from './other-customer-management/other-customer/other-customer.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +105,9 @@ import { BackupComponent } from './backup-management/backup/backup.component';
     B2ccustomerManagementComponent,
     EmployeeManagementComponent,
     VendorManagementComponent,
-    BackupComponent
+    BackupComponent,
+    AgentManagementComponent,
+    OtherCustomerComponent
   ],
   imports: [
     BrowserModule,

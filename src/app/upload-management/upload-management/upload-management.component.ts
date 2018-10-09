@@ -44,7 +44,34 @@ export class UploadManagementComponent implements OnInit {
     designation: 'developer',
     location: 'bangalore',
   }];
+
+  excelB2CcustomerData: any = [{
+    customerName: 'customerName1',
+    gender: 'male/Female',
+    mobileNumber: '9988776655',
+    email: 'sample@gmail.com',
+    dateOfBirth: '01/01/2018',
+    nationality: 'indian',
+    categoryType: 'IT or ITES',
+    designation: 'developer',
+    location: 'bangalore',
+  }];
   excelB2BCustomerData: any = [
+    {
+      customerName: 'customerName1',
+      mobileNumber: 'Male/Female',
+      whatsAppNo: '9988776655',
+      landLine: '080-4455666',
+      email: 'sample@gmail.com',
+      companyName: 'Company Name',
+      companyAddress: 'Company Address',
+      location: 'bangalore',
+      gstNumber: 'GSTINBN123',
+      customerGrade: 'A',
+      brandName: 'Test'
+    }
+  ];
+  excelB2BMarketData: any = [
     {
       customerName: 'customerName1',
       mobileNumber: 'Male/Female',
@@ -195,7 +222,12 @@ export class UploadManagementComponent implements OnInit {
   uploadingEmployeefile(event) {
     this.file = event.target.files[0];
   }
-
+  exportB2cCustomerAsXLSX() {
+    this.uploadService.exportAsB2cCustomerExcelFile(this.excelB2CcustomerData, 'B2CCustomer');
+  }
+  exportB2BMarketAsXLSX() {
+    this.uploadService.exportAsExcelFile(this.excelB2BMarketData, 'B2BMarket');
+  }
   exportAsXLSX() {
     this.uploadService.exportAsExcelFile(this.excelData, 'B2Cmarket');
   }

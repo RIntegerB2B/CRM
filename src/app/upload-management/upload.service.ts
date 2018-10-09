@@ -68,6 +68,17 @@ export class UploadService {
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<Vendor[]>(url, data);
   }
+  exportAsB2cCustomerExcelFile(json: any[], excelFileName: string) {
+    try {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    console.log('worksheet', worksheet);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, excelFileName);
+    }    catch (Error) {
+      alert(Error);
+  }
+  }
   exportAsExcelFile(json: any[], excelFileName: string) {
     try {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
@@ -79,6 +90,7 @@ export class UploadService {
       alert(Error);
   }
   }
+
 
   saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], {
