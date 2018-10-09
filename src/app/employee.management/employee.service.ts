@@ -38,6 +38,11 @@ export class EmployeeService {
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.get<Employee[]>(url);
   }
+  addSingleEmployee(data: any): Observable<any> {
+    const addUrl = 'singleemployee';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.post<Employee[]>(url, data);
+  }
   duplicateEmployee(): Observable<any> {
     const addUrl = 'duplicateemployee';
     const url: string = this.serviceUrl + addUrl;

@@ -2,25 +2,25 @@ export class B2bMarket {
     _id: string;
     customerName: string;
     mobileNumber: string;
-    whatsAppNo: number;
-    landLine: number;
+    whatsAppNo: string;
+    landLine: string;
     email: string;
     companyName: string;
     companyAddress: string;
     location: string;
-    gst: number;
+    gstNumber: string;
     customerGrade: string;
     brandName: string;
     constructor(
         customerName: string,
         mobileNumber: string,
-        whatsAppNo: number,
-        landLine: number,
+        whatsAppNo: string,
+        landLine: string,
         email: string,
         companyName: string,
         companyAddress: string,
         location: string,
-        gst: number,
+        gstNumber: string,
         customerGrade: string,
         brandName: string
     ) {
@@ -32,7 +32,7 @@ export class B2bMarket {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.location = location;
-        this.gst = gst;
+        this.gstNumber = gstNumber;
         this.customerGrade = customerGrade;
         this.brandName = brandName;
     }

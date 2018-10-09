@@ -2,8 +2,8 @@ export class Vendor {
     _id: string;
     vendorName: string;
     mobileNumber: string;
-    whatsAppNo: number;
-    landLine: number;
+    whatsAppNo: string;
+    landLine: string;
     email: string;
     vendorService: string;
     address: string;
@@ -15,8 +15,8 @@ export class Vendor {
     constructor(
         vendorName: string,
         mobileNumber: string,
-        whatsAppNo: number,
-        landLine: number,
+        whatsAppNo: string,
+        landLine: string,
         email: string,
         vendorService: string,
         address: string,

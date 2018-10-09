@@ -26,6 +26,7 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterContentCheck
   allowEdit: false;
   paramsVal;
   paramsValue: Params[];
+  roleIsEmpty = false;
   // message: Register;
   role: AccessPermission;
   message;
@@ -49,9 +50,8 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterContentCheck
     });
     /* this.userManagementService.logIn().subscribe(data => data); */
     // this.role = sessionStorage.getItem('role');
-    this.role = JSON.parse(sessionStorage.getItem('role'));
   }
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.mobileQuery.removeListener(this._mobileQueryListener);
     if (this.menuItemsSub) {
       this.menuItemsSub.unsubscribe();

@@ -22,7 +22,6 @@ export class LoginComponent implements OnInit {
   logOutSession: false;
   manager_id;
   returnUrl: string;
-  deletePermissionDisabled = false;
   message: Register;
   role: AccessPermission;
   constructor(

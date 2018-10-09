@@ -1,5 +1,4 @@
-
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import * as XLSX from 'ts-xlsx';
 import { Vendor } from './../../shared/model/vendor.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -16,10 +15,18 @@ import { AccessPermission } from './../../user-management/permission/accessPermi
   styleUrls: ['./vendor-management.component.css']
 })
 export class VendorManagementComponent implements OnInit {
-
+  @ViewChild('myTable') table: any;
 
   newCustomer: Vendor[] = [];
+  temp = [];
   role: AccessPermission;
+  currentPageLimit = 0;
+  pageLimitOptions = [
+    {value: 10},
+    {value: 25},
+    {value: 50},
+    {value: 100},
+  ];
   vendorDetailsForm: FormGroup;
   constructor(private fb: FormBuilder,
     private headerSideService: HeaderSideService,
@@ -33,26 +40,68 @@ export class VendorManagementComponent implements OnInit {
   createVendorForm() {
     this.vendorDetailsForm = this.fb.group({
       _id: [],
-    vendorName: [],
-    mobileNumber: [],
-    whatsAppNo: [],
-    landLine: [],
-    email: [],
-    vendorService: [],
-    address: [],
-    vendorCompanyName: [],
-    companyAddress: [],
-    location: [],
-    gstNumber: [],
-    vendorGrade: []
+      vendorName: [],
+      mobileNumber: [],
+      whatsAppNo: [],
+      landLine: [],
+      email: [],
+      vendorService: [],
+      address: [],
+      vendorCompanyName: [],
+      companyAddress: [],
+      location: [],
+      gstNumber: [],
+      vendorGrade: []
     });
+  }
+
+
+
+  updateFilter(event) {
+    // this.showData = true;
+    const val = event.target.value.toLowerCase();
+    /* if (this.dataSource.length !== 0) { */
+    const filterCustomer = Object.keys(this.temp[0]);
+    // Removes last "$$index" from "column"
+    filterCustomer.splice(filterCustomer.length - 1);
+
+    console.log(filterCustomer);
+    if (!filterCustomer.length) {
+      return;
+    }
+    const rows = this.temp.filter(function (d) {
+      for (let i = 0; i <= filterCustomer.length; i++) {
+        const column = filterCustomer[i];
+        console.log(d[column]);
+        if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
+          return true;
+        }
+      }
+    });
+    this.newCustomer = rows;
+    this.table.offset = 0;
   }
   getAllVendor() {
     this.vendorService.allVendor().subscribe(data => {
       this.newCustomer = data;
+      this.temp = data;
       console.log(this.newCustomer);
     }, error => {
       console.log(error);
+    });
+  }
+  changePageLimit(limit: any) {
+    this.currentPageLimit = parseInt(limit, 10);
+  }
+  onLimitChange(limit: any) {
+    this.changePageLimit(limit);
+    this.table.limit = this.currentPageLimit;
+    this.table.recalculate();
+    setTimeout(() => {
+      if (this.table.bodyComponent.temp.length <= 0) {
+        // TODO[Dmitry Teplov] test with server-side paging.
+        this.table.offset = Math.floor((this.table.rowCount - 1) / this.table.limit);
+      }
     });
   }
 
@@ -67,6 +116,15 @@ export class VendorManagementComponent implements OnInit {
   // CRUD start
   cancelVendor(edit) {
     edit.editing = false;
+  }
+  addCustomer(vendorDetailsForm: FormGroup, row) {
+
+    const dialogRef = this.dialog.open(VendorAddComponent, {
+      width: '720px',
+      disableClose: true,
+      data: row
+    });
+    dialogRef.afterClosed();
   }
 
   updateVendor(vendorDetailsForm: FormGroup, row) {
@@ -85,6 +143,7 @@ export class VendorManagementComponent implements OnInit {
       console.log(error);
     });
   }
+  
   // CRUD end
   getEditVendor(vendorDetailsForm: FormGroup, row) {
     const dialogRef = this.dialog.open(VendoorEditComponent, {
@@ -136,6 +195,66 @@ export class VendoorEditComponent implements OnInit {
   }
   updateVendor(vendorDetailsForm: FormGroup, row) {
     this.vendorService.editVendor(row).subscribe(data => {
+      this.newCustomer = data;
+    }, error => {
+      console.log(error);
+    });
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  templateUrl: './vendor-add-component.html'
+})
+export class VendorAddComponent implements OnInit {
+  vendorDetailsForm: FormGroup;
+  newCustomer: Vendor;
+  constructor(private fb: FormBuilder, private vendorService: VendorService
+    , public dialogRef: MatDialogRef<VendorAddComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Vendor) {
+    console.log(data);
+  }
+  cancel(): void {
+    this.dialogRef.close();
+  }
+
+  ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
+    this.vendorDetailsForm = this.fb.group({
+      _id: [],
+      vendorName: [],
+      mobileNumber: [],
+      whatsAppNo: [],
+      landLine: [],
+      email: [],
+      vendorService: [],
+      address: [],
+      vendorCompanyName: [],
+      companyAddress: [],
+      location: [],
+      gstNumber: [],
+      vendorGrade: []
+    });
+  }
+  addMember(vendorDetailsForm: FormGroup) {
+    this.newCustomer = new Vendor(
+      vendorDetailsForm.controls.vendorName.value,
+      vendorDetailsForm.controls.mobileNumber.value,
+      vendorDetailsForm.controls.whatsAppNo.value,
+      vendorDetailsForm.controls.landLine.value,
+      vendorDetailsForm.controls.email.value,
+      vendorDetailsForm.controls.vendorService.value,
+      vendorDetailsForm.controls.address.value,
+      vendorDetailsForm.controls.vendorCompanyName.value,
+      vendorDetailsForm.controls.companyAddress.value,
+      vendorDetailsForm.controls.location.value,
+      vendorDetailsForm.controls.gstNumber.value,
+      vendorDetailsForm.controls.vendorGrade.value
+    );
+    this.vendorService.addSingleVendor(this.newCustomer).subscribe(data => {
       this.newCustomer = data;
     }, error => {
       console.log(error);

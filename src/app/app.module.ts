@@ -43,7 +43,9 @@ import { NavHeaderComponent } from './shared/nav-header/nav-header.component';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { CustomerManagementComponent,
-   CustomerEditComponent } from './customer-management/customer-management/customer-management.component';
+   CustomerEditComponent,
+   CustomerAddComponent
+   } from './customer-management/customer-management/customer-management.component';
 import { CustomerManagementService } from './customer-management/customer-management.service';
 import { HeaderSideComponent } from './shared/header-side/header-side.component';
 import { B2cmarketService } from './b2cmarket-management/b2cmarket.service';
@@ -55,20 +57,22 @@ import { SmsManagementComponent } from './sms-management/sms-management/sms-mana
 import { EmailManagementComponent } from './email-management/email-mangement/email-management.component';
 import { UploadManagementComponent } from './upload-management/upload-management/upload-management.component';
 import { B2cmarketManagementComponent,
-  B2cmarketEditComponent } from './b2cmarket-management/b2cmarket-management/b2cmarket-management.component';
+  B2cmarketEditComponent, B2cmarketAddComponent } from './b2cmarket-management/b2cmarket-management/b2cmarket-management.component';
 import { LoginComponent } from './user-management/login/login.component';
 import { RegisterComponent } from './user-management/register/register.component';
 import { PermissionComponent } from './user-management/permission/permission.component';
 import { B2bmarketManagementComponent,
-  B2bmarketEditComponent
+  B2bmarketEditComponent, B2bmarketAddComponent
  } from './b2bmarket-management/b2bmarket-management/b2bmarket-management.component';
 import { B2ccustomerManagementComponent,
-  B2ccustomerEditComponent
+  B2ccustomerEditComponent, B2ccustomerAddComponent
  } from './b2ccustomer-management/b2ccustomer-management/b2ccustomer-management.component';
 import { EmployeeManagementComponent,
-  EmployeeEditComponent
+  EmployeeEditComponent, EmployeeAddComponent
  } from './employee.management/employee-management/employee-management.component';
-import { VendorManagementComponent, VendoorEditComponent } from './vendor-management/vendor-management/vendor-management.component';
+import { VendorManagementComponent, VendoorEditComponent,
+  VendorAddComponent } from './vendor-management/vendor-management/vendor-management.component';
+import { BackupComponent } from './backup-management/backup/backup.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +83,12 @@ import { VendorManagementComponent, VendoorEditComponent } from './vendor-manage
     B2bmarketEditComponent,
     B2ccustomerEditComponent,
     VendoorEditComponent,
+    CustomerAddComponent,
+    EmployeeAddComponent,
+    B2bmarketAddComponent,
+    B2ccustomerAddComponent,
+    B2cmarketAddComponent,
+    VendorAddComponent,
     EmployeeEditComponent,
     HeaderSideComponent,
     SmsManagementComponent,
@@ -92,7 +102,8 @@ import { VendorManagementComponent, VendoorEditComponent } from './vendor-manage
     B2bmarketManagementComponent,
     B2ccustomerManagementComponent,
     EmployeeManagementComponent,
-    VendorManagementComponent
+    VendorManagementComponent,
+    BackupComponent
   ],
   imports: [
     BrowserModule,
@@ -138,10 +149,16 @@ import { VendorManagementComponent, VendoorEditComponent } from './vendor-manage
       B2cmarketService, AuthService, AuthGuard],
   bootstrap: [AppComponent],
   entryComponents: [CustomerEditComponent,
+    VendorAddComponent,
+    EmployeeAddComponent,
+    B2bmarketAddComponent,
+    B2ccustomerAddComponent,
+    B2cmarketAddComponent,
     VendoorEditComponent,
      B2cmarketEditComponent,
      B2bmarketEditComponent,
       B2ccustomerEditComponent,
-      EmployeeEditComponent ]
+    CustomerAddComponent,
+    EmployeeEditComponent,  ]
 })
 export class AppModule { }

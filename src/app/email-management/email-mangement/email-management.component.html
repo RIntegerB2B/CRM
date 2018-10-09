@@ -1,14 +1,16 @@
 <div class=" col-sm-12 d-flex border-dark p-3 flex-row">
-  <div class=" col-sm-2 col" *ngFor="let data of role.b2bCustomer">
-    <button mat-raised-button color="primary" *ngIf="data.emailPermission" [routerLinkActive]="['activeLink']"
+    <!-- *ngFor="let data of role.b2bCustomer" -->
+  <div class=" col-sm-2 col">
+      <!-- *ngIf="data.emailPermission" -->
+    <button mat-raised-button color="primary"  [routerLinkActive]="['activeLink']"
       (click)="getAllCustomer()">
       B2B Customers</button>
   </div>
   <div class="col-sm-1 col">
   </div>
   <div class="col-sm-2 col" *ngFor="let data of role.b2cMarket">
-
-    <button mat-raised-button color="primary" *ngIf="data.emailPermission" [routerLinkActive]="['activeLink']"
+      <!-- *ngIf="data.emailPermission" -->
+    <button mat-raised-button color="primary"  [routerLinkActive]="['activeLink']"
       (click)="getAllB2cMarketCustomer()">B2C Market</button>
   </div>
   <div class="col-sm-7 col">

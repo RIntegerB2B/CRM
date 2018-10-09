@@ -33,6 +33,11 @@ export class B2cmarketService {
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.get<B2cMarket[]>(url);
   }
+  addSingleB2cMarket(data: any): Observable<any> {
+    const addUrl = 'singleb2cmarket';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.post<B2cMarket[]>(url, data);
+  }
   duplicateB2cMarket(): Observable<any> {
     const addUrl = 'duplicateb2cmarket';
     const url: string = this.serviceUrl + addUrl;

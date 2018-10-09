@@ -151,3 +151,19 @@ lvl3 a {
 .ngx-datatable.material .datatable-header {
   border-bottom: 1px solid rgba(0,0,0,.12);
 }
+.ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell
+{
+    text-align: left;
+    padding: 0px !important;
+    vertical-align: top;
+    border-top: 0;
+    color: rgba(0, 0, 0, 0.87);
+    transition: width 0.3s ease;
+    font-size: 12px !important;
+    font-weight: 0;
+}
+.textHeader
+{
+    font-family: "hco gotham ssm,helvetica neue,Helvetica,Arial,sans-serif";
+    color: #777777;
+}

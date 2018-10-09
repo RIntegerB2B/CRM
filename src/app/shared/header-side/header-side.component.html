@@ -17,12 +17,12 @@
       [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
           
-        <div id="scroll-area" class="navigation-hold" fxLayout="column">
-            <!-- *ngFor="let data of role.menuList" -->
-          <div    class="sidenav-hold">
+        <div  id="scroll-area" class="navigation-hold" fxLayout="column">
+            <!-- *ngFor="let data of role.menuList"  -->
+          <div class="sidenav-hold">
             <ul class="sidenav" *ngFor="let item of menuItems">
                 <!-- *ngIf="data.b2bCustomerPermission" -->
-              <li >
+              <li  >
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
                   [routerLink]="['/customers']">
@@ -33,8 +33,8 @@
                   </a>
                 </div>
               </li>
-              <!-- *ngIf="data.b2cMarketPermission" -->
-              <li>
+              <!-- *ngIf="data.b2cMarketPermission"  -->
+              <li >
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
                   routerLink="/b2cmarket">
@@ -95,7 +95,7 @@
                 </div>
               </li>
               <!-- *ngIf="data.smsMenuPermission" -->
-              <li>
+              <li  >
                 <div [routerLinkActive]="['activeLink']"
                  [routerLinkActiveOptions]="{exact:
                   true}"
@@ -107,8 +107,8 @@
                   </a>
                 </div>
               </li>
-              <!-- *ngIf="data.emailMenuPermission" -->
-              <li>
+              <!--  *ngIf="data.emailMenuPermission"  -->
+              <li >
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
                   routerLink="/email">
@@ -154,8 +154,8 @@
                         </li>
                     </ul>
               </li>
-              <!-- *ngIf="data.uploadPermission" -->
-              <li>
+              <!--  *ngIf="data.uploadPermission" -->
+              <li >
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
                   routerLink="/upload">
@@ -166,7 +166,7 @@
                   </a>
                 </div>
               </li>
-              <!-- *ngIf="data.backupPermission" -->
+              <!-- *ngIf="data.backupPermission"  -->
               <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}">
@@ -176,8 +176,10 @@
                     <span fxFlex></span>
                   </a>
                 </div>
+               
               </li>
             </ul>
+            
           </div>
         </div>
       </mat-nav-list>
@@ -187,3 +189,4 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
+

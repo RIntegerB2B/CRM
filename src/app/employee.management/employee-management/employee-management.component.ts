@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import * as XLSX from 'ts-xlsx';
 import { Employee } from './../../shared/model/employee.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -16,7 +16,15 @@ import { AccessPermission } from './../../user-management/permission/accessPermi
   styleUrls: ['./employee-management.component.css']
 })
 export class EmployeeManagementComponent implements OnInit {
-
+  @ViewChild('myTable') table: any;
+  temp = [];
+  currentPageLimit = 0;
+  pageLimitOptions = [
+    {value: 10},
+    {value: 25},
+    {value: 50},
+    {value: 100},
+  ];
   newCustomer: Employee[] = [];
   role: AccessPermission;
   employeeDetailsForm: FormGroup;
@@ -39,13 +47,62 @@ export class EmployeeManagementComponent implements OnInit {
       whatsappNo: [],
       email: [],
       dateOfBirth: [],
+      dateOfJoin: [],
       designation: [],
-      addresss: []
+      address: []
+    });
+  }
+  updateFilter(event) {
+    // this.showData = true;
+    const val = event.target.value.toLowerCase();
+    /* if (this.dataSource.length !== 0) { */
+    const filterCustomer = Object.keys(this.temp[0]);
+    // Removes last "$$index" from "column"
+    filterCustomer.splice(filterCustomer.length - 1);
+
+    console.log(filterCustomer);
+    if (!filterCustomer.length) {
+      return;
+    }
+    const rows = this.temp.filter(function (d) {
+      for (let i = 0; i <= filterCustomer.length; i++) {
+        const column = filterCustomer[i];
+        console.log(d[column]);
+        if (d[column] && d[column].toString().toLowerCase().indexOf(val) > -1) {
+          return true;
+        }
+      }
+    });
+    this.newCustomer = rows;
+    this.table.offset = 0;
+  }
+  addCustomer(employeeDetailsForm: FormGroup, row) {
+
+    const dialogRef = this.dialog.open(EmployeeAddComponent, {
+      width: '720px',
+      disableClose: true,
+      data: row
+    });
+    dialogRef.afterClosed();
+  }
+  changePageLimit(limit) {
+    this.currentPageLimit = parseInt(limit, 10);
+  }
+  onLimitChange(limit) {
+    this.changePageLimit(limit);
+    this.table.limit = this.currentPageLimit;
+    this.table.recalculate();
+    setTimeout(() => {
+      if (this.table.bodyComponent.temp.length <= 0) {
+        // TODO[Dmitry Teplov] test with server-side paging.
+        this.table.offset = Math.floor((this.table.rowCount - 1) / this.table.limit);
+      }
     });
   }
   getAllEmployee() {
     this.employeeService.allEmployee().subscribe(data => {
       this.newCustomer = data;
+      this.temp = data;
       console.log(this.newCustomer);
     }, error => {
       console.log(error);
@@ -122,13 +179,70 @@ export class EmployeeEditComponent implements OnInit {
       mobileNumber: [],
       whatsappNo: [],
       email: [],
+      dateOfJoin: [],
       dateOfBirth: [],
       designation: [],
-      addresss: []
+      address: []
     });
   }
   updateEmployee(employeeDetailsForm: FormGroup, row) {
     this.employeeService.editEmployee(row).subscribe(data => {
+      this.newCustomer = data;
+    }, error => {
+      console.log(error);
+    });
+    this.dialogRef.close();
+  }
+}
+@Component({
+  templateUrl: './employee-add-component.html'
+})
+export class EmployeeAddComponent implements OnInit {
+  employeeDetailsForm: FormGroup;
+  newCustomer: Employee;
+  constructor(private fb: FormBuilder, private employeeService: EmployeeService
+    , public dialogRef: MatDialogRef<EmployeeAddComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Employee) {
+    console.log(data);
+  }
+  cancel(): void {
+    this.dialogRef.close();
+  }
+
+  ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
+    this.employeeDetailsForm = this.fb.group({
+      _id: [],
+      empName: [],
+      empNo: [],
+      gender: [],
+      mobileNumber: [],
+      whatsappNo: [],
+      email: [],
+      dateOfBirth: [],
+      dateOfJoin: [],
+      designation: [],
+      address: []
+    });
+  }
+  addMember(employeeDetailsForm: FormGroup) {
+    this.newCustomer = new Employee(
+      employeeDetailsForm.controls.empName.value,
+      employeeDetailsForm.controls.empNo.value,
+      employeeDetailsForm.controls.gender.value,
+      employeeDetailsForm.controls.mobileNumber.value,
+      employeeDetailsForm.controls.whatsappNo.value,
+      employeeDetailsForm.controls.email.value,
+      employeeDetailsForm.controls.dateOfBirth.value,
+      employeeDetailsForm.controls.dateOfJoin.value,
+      employeeDetailsForm.controls.mobileNumber.value,
+      employeeDetailsForm.controls.designation.value,
+      employeeDetailsForm.controls.address.value,
+    );
+    this.employeeService.addSingleEmployee(this.newCustomer).subscribe(data => {
       this.newCustomer = data;
     }, error => {
       console.log(error);

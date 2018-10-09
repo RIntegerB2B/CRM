@@ -14,7 +14,7 @@ import { B2bmarketManagementComponent } from './b2bmarket-management/b2bmarket-m
 import { B2ccustomerManagementComponent } from './b2ccustomer-management/b2ccustomer-management/b2ccustomer-management.component';
 import { VendorManagementComponent } from './vendor-management/vendor-management/vendor-management.component';
 import { EmployeeManagementComponent } from './employee.management/employee-management/employee-management.component';
-
+import { BackupComponent } from './backup-management/backup/backup.component';
 
 const routes: Routes = [
     { path: 'sms', canActivate: [AuthGuard], component: SmsManagementComponent },
@@ -22,6 +22,7 @@ const routes: Routes = [
         path: 'headerside', canActivate: [AuthGuard], component: HeaderSideComponent
     },
     { path: 'upload', canActivate: [AuthGuard], component: UploadManagementComponent },
+    { path: 'backup', canActivate: [AuthGuard], component: BackupComponent },
     { path: 'b2cmarket', canActivate: [AuthGuard], component: B2cmarketManagementComponent },
     { path: 'customers', canActivate: [AuthGuard], component: CustomerManagementComponent },
     {

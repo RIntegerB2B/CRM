@@ -58,7 +58,11 @@ export class CustomerManagementService {
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<ResponseResult>(url, email);
   } */
-
+  addSingleCustomer(data: any): Observable<any> {
+    const addUrl = 'singlecustomer';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.post<Customer[]>(url, data);
+  }
   deleteCustomer(edit): Observable<any> {
 
     const addUrl = 'customersdelete/';

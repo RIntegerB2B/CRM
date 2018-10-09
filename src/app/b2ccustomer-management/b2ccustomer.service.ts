@@ -34,6 +34,11 @@ export class B2ccustomerService {
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.get<B2cCustomer[]>(url);
   }
+  addSingleB2cCustomer(data: any): Observable<any> {
+    const addUrl = 'singleb2ccustomer';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.post<B2cCustomer[]>(url, data);
+  }
   duplicateB2cCustomer(): Observable<any> {
     const addUrl = 'duplicateb2ccustomer';
     const url: string = this.serviceUrl + addUrl;

@@ -5,3 +5,6 @@
 @import "./assets/styles/angularStyle.css";
 @import "./assets/styles/bootstrapOverride.css";
 @import "~material-icons/iconfont/material-icons.css";
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/index.css';

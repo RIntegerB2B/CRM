@@ -44,6 +44,11 @@ export class VendorService {
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.get<Vendor[]>(url);
   }
+  addSingleVendor(data: any): Observable<any> {
+    const addUrl = 'singlevendor';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.post<Vendor[]>(url, data);
+  }
   editVendor(edit): Observable<any> {
     const addUrl = 'vendor/';
     const url: string = this.serviceUrl + addUrl + edit._id;
