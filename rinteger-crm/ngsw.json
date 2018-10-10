@@ -1,0 +1,79 @@
+{
+  "configVersion": 1,
+  "index": "/admin/crm/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/admin/crm/favicon.ico",
+        "/admin/crm/index.html",
+        "/admin/crm/main.b1d5faffb0701f20eff1.js",
+        "/admin/crm/polyfills.7a0e6866a34e280f48e7.js",
+        "/admin/crm/runtime.a66f828dca56eeb90e02.js",
+        "/admin/crm/scripts.ee7fed27c36eaa5fa8a9.js",
+        "/admin/crm/styles.a618133e65299b77ced8.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/admin/crm/assets/icons/icon-128x128.png",
+        "/admin/crm/assets/icons/icon-144x144.png",
+        "/admin/crm/assets/icons/icon-152x152.png",
+        "/admin/crm/assets/icons/icon-192x192.png",
+        "/admin/crm/assets/icons/icon-384x384.png",
+        "/admin/crm/assets/icons/icon-512x512.png",
+        "/admin/crm/assets/icons/icon-72x72.png",
+        "/admin/crm/assets/icons/icon-96x96.png",
+        "/admin/crm/assets/styles/angularStyle.css",
+        "/admin/crm/assets/styles/bootstrapOverride.css",
+        "/admin/crm/assets/styles/commonStyle.css"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/admin/crm/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/admin/crm/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/admin/crm/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/admin/crm/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/admin/crm/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/admin/crm/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/admin/crm/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/admin/crm/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/admin/crm/assets/styles/angularStyle.css": "a18e444bf377f525534e157f509729e792a63da9",
+    "/admin/crm/assets/styles/bootstrapOverride.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    "/admin/crm/assets/styles/commonStyle.css": "4f207fbad79f5b473bdf864a45ef690021c36a4c",
+    "/admin/crm/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
+    "/admin/crm/index.html": "658e3f9cb89faf3057aca81d6627541bcca216d6",
+    "/admin/crm/main.b1d5faffb0701f20eff1.js": "235cbd049a1dae8bb702176d4b7fc9828ac15cf5",
+    "/admin/crm/polyfills.7a0e6866a34e280f48e7.js": "9f0b8341c0a0caec1581da2f255eb5dbb8e12303",
+    "/admin/crm/runtime.a66f828dca56eeb90e02.js": "078e320cc6fdaf355836c3b1c52b059cdd33fc7e",
+    "/admin/crm/scripts.ee7fed27c36eaa5fa8a9.js": "d6743195b55ce5c4c3e1164a92cac8ae3a6ef498",
+    "/admin/crm/styles.a618133e65299b77ced8.css": "d66ee80e1a18a5198a96b79121f35b04b49114e2"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}
