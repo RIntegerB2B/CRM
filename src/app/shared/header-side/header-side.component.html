@@ -126,6 +126,17 @@
                     </a>
                   </div>
                 </li>
+                <li>
+                    <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                        true}"
+                      routerLink="/report">
+                      <a matRipple *ngIf="item.type === 'report'">
+                        <mat-icon>{{item.icon}}</mat-icon>
+                        <span class="item-name">{{item.name}}</span>
+                        <span fxFlex></span>
+                      </a>
+                    </div>
+                  </li>
               </ul>
             </div>
           </div>
@@ -204,7 +215,6 @@
         </mat-list-item>
         <div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}" *ngIf="showSubSubMenu">
           <div id="scroll-area" class="navigation-hold" fxLayout="column">
-            <!-- *ngFor="let data of role.menuList"  -->
             <div class="sidenav-hold">
               <ul class="sidenav" *ngFor="let item of menuItems">
                 <li>
