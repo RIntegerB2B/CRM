@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import * as XLSX from 'ts-xlsx';
 import { Vendor } from './../../shared/model/vendor.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { VendorService } from './../vendor.service';

@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import * as XLSX from 'ts-xlsx';
 import { Employee } from './../../shared/model/employee.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EmployeeService } from './../employee.service';

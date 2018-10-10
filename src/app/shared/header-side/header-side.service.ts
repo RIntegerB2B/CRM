@@ -3,21 +3,21 @@ import { BehaviorSubject } from 'rxjs';
 import { Register } from '../../user-management/register/register.model';
 
 interface IMenuItem {
-  type: string,    // Possible values: link/dropDown/icon/separator/extLink
-  name?: string,      // Used as display text for item and title for separator type
-  state?: string,     // Router state
-  icon?: string,      // Material icon name
-  tooltip?: string,   // Tooltip text
-  disabled?: boolean,   // If true, item will not be appeared in sidenav.
-  sub?: IChildItem[], // Dropdown items
-  badges?: IBadge[] 
+  type: string;    // Possible values: link/dropDown/icon/separator/extLink
+  name?: string;      // Used as display text for item and title for separator type
+  state?: string;    // Router state
+  icon?: string;     // Material icon name
+  tooltip?: string;   // Tooltip text
+  disabled?: boolean;   // If true, item will not be appeared in sidenav.
+  sub?: IChildItem[]; // Dropdown items
+  badges?: IBadge[];
 }
 interface IChildItem {
-  type?: string,
-  name: string,       // Display text
-  state?: string,     // Router state
-  icon?: string,
-  sub?: IChildItem[]
+  type?: string;
+  name: string;      // Display text
+  state?: string;     // Router state
+  icon?: string;
+  sub?: IChildItem[];
 }
 interface IBadge {
   color: string;      // primary/accent/warn/hex color codes(#fff000)
@@ -73,6 +73,18 @@ export class HeaderSideService {
       name: 'VENDOR',
       type: 'vendor',
       tooltip: 'email',
+      icon: 'dashboard',
+      state: 'tables',
+    },
+    {
+      name: 'AGENT',
+      type: 'agent',
+      icon: 'dashboard',
+      state: 'tables',
+    },
+    {
+      name: 'OTHERS',
+      type: 'others',
       icon: 'dashboard',
       state: 'tables',
     },

@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<div class="example-container"  [class.example-is-mobile]="mobileQuery.matches">
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
   <mat-toolbar [ngClass]="headerSideService.menuTransparent" color="primary" class="example-toolbar">
     <button mat-icon-button (click)="snav.toggle()">
       <mat-icon>menu</mat-icon>
@@ -16,13 +16,12 @@
     <mat-sidenav [ngClass]="headerSideService.menuTransparent " #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
       [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
-          
-        <div  id="scroll-area" class="navigation-hold" fxLayout="column">
-            <!-- *ngFor="let data of role.menuList"  -->
+        <div id="scroll-area" class="navigation-hold" fxLayout="column">
+          <!-- *ngFor="let data of role.menuList"  -->
           <div class="sidenav-hold">
             <ul class="sidenav" *ngFor="let item of menuItems">
-                <!-- *ngIf="data.b2bCustomerPermission" -->
-              <li  >
+              <!-- *ngIf="data.b2bCustomerPermission" -->
+              <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
                   [routerLink]="['/customers']">
@@ -34,7 +33,7 @@
                 </div>
               </li>
               <!-- *ngIf="data.b2cMarketPermission"  -->
-              <li >
+              <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
                   routerLink="/b2cmarket">
@@ -45,9 +44,10 @@
                   </a>
                 </div>
               </li>
-              <li >
+              <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                  true}" routerLink="/b2ccustomer">
+                  true}"
+                  routerLink="/b2ccustomer">
                   <a matRipple *ngIf="item.type === 'ccustomer'">
                     <mat-icon>{{item.icon}}</mat-icon>
                     <span class="item-name">{{item.name}}</span>
@@ -56,11 +56,9 @@
                 </div>
               </li>
               <li>
-                <div [routerLinkActive]="['activeLink']" 
-                [routerLinkActiveOptions]="{exact:
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
-                  routerLink="/b2bmarket"
-                  >
+                  routerLink="/b2bmarket">
                   <a matRipple *ngIf="item.type === 'bmarket'">
                     <mat-icon>{{item.icon}}</mat-icon>
                     <span class="item-name">{{item.name}}</span>
@@ -69,11 +67,9 @@
                 </div>
               </li>
               <li>
-                <div [routerLinkActive]="['activeLink']"
-                 [routerLinkActiveOptions]="{exact:
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
-                  routerLink="/employee"
-                  >
+                  routerLink="/employee">
                   <a matRipple *ngIf="item.type === 'employee'">
                     <mat-icon>{{item.icon}}</mat-icon>
                     <span class="item-name">{{item.name}}</span>
@@ -82,11 +78,9 @@
                 </div>
               </li>
               <li>
-                <div [routerLinkActive]="['activeLink']"
-                 [routerLinkActiveOptions]="{exact:
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
-                  routerLink="/vendor"
-                  >
+                  routerLink="/vendor">
                   <a matRipple *ngIf="item.type === 'vendor'">
                     <mat-icon>{{item.icon}}</mat-icon>
                     <span class="item-name">{{item.name}}</span>
@@ -95,9 +89,8 @@
                 </div>
               </li>
               <!-- *ngIf="data.smsMenuPermission" -->
-              <li  >
-                <div [routerLinkActive]="['activeLink']"
-                 [routerLinkActiveOptions]="{exact:
+              <li>
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
                   routerLink="/sms">
                   <a matRipple *ngIf="item.type === 'link'">
@@ -108,7 +101,7 @@
                 </div>
               </li>
               <!--  *ngIf="data.emailMenuPermission"  -->
-              <li >
+              <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
                   routerLink="/email">
@@ -119,47 +112,70 @@
                   </a>
                 </div>
               </li>
-              <li>
-                <div >
+              <li appDropdown>
+                <div>
                   <a matRipple *ngIf="item.type === 'user'">
                     <mat-icon>{{item.icon}}</mat-icon>
                     <span class="item-name">{{item.name}}</span>
                     <span fxFlex></span>
                   </a>
                 </div>
-                  <ul>
-                      <li>
-                        <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+              </li>
+              <ul>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                         true}"
                         routerLink="/register"
                         >
-                          <a matRipple *ngIf="item.type === 'register'">
-                            <mat-icon>{{item.icon}}</mat-icon>
-                            <span class="item-name">{{item.name}}</span>
-                            <span fxFlex></span>
-                          </a>
-                        </div>
-                      </li>
-                      <li>
-                          <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                  <a matRipple *ngIf="item.type === 'register'">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span class="item-name">{{item.name}}</span>
+                    <span fxFlex></span>
+                  </a>
+                  </div>
+                </li>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                           true}"
                           routerLink="/permission"
                           >
-                            <a matRipple *ngIf="item.type === 'permission'">
-                              <mat-icon>{{item.icon}}</mat-icon>
-                              <span class="item-name">{{item.name}}</span>
-                              <span fxFlex></span>
-                            </a>
-                          </div>
-                        </li>
-                    </ul>
-              </li>
+                  <a matRipple *ngIf="item.type === 'permission'">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span class="item-name">{{item.name}}</span>
+                    <span fxFlex></span>
+                  </a>
+                  </div>
+                </li>
+              </ul>
+
               <!--  *ngIf="data.uploadPermission" -->
-              <li >
+              <li>
                 <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                   true}"
                   routerLink="/upload">
                   <a matRipple *ngIf="item.type === 'upload'">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span class="item-name">{{item.name}}</span>
+                    <span fxFlex></span>
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                    true}"
+                  routerLink="/others">
+                  <a matRipple *ngIf="item.type === 'others'">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span class="item-name">{{item.name}}</span>
+                    <span fxFlex></span>
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                      true}"
+                  routerLink="/agent">
+                  <a matRipple *ngIf="item.type === 'agent'">
                     <mat-icon>{{item.icon}}</mat-icon>
                     <span class="item-name">{{item.name}}</span>
                     <span fxFlex></span>
@@ -176,10 +192,10 @@
                     <span fxFlex></span>
                   </a>
                 </div>
-               
+
               </li>
             </ul>
-            
+
           </div>
         </div>
       </mat-nav-list>
@@ -189,4 +205,3 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
-

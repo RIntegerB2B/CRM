@@ -33,22 +33,22 @@ export class AgentService {
     return this.httpClient.post<Customer[]>(url, data);
   } */
   // all customer details
-  allVendor(): Observable<any> {
+  allAgent(): Observable<any> {
     const addUrl = 'allagent';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.get<Agent[]>(url);
   }
-  duplicateVendor(): Observable<any> {
+  duplicateAgent(): Observable<any> {
     const addUrl = 'duplicateagent';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.get<Agent[]>(url);
   }
-  addSingleVendor(data: any): Observable<any> {
+  addSingleAgent(data: any): Observable<any> {
     const addUrl = 'singleagent';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<Agent[]>(url, data);
   }
-  editVendor(edit): Observable<any> {
+  editAgent(edit): Observable<any> {
     const addUrl = 'agent/';
     const url: string = this.serviceUrl + addUrl + edit._id;
     return this.httpClient.put<Agent[]>(url, edit);
@@ -64,7 +64,7 @@ export class AgentService {
     return this.httpClient.post<ResponseResult>(url, email);
   } */
 
-  deleteVendor(edit): Observable<any> {
+  deleteAgent(edit): Observable<any> {
 
     const addUrl = 'agentdelete/';
 

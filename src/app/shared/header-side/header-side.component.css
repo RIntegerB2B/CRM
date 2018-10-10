@@ -7,7 +7,17 @@
   left: 0;
   right: 0;
 }
-
+.submenu li {
+  padding-left:15px;
+}
+ul li + .submenu {
+  display: block;
+}
+ul li.active + .submenu {
+  display: inline-block;
+  list-style: none;
+  background-color: blue;
+  }
 .example-is-mobile .example-toolbar {
   position: fixed;
   z-index: 2;

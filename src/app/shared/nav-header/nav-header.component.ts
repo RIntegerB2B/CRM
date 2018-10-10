@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as XLSX from 'ts-xlsx';
 import { NavHeaderService } from './nav-header.service';
 import { map } from 'rxjs/operators';
 

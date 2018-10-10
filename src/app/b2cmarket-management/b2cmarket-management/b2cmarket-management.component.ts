@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import * as XLSX from 'ts-xlsx';
 import { B2cMarket } from './../../shared/model/b2cmarket.model';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { B2cmarketService } from './../b2cmarket.service';

@@ -42,10 +42,11 @@ import { MatTableModule } from '@angular/material/table';
 import { NavHeaderComponent } from './shared/nav-header/nav-header.component';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { CustomerManagementComponent,
-   CustomerEditComponent,
-   CustomerAddComponent
-   } from './customer-management/customer-management/customer-management.component';
+import {
+  CustomerManagementComponent,
+  CustomerEditComponent,
+  CustomerAddComponent
+} from './customer-management/customer-management/customer-management.component';
 import { CustomerManagementService } from './customer-management/customer-management.service';
 import { HeaderSideComponent } from './shared/header-side/header-side.component';
 import { B2cmarketService } from './b2cmarket-management/b2cmarket.service';
@@ -56,25 +57,37 @@ import { HeaderSideService } from './shared/header-side/header-side.service';
 import { SmsManagementComponent } from './sms-management/sms-management/sms-management.component';
 import { EmailManagementComponent } from './email-management/email-mangement/email-management.component';
 import { UploadManagementComponent } from './upload-management/upload-management/upload-management.component';
-import { B2cmarketManagementComponent,
-  B2cmarketEditComponent, B2cmarketAddComponent } from './b2cmarket-management/b2cmarket-management/b2cmarket-management.component';
+import {
+  B2cmarketManagementComponent,
+  B2cmarketEditComponent, B2cmarketAddComponent
+} from './b2cmarket-management/b2cmarket-management/b2cmarket-management.component';
 import { LoginComponent } from './user-management/login/login.component';
 import { RegisterComponent } from './user-management/register/register.component';
 import { PermissionComponent } from './user-management/permission/permission.component';
-import { B2bmarketManagementComponent,
+import {
+  B2bmarketManagementComponent,
   B2bmarketEditComponent, B2bmarketAddComponent
- } from './b2bmarket-management/b2bmarket-management/b2bmarket-management.component';
-import { B2ccustomerManagementComponent,
+} from './b2bmarket-management/b2bmarket-management/b2bmarket-management.component';
+import {
+  B2ccustomerManagementComponent,
   B2ccustomerEditComponent, B2ccustomerAddComponent
- } from './b2ccustomer-management/b2ccustomer-management/b2ccustomer-management.component';
-import { EmployeeManagementComponent,
+} from './b2ccustomer-management/b2ccustomer-management/b2ccustomer-management.component';
+import {
+  EmployeeManagementComponent,
   EmployeeEditComponent, EmployeeAddComponent
- } from './employee.management/employee-management/employee-management.component';
-import { VendorManagementComponent, VendoorEditComponent,
-  VendorAddComponent } from './vendor-management/vendor-management/vendor-management.component';
+} from './employee.management/employee-management/employee-management.component';
+import {
+  VendorManagementComponent, VendoorEditComponent,
+  VendorAddComponent
+} from './vendor-management/vendor-management/vendor-management.component';
 import { BackupComponent } from './backup-management/backup/backup.component';
-import { AgentManagementComponent } from './agent-management/agent-management/agent-management.component';
-import { OtherCustomerComponent } from './other-customer-management/other-customer/other-customer.component';
+import {
+  AgentManagementComponent,  AgentAddComponent, AgentEditComponent,
+} from './agent-management/agent-management/agent-management.component';
+import { HighlightDirective } from './shared/expandMenu/expand-menu.directive';
+import {
+  OtherCustomerComponent, OthersAddComponent, OthersEditComponent
+} from './other-customer-management/other-customer/other-customer.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +104,8 @@ import { OtherCustomerComponent } from './other-customer-management/other-custom
     B2ccustomerAddComponent,
     B2cmarketAddComponent,
     VendorAddComponent,
+    AgentAddComponent,
+    AgentEditComponent,
     EmployeeEditComponent,
     HeaderSideComponent,
     SmsManagementComponent,
@@ -107,7 +122,10 @@ import { OtherCustomerComponent } from './other-customer-management/other-custom
     VendorManagementComponent,
     BackupComponent,
     AgentManagementComponent,
-    OtherCustomerComponent
+    OthersAddComponent,
+    OthersEditComponent,
+    OtherCustomerComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
@@ -148,9 +166,9 @@ import { OtherCustomerComponent } from './other-customer-management/other-custom
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [NavHeaderService, CustomerManagementService,
-     HeaderSideService, B2bmarketService,
-     B2ccustomerService, EmployeeService,
-      B2cmarketService, AuthService, AuthGuard],
+    HeaderSideService, B2bmarketService,
+    B2ccustomerService, EmployeeService,
+    B2cmarketService, AuthService, AuthGuard],
   bootstrap: [AppComponent],
   entryComponents: [CustomerEditComponent,
     VendorAddComponent,
@@ -159,10 +177,16 @@ import { OtherCustomerComponent } from './other-customer-management/other-custom
     B2ccustomerAddComponent,
     B2cmarketAddComponent,
     VendoorEditComponent,
-     B2cmarketEditComponent,
-     B2bmarketEditComponent,
-      B2ccustomerEditComponent,
+    B2cmarketEditComponent,
+    B2bmarketEditComponent,
+    B2ccustomerEditComponent,
+    AgentEditComponent,
+    AgentAddComponent,
     CustomerAddComponent,
-    EmployeeEditComponent,  ]
+    EmployeeEditComponent,
+    OtherCustomerComponent,
+    OthersAddComponent,
+    OthersEditComponent
+  ]
 })
 export class AppModule { }

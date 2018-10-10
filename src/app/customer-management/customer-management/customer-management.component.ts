@@ -1,6 +1,5 @@
 
 import { Component, OnInit, Inject, AfterContentChecked, ViewChild } from '@angular/core';
-import * as XLSX from 'ts-xlsx';
 import { Customer } from './customer.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CustomerManagementService } from './../customer-management.service';

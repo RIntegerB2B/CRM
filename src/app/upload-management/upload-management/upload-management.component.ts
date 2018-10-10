@@ -1,7 +1,6 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
-import * as XLSX from 'ts-xlsx';
-
+import * as XLSX from 'xlsx';
 import { Customer } from './../../shared/model/customer.model';
 import { B2cMarket } from './../../shared/model/b2cmarket.model';
 import { B2bMarket } from './../../shared/model/b2bmarket.model';
@@ -11,6 +10,7 @@ import { Employee } from './../../shared/model/employee.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UploadService } from './../upload.service';
 import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-upload-management',
@@ -33,7 +33,7 @@ export class UploadManagementComponent implements OnInit {
   fullEmployee;
   b2bMarketCustomer;
   newCustomer: Customer[] = [];
-  excelData: any = [{
+  excelB2CmarketData: any = [{
     customerName: 'customerName1',
     gender: 'male/Female',
     mobileNumber: '9988776655',
@@ -86,6 +86,65 @@ export class UploadManagementComponent implements OnInit {
       brandName: 'Test'
     }
   ];
+  excelEmployeeData: any = [
+    {
+      empName: 'employeeName',
+      empNo: '001',
+      gender: 'male/female',
+      landLine: '080-4455666',
+      email: 'sample@gmail.com',
+      mobileNumber: '9988776655',
+      whatsappNo: '9966557755',
+      dateOfJoin: '1/1/2018',
+      dateOfBirth: '1/1/2018',
+      designation: 'operator',
+      address: 'full address',
+    }
+  ];
+  excelVendorData: any = [
+    {
+      vendorName: 'vendorName',
+      mobileNumber: '9966779655',
+      whatsAppNo: '9966557755',
+      landLine: '080-4455666',
+      email: 'sample@gmail.com',
+      vendorService: 'vendeorService',
+      address: 'full address of vendor',
+      vendorCompanyName: 'company Name of vendor',
+      companyAddress: 'company Address of vendor',
+      location: 'bangalore',
+      gstNumber: 'GSTINBN123',
+      vendorGrade: 'B'
+    }
+  ];
+  excelAgentData: any = [
+    {
+      agentName: 'agentName',
+      mobileNumber: '9966779655',
+      whatsAppNo: '9966557755',
+      landLine: '080-4455666',
+      email: 'sample@gmail.com',
+      agentService: 'agentService',
+      address: 'full address of agent',
+      agentCompanyName: 'company Name of agent',
+      companyAddress: 'company Address of agent',
+      location: 'bangalore',
+      gstNumber: 'GSTINBN123',
+      agentGrade: 'B'
+    }
+  ];
+  excelOtherData: any = [
+    {
+      name: 'Name',
+      gender: 'male/female',
+      email: 'sample@gmail.com',
+      mobileNumber: '9966557755',
+      location: 'bangalore',
+      address: 'full address'
+    }
+  ];
+
+
   constructor(private uploadService: UploadService) { }
 
   ngOnInit() {
@@ -222,18 +281,8 @@ export class UploadManagementComponent implements OnInit {
   uploadingEmployeefile(event) {
     this.file = event.target.files[0];
   }
-  exportB2cCustomerAsXLSX() {
-    this.uploadService.exportAsB2cCustomerExcelFile(this.excelB2CcustomerData, 'B2CCustomer');
-  }
-  exportB2BMarketAsXLSX() {
-    this.uploadService.exportAsExcelFile(this.excelB2BMarketData, 'B2BMarket');
-  }
-  exportAsXLSX() {
-    this.uploadService.exportAsExcelFile(this.excelData, 'B2Cmarket');
-  }
-  b2bCustomerExportAsXLSX() {
-    this.uploadService.b2bCustomerExportAsExcelFile(this.excelB2BCustomerData, 'B2Bcustomer');
-  }
+
+   /* Vendor */
   UploadVendor() {
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
@@ -258,6 +307,84 @@ export class UploadManagementComponent implements OnInit {
   }
   uploadingVendorfile(event) {
     this.file = event.target.files[0];
+  }
+  uploadAgent() {
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      this.arrayBuffer = fileReader.result;
+      const data = new Uint8Array(this.arrayBuffer);
+      const arr = new Array();
+      for (let i = 0; i !== data.length; ++i) {
+        arr[i] = String.fromCharCode(data[i]);
+      }
+      const bstr = arr.join('');
+      const workbook = XLSX.read(bstr, { type: 'binary' });
+      const first_sheet_name = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[first_sheet_name];
+      this.fullVendor = XLSX.utils.sheet_to_json(worksheet);
+      this.uploadService.createAgent(this.fullVendor)
+        .subscribe(detail => {
+          this.employee = detail;
+          console.log(detail);
+        });
+    };
+    fileReader.readAsArrayBuffer(this.file);
+  }
+  uploadingAgentFile(event) {
+    this.file = event.target.files[0];
+  }
+  /* Agent */
+  uploadOthers() {
+    const fileReader = new FileReader();
+    fileReader.onload = (e) => {
+      this.arrayBuffer = fileReader.result;
+      const data = new Uint8Array(this.arrayBuffer);
+      const arr = new Array();
+      for (let i = 0; i !== data.length; ++i) {
+        arr[i] = String.fromCharCode(data[i]);
+      }
+      const bstr = arr.join('');
+      const workbook = XLSX.read(bstr, { type: 'binary' });
+      const first_sheet_name = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[first_sheet_name];
+      this.fullVendor = XLSX.utils.sheet_to_json(worksheet);
+      this.uploadService.createOthers(this.fullVendor)
+        .subscribe(detail => {
+          this.employee = detail;
+          console.log(detail);
+        });
+    };
+    fileReader.readAsArrayBuffer(this.file);
+  }
+  uploadingOthersFile(event) {
+    this.file = event.target.files[0];
+  }
+/* sample xlsx download */
+
+  b2cCustomerAsXLSX() {
+    this.uploadService.exportAsB2cCustomerExcelFile(this.excelB2CcustomerData,
+      'B2Ccustomer');
+  }
+  b2bMarketAsXLSX() {
+    this.uploadService.exportAsExcelFile(this.excelB2BMarketData, 'B2Bmarket');
+  }
+  b2bCustomerAsXLSX() {
+    this.uploadService.exportAsExcelFile(this.excelB2BCustomerData, 'B2Bcustomer');
+  }
+  b2cMarketAsXLSX() {
+    this.uploadService.exportAsExcelFile(this.excelB2CmarketData, 'B2Cmarket');
+  }
+  employeeAsXLSX() {
+    this.uploadService.exportAsExcelFile(this.excelEmployeeData, 'Employee');
+  }
+  vendorAsXLSX() {
+    this.uploadService.exportAsExcelFile(this.excelVendorData, 'vendor');
+  }
+  agentAsXLSX() {
+    this.uploadService.exportAsExcelFile(this.excelAgentData, 'agent');
+  }
+  otherAsXLSX() {
+    this.uploadService.exportAsExcelFile(this.excelOtherData, 'other');
   }
 }
 

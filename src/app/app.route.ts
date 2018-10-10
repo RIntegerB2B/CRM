@@ -15,6 +15,12 @@ import { B2ccustomerManagementComponent } from './b2ccustomer-management/b2ccust
 import { VendorManagementComponent } from './vendor-management/vendor-management/vendor-management.component';
 import { EmployeeManagementComponent } from './employee.management/employee-management/employee-management.component';
 import { BackupComponent } from './backup-management/backup/backup.component';
+import {
+    AgentManagementComponent
+  } from './agent-management/agent-management/agent-management.component';
+  import {
+    OtherCustomerComponent
+  } from './other-customer-management/other-customer/other-customer.component';
 
 const routes: Routes = [
     { path: 'sms', canActivate: [AuthGuard], component: SmsManagementComponent },
@@ -40,6 +46,14 @@ const routes: Routes = [
     {
         path: 'vendor',
         component: VendorManagementComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'agent',
+        component: AgentManagementComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'others',
+        component: OtherCustomerComponent, canActivate: [AuthGuard]
     },
     {
         path: 'login', component: LoginComponent
