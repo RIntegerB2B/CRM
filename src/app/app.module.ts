@@ -84,7 +84,7 @@ import { BackupComponent } from './backup-management/backup/backup.component';
 import {
   AgentManagementComponent,  AgentAddComponent, AgentEditComponent,
 } from './agent-management/agent-management/agent-management.component';
-import { HighlightDirective } from './shared/expandMenu/expand-menu.directive';
+
 import {
   OtherCustomerComponent, OthersAddComponent, OthersEditComponent
 } from './other-customer-management/other-customer/other-customer.component';
@@ -124,8 +124,7 @@ import {
     AgentManagementComponent,
     OthersAddComponent,
     OthersEditComponent,
-    OtherCustomerComponent,
-    HighlightDirective
+    OtherCustomerComponent
   ],
   imports: [
     BrowserModule,

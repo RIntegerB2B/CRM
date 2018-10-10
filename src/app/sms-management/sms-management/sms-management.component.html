@@ -45,7 +45,8 @@
         </mat-form-field>
         <div *ngFor="let edit of dataSource;  let i = index" class="col-sm-12 d-flex   flex-row">
           <div class=" col-sm-4 col">
-            <mat-checkbox [checked]="selectCheckbox" name="{{edit.mobileNumber}}" value="{{edit.mobileNumber}}"
+            <mat-checkbox [checked]="selectCheckbox"
+             name="{{edit.mobileNumber}}" value="{{edit.mobileNumber}}"
               (change)="selectedMobileNumber($event, edit.mobileNumber)" class="mail-checkbox"> {{edit.mobileNumber}}</mat-checkbox>
           </div>
           <div class="col-sm-4 col">
@@ -54,10 +55,6 @@
           <div class="col-sm-4 col">
             {{edit.location}}
           </div>
-          <!-- <div class="col-sm-2 col">
-                        {{edit.email}}
-                    </div> -->
-
         </div><br>
         <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"
           [length]="totalSize" [pageIndex]="currentPage" (page)="handlePage($event)">

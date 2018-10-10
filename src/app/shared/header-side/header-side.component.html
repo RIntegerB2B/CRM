@@ -16,188 +16,268 @@
     <mat-sidenav [ngClass]="headerSideService.menuTransparent " #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
       [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
-        <div id="scroll-area" class="navigation-hold" fxLayout="column">
-          <!-- *ngFor="let data of role.menuList"  -->
-          <div class="sidenav-hold">
-            <ul class="sidenav" *ngFor="let item of menuItems">
-              <!-- *ngIf="data.b2bCustomerPermission" -->
-              <li>
-                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                  true}"
-                  [routerLink]="['/customers']">
-                  <a matRipple class="nav-item-sep" *ngIf="item.type === 'bcustomer'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span>{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
-                </div>
-              </li>
-              <!-- *ngIf="data.b2cMarketPermission"  -->
-              <li>
-                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                  true}"
-                  routerLink="/b2cmarket">
-                  <a matRipple class="nav-item-sep" *ngIf="item.type === 'cmarket'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span>{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                  true}"
-                  routerLink="/b2ccustomer">
-                  <a matRipple *ngIf="item.type === 'ccustomer'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span class="item-name">{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                  true}"
-                  routerLink="/b2bmarket">
-                  <a matRipple *ngIf="item.type === 'bmarket'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span class="item-name">{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                  true}"
-                  routerLink="/employee">
-                  <a matRipple *ngIf="item.type === 'employee'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span class="item-name">{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                  true}"
-                  routerLink="/vendor">
-                  <a matRipple *ngIf="item.type === 'vendor'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span class="item-name">{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
-                </div>
-              </li>
-              <!-- *ngIf="data.smsMenuPermission" -->
-              <li>
-                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                  true}"
-                  routerLink="/sms">
-                  <a matRipple *ngIf="item.type === 'link'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span class="item-name">{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
-                </div>
-              </li>
-              <!--  *ngIf="data.emailMenuPermission"  -->
-              <li>
-                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                  true}"
-                  routerLink="/email">
-                  <a matRipple *ngIf="item.type === 'dropDown'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span class="item-name">{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
-                </div>
-              </li>
-              <li appDropdown>
-                <div>
-                  <a matRipple *ngIf="item.type === 'user'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span class="item-name">{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
-                </div>
-              </li>
-              <ul>
+        <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+          <span *ngIf="isExpanded || isShowing">National DB Mgmt</span>
+          <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+        </mat-list-item>
+        <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="showSubmenu">
+          <div id="scroll-area" class="navigation-hold" fxLayout="column">
+            <!-- *ngFor="let data of role.menuList"  -->
+            <div class="sidenav-hold">
+              <ul class="sidenav" *ngFor="let item of menuItems">
+                <!-- *ngIf="data.b2bCustomerPermission" -->
                 <li>
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                         true}"
-                        routerLink="/register"
-                        >
-                  <a matRipple *ngIf="item.type === 'register'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span class="item-name">{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
+                    [routerLink]="['/customers']">
+                    <a matRipple class="nav-item-sep" *ngIf="item.type === 'bcustomer'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span>{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
                   </div>
                 </li>
                 <li>
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                           true}"
-                          routerLink="/permission"
-                          >
-                  <a matRipple *ngIf="item.type === 'permission'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span class="item-name">{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
+                    routerLink="/b2bmarket">
+                    <a matRipple *ngIf="item.type === 'bmarket'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                              true}"
+                    routerLink="/b2ccustomer">
+                    <a matRipple *ngIf="item.type === 'ccustomer'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                        true}"
+                    routerLink="/b2cmarket">
+                    <a matRipple class="nav-item-sep" *ngIf="item.type === 'cmarket'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span>{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                        true}"
+                    routerLink="/employee">
+                    <a matRipple *ngIf="item.type === 'employee'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                        true}"
+                    routerLink="/vendor">
+                    <a matRipple *ngIf="item.type === 'vendor'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                              true}"
+                    routerLink="/agent">
+                    <a matRipple *ngIf="item.type === 'agent'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                          true}"
+                    routerLink="/others">
+                    <a matRipple *ngIf="item.type === 'others'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                      true}"
+                    routerLink="/upload">
+                    <a matRipple *ngIf="item.type === 'upload'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
                   </div>
                 </li>
               </ul>
-
-              <!--  *ngIf="data.uploadPermission" -->
-              <li>
-                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                  true}"
-                  routerLink="/upload">
-                  <a matRipple *ngIf="item.type === 'upload'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span class="item-name">{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                    true}"
-                  routerLink="/others">
-                  <a matRipple *ngIf="item.type === 'others'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span class="item-name">{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                      true}"
-                  routerLink="/agent">
-                  <a matRipple *ngIf="item.type === 'agent'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span class="item-name">{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
-                </div>
-              </li>
-              <!-- *ngIf="data.backupPermission"  -->
-              <li>
-                <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                  true}">
-                  <a matRipple *ngIf="item.type === 'backup'">
-                    <mat-icon>{{item.icon}}</mat-icon>
-                    <span class="item-name">{{item.name}}</span>
-                    <span fxFlex></span>
-                  </a>
-                </div>
-
-              </li>
-            </ul>
-
+            </div>
           </div>
         </div>
+        <mat-list-item (click)="showInternational = !showInternational" class="parent">
+          <span *ngIf="isExpanded || isShowing">International DB Mgmt</span>
+          <mat-icon class="menu-button" [ngClass]="{'rotated' : showInternational}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+        </mat-list-item>
+        <div class="submenu" [ngClass]="{'expanded' : showInternational}" *ngIf="showInternational">
+          <div id="scroll-area" class="navigation-hold" fxLayout="column">
+            <div class="sidenav-hold">
+              <!-- <ul class="sidenav" *ngFor="let item of menuItems">
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                            true}"
+                    [routerLink]="['/customers']">
+                    <a matRipple class="nav-item-sep" *ngIf="item.type === 'bcustomer'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span>{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                              true}"
+                    routerLink="/b2bmarket">
+                    <a matRipple *ngIf="item.type === 'bmarket'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                            true}"
+                    routerLink="/b2ccustomer">
+                    <a matRipple *ngIf="item.type === 'ccustomer'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                              true}"
+                    routerLink="/b2cmarket">
+                    <a matRipple class="nav-item-sep" *ngIf="item.type === 'cmarket'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span>{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                          true}"
+                    routerLink="/upload">
+                    <a matRipple *ngIf="item.type === 'upload'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+              </ul> -->
+            </div>
+          </div>
+        </div>
+        <mat-list-item (click)="showSubSubMenu = !showSubSubMenu" class="parent">
+          <span *ngIf="isExpanded || isShowing">Marketing Mgmt</span>
+          <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubMenu}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+        </mat-list-item>
+        <div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}" *ngIf="showSubSubMenu">
+          <div id="scroll-area" class="navigation-hold" fxLayout="column">
+            <!-- *ngFor="let data of role.menuList"  -->
+            <div class="sidenav-hold">
+              <ul class="sidenav" *ngFor="let item of menuItems">
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                        true}"
+                    routerLink="/sms">
+                    <a matRipple *ngIf="item.type === 'link'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                        true}"
+                    routerLink="/email">
+                    <a matRipple *ngIf="item.type === 'dropDown'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <mat-list-item (click)="showSetting = !showSetting" class="parent">
+          <span *ngIf="isExpanded || isShowing">Setting</span>
+          <mat-icon class="menu-button" [ngClass]="{'rotated' : showSetting}" *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+        </mat-list-item>
+        <div class="submenu" [ngClass]="{'expanded' : showSetting}" *ngIf="showSetting">
+          <div id="scroll-area" class="navigation-hold" fxLayout="column">
+            <div class="sidenav-hold">
+              <ul class="sidenav" *ngFor="let item of menuItems">
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                              true}"
+                    routerLink="/register">
+                    <a matRipple *ngIf="item.type === 'register'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                                true}"
+                    routerLink="/permission">
+                    <a matRipple *ngIf="item.type === 'permission'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                        true}">
+                    <a matRipple *ngIf="item.type === 'backup'">
+                      <mat-icon>{{item.icon}}</mat-icon>
+                      <span class="item-name">{{item.name}}</span>
+                      <span fxFlex></span>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

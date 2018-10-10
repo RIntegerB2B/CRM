@@ -6,12 +6,3 @@
     margin: 0 -16px;
     min-width: 32px;
 }
-.active
-{
-    background-color: purple;
-}
-.activeLink
-{
- background-color: #6610f2;
- color: #ffff;
-}

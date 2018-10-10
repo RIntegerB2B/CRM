@@ -41,7 +41,7 @@ export class SmsManagementComponent implements OnInit {
   temp: any = [];
   role: AccessPermission;
   // pageEvent: PageEvent;
-  public pageSize = 50;
+  public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
   public searchString: string;
@@ -108,9 +108,9 @@ export class SmsManagementComponent implements OnInit {
         this.array = response;
         this.newCustomer = response;
         this.totalSize = this.array.length;
+        this.temp = response;
         this.iterator();
       });
-      this.temp = this.dataSource;
   }
   // get B2C Market //
   getAllB2cMarketCustomer() {
@@ -121,8 +121,8 @@ export class SmsManagementComponent implements OnInit {
         this.array = response;
         this.totalSize = this.array.length;
         this.newCustomer = response;
+        this.temp = response;
         this.iterator();
-        this.updateFilter(event);
       });
   }
 
@@ -221,5 +221,5 @@ export class SmsManagementComponent implements OnInit {
       }
     });
     this.dataSource = rows;
-  }
+}
 }

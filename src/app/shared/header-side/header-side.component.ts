@@ -29,6 +29,12 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterContentCheck
   roleIsEmpty = false;
   // message: Register;
   role: AccessPermission;
+  isExpanded = true;
+  showSubmenu = false;
+  isShowing = false;
+  showSubSubMenu = false;
+  showInternational = false;
+  showSetting = false;
   message;
   private _mobileQueryListener: () => void;
   shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
@@ -65,5 +71,15 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterContentCheck
     this.authService.logout();
     this.router.navigate(['/login']);
     this.headerSideService.makeMenuTransparent();
+  }
+  mouseenter() {
+    if (!this.isExpanded) {
+      this.isShowing = true;
+    }
+  }
+  mouseleave() {
+    if (!this.isExpanded) {
+      this.isShowing = false;
+    }
   }
 }

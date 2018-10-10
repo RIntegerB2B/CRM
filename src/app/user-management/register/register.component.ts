@@ -33,6 +33,7 @@ export class RegisterComponent implements OnInit {
     this.userRegister();
     this.headerSideService.currentRegister.subscribe(message => this.message = message);
     console.log(this.message.userType);
+    this.headerSideService.hideMenuTransparent();
   }
 
   userRegister() {
