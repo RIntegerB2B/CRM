@@ -1,4 +1,4 @@
-export class B2bMarket {
+export class InterB2bCustomer {
     _id: string;
     customerName: string;
     mobileNumber: string;

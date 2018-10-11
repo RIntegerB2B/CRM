@@ -1,22 +1,19 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { B2bMarket } from './../../shared/model/b2bmarket.model';
+import { InterB2bMarket } from './../../shared/model/interb2bmarket.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { B2bmarketService } from './../b2bmarket.service';
+import { Interb2bmarketService } from './../interb2bmarket.service';
 import { map } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
 import { AccessPermission } from './../../user-management/permission/accessPermission.model';
-import { Customer } from 'src/app/shared/model/customer.model';
-
 
 @Component({
-  selector: 'app-b2bmarket-management',
-  templateUrl: './b2bmarket-management.component.html',
-  styleUrls: ['./b2bmarket-management.component.css']
+  selector: 'app-interb2bmarket-management',
+  templateUrl: './interb2bmarket-management.component.html',
+  styleUrls: ['./interb2bmarket-management.component.css']
 })
-
-export class B2bmarketManagementComponent implements OnInit {
-  newCustomer: B2bMarket[] = [];
+export class Interb2bmarketManagementComponent implements OnInit {
+  newCustomer: InterB2bMarket[] = [];
   @ViewChild('myTable') table: any;
   temp = [];
   currentPageLimit = 0;
@@ -27,18 +24,18 @@ export class B2bmarketManagementComponent implements OnInit {
     { value: 100 },
   ];
   role: AccessPermission;
-  b2bMarketDetailsForm: FormGroup;
+  interB2bMarketDetailsForm: FormGroup;
   constructor(private fb: FormBuilder,
     private headerSideService: HeaderSideService,
-    private b2bmarketService: B2bmarketService, private dialog: MatDialog) { }
+    private interb2bmarketService: Interb2bmarketService, private dialog: MatDialog) { }
   ngOnInit() {
-    this.createB2bMarketForm();
-    this.getAllB2bMarketCustomer();
+    this.createInterB2bMarketForm();
+    this.getAllInterB2bMarketCustomer();
     this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
-  createB2bMarketForm() {
-    this.b2bMarketDetailsForm = this.fb.group({
+  createInterB2bMarketForm() {
+    this.interB2bMarketDetailsForm = this.fb.group({
       _id: [],
       emailMessage: [],
       customerName: [],
@@ -69,8 +66,8 @@ export class B2bmarketManagementComponent implements OnInit {
       }
     });
   }
-  getAllB2bMarketCustomer() {
-    this.b2bmarketService.allB2bMarket().subscribe(data => {
+  getAllInterB2bMarketCustomer() {
+    this.interb2bmarketService.allInterB2bMarket().subscribe(data => {
       this.newCustomer = data;
       this.temp = data;
       console.log(this.newCustomer);
@@ -79,8 +76,8 @@ export class B2bmarketManagementComponent implements OnInit {
     });
   }
 
-  duplicateB2bMarketCustomer() {
-    this.b2bmarketService.duplicateB2bMarket().subscribe(data => {
+  duplicateInterB2bMarketCustomer() {
+    this.interb2bmarketService.duplicateInterB2bMarket().subscribe(data => {
       this.newCustomer = data;
       this.temp = data;
       console.log(this.newCustomer);
@@ -89,7 +86,7 @@ export class B2bmarketManagementComponent implements OnInit {
     });
   }
   // CRUD start
-  cancelB2bMarketCustomer(edit) {
+  cancelInterB2bMarketCustomer(edit) {
     edit.editing = false;
   }
   updateFilter(event) {
@@ -118,17 +115,17 @@ export class B2bmarketManagementComponent implements OnInit {
   }
 
 
-  updateB2bMarketCustomer(b2bMarketDetailsForm: FormGroup, row) {
-    this.b2bmarketService.editB2bMarket(row).subscribe(data => {
+  updateInterB2bMarketCustomer(interB2bMarketDetailsForm: FormGroup, row) {
+    this.interb2bmarketService.editInterB2bMarket(row).subscribe(data => {
       this.newCustomer = data;
     }, error => {
       console.log(error);
     });
   }
-  deleteB2bMarketCustomer(b2bMarketDetailsForm: FormGroup, row) {
+  deleteInterB2bMarketCustomer(interB2bMarketDetailsForm: FormGroup, row) {
     row.editing = false;
-    b2bMarketDetailsForm.reset();
-    this.b2bmarketService.deleteB2bMarket(row).subscribe(data => {
+    interB2bMarketDetailsForm.reset();
+    this.interb2bmarketService.deleteInterB2bMarket(row).subscribe(data => {
       if (data) {
       this.newCustomer = this.newCustomer.filter(customer => customer._id !== row);
       }
@@ -136,9 +133,9 @@ export class B2bmarketManagementComponent implements OnInit {
       console.log(error);
     });
   }
-  addCustomer(b2bMarketDetailsForm: FormGroup, row) {
+  addInterB2bMarket(interB2bMarketDetailsForm: FormGroup, row) {
 
-    const dialogRef = this.dialog.open(B2bmarketAddComponent, {
+    const dialogRef = this.dialog.open(InterB2bmarketAddComponent, {
       width: '720px',
       disableClose: true,
       data: row
@@ -147,8 +144,8 @@ export class B2bmarketManagementComponent implements OnInit {
   }
 
   // CRUD end
-  editB2bMarketCustomer(b2bMarketDetailsForm: FormGroup, row) {
-    const dialogRef = this.dialog.open(B2bmarketEditComponent, {
+  editInterB2bMarketCustomer(interB2bMarketDetailsForm: FormGroup, row) {
+    const dialogRef = this.dialog.open(InterB2bmarketEditComponent, {
       width: '720px',
       disableClose: true,
       data: row
@@ -159,14 +156,14 @@ export class B2bmarketManagementComponent implements OnInit {
 
 
 @Component({
-  templateUrl: './b2bmarket-edit.component.html'
+  templateUrl: './interb2bmarket-edit.component.html'
 })
-export class B2bmarketEditComponent implements OnInit {
-  b2bMarketDetailsForm: FormGroup;
-  newCustomer: B2bMarket[] = [];
-  constructor(private fb: FormBuilder, private b2bmarketService:
-    B2bmarketService, public dialogRef: MatDialogRef<B2bmarketEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: B2bMarket) {
+export class InterB2bmarketEditComponent implements OnInit {
+  interB2bMarketDetailsForm: FormGroup;
+  newCustomer: InterB2bMarket[] = [];
+  constructor(private fb: FormBuilder, private interb2bmarketService:
+    Interb2bmarketService, public dialogRef: MatDialogRef<InterB2bmarketEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: InterB2bMarket) {
     console.log(data);
   }
 
@@ -175,11 +172,11 @@ export class B2bmarketEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createB2bMarketForm();
+    this.createInterB2bMarketForm();
   }
 
-  createB2bMarketForm() {
-    this.b2bMarketDetailsForm = this.fb.group({
+  createInterB2bMarketForm() {
+    this.interB2bMarketDetailsForm = this.fb.group({
       _id: [],
       emailMessage: [],
       customerName: [],
@@ -196,8 +193,8 @@ export class B2bmarketEditComponent implements OnInit {
       message: []
     });
   }
-  updateB2bMarketCustomer(b2bMarketDetailsForm: FormGroup, row) {
-    this.b2bmarketService.editB2bMarket(row).subscribe(data => {
+  updateInterB2bMarketCustomer(interB2bMarketDetailsForm: FormGroup, row) {
+    this.interb2bmarketService.editInterB2bMarket(row).subscribe(data => {
       this.newCustomer = data;
     }, error => {
       console.log(error);
@@ -207,14 +204,14 @@ export class B2bmarketEditComponent implements OnInit {
 }
 
 @Component({
-  templateUrl: './b2bmarket-add.component.html'
+  templateUrl: './interb2bmarket-add.component.html'
 })
-export class B2bmarketAddComponent implements OnInit {
-  b2bMarketDetailsForm: FormGroup;
-  newCustomer: B2bMarket;
-  constructor(private fb: FormBuilder, private b2bmarketService: B2bmarketService
-    , public dialogRef: MatDialogRef<B2bmarketAddComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: B2bMarket) {
+export class InterB2bmarketAddComponent implements OnInit {
+  interB2bMarketDetailsForm: FormGroup;
+  newCustomer: InterB2bMarket;
+  constructor(private fb: FormBuilder, private interb2bmarketService: Interb2bmarketService
+    , public dialogRef: MatDialogRef<InterB2bmarketAddComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: InterB2bMarket) {
     console.log(data);
   }
   cancel(): void {
@@ -226,7 +223,7 @@ export class B2bmarketAddComponent implements OnInit {
   }
 
   createForm() {
-    this.b2bMarketDetailsForm = this.fb.group({
+    this.interB2bMarketDetailsForm = this.fb.group({
       _id: [],
       customerName: [],
       mobileNumber: [],
@@ -241,21 +238,21 @@ export class B2bmarketAddComponent implements OnInit {
       brandName: []
     });
   }
-  addMember(b2bMarketDetailsForm: FormGroup) {
-    this.newCustomer = new B2bMarket(
-      b2bMarketDetailsForm.controls.customerName.value,
-      b2bMarketDetailsForm.controls.mobileNumber.value,
-      b2bMarketDetailsForm.controls.whatsAppNo.value,
-      b2bMarketDetailsForm.controls.landLine.value,
-      b2bMarketDetailsForm.controls.email.value,
-      b2bMarketDetailsForm.controls.location.value,
-      b2bMarketDetailsForm.controls.companyName.value,
-      b2bMarketDetailsForm.controls.companyAddress.value,
-      b2bMarketDetailsForm.controls.gstNumber.value,
-      b2bMarketDetailsForm.controls.customerGrade.value,
-      b2bMarketDetailsForm.controls.brandName.value
+  addMember(interB2bMarketDetailsForm: FormGroup) {
+    this.newCustomer = new InterB2bMarket(
+      interB2bMarketDetailsForm.controls.customerName.value,
+      interB2bMarketDetailsForm.controls.mobileNumber.value,
+      interB2bMarketDetailsForm.controls.whatsAppNo.value,
+      interB2bMarketDetailsForm.controls.landLine.value,
+      interB2bMarketDetailsForm.controls.email.value,
+      interB2bMarketDetailsForm.controls.location.value,
+      interB2bMarketDetailsForm.controls.companyName.value,
+      interB2bMarketDetailsForm.controls.companyAddress.value,
+      interB2bMarketDetailsForm.controls.gstNumber.value,
+      interB2bMarketDetailsForm.controls.customerGrade.value,
+      interB2bMarketDetailsForm.controls.brandName.value
     );
-    this.b2bmarketService.addSingleB2bCustomer(this.newCustomer).subscribe(data => {
+    this.interb2bmarketService.addSingleInterB2bCustomer(this.newCustomer).subscribe(data => {
       this.newCustomer = data;
     }, error => {
       console.log(error);

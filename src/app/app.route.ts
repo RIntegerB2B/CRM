@@ -21,6 +21,16 @@ import {
   import {
     OtherCustomerComponent
   } from './other-customer-management/other-customer/other-customer.component';
+  import { Interb2bcustomerManagementComponent
+  } from './interb2bcustomer-management/interb2bcustomer-management/interb2bcustomer-management.component';
+ import { Interb2bmarketManagementComponent
+  } from './interb2bmarket-management/interb2bmarket-management/interb2bmarket-management.component';
+ import { Interb2ccustomerManagementComponent
+  } from './interb2ccustomer-management/interb2ccustomer-management/interb2ccustomer-management.component';
+ import { Interb2cmarketManagementComponent
+  } from './interb2cmarket-management/interb2cmarket-management/interb2cmarket-management.component';
+  import { MessageManagementComponent
+  } from './message-management/message-management/message-management.component';  
 
 const routes: Routes = [
     { path: 'sms', canActivate: [AuthGuard], component: SmsManagementComponent },
@@ -54,6 +64,26 @@ const routes: Routes = [
     {
         path: 'others',
         component: OtherCustomerComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'interb2bcustomer',
+        component: Interb2bcustomerManagementComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'interb2bmarket',
+        component: Interb2bmarketManagementComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'interb2ccustomer',
+        component: Interb2ccustomerManagementComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'interb2cmarket',
+        component: Interb2cmarketManagementComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'message',
+        component: MessageManagementComponent, canActivate: [AuthGuard]
     },
     {
         path: 'login', component: LoginComponent

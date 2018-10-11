@@ -88,6 +88,21 @@ import {
 import {
   OtherCustomerComponent, OthersAddComponent, OthersEditComponent
 } from './other-customer-management/other-customer/other-customer.component';
+import { Interb2bcustomerManagementComponent,
+   InterB2bCustomerEditComponent,
+  InterB2bCustomerAddComponent
+ } from './interb2bcustomer-management/interb2bcustomer-management/interb2bcustomer-management.component';
+import { Interb2bmarketManagementComponent, InterB2bmarketAddComponent,
+  InterB2bmarketEditComponent
+ } from './interb2bmarket-management/interb2bmarket-management/interb2bmarket-management.component';
+import { Interb2ccustomerManagementComponent, InterB2ccustomerEditComponent,
+  InterB2ccustomerAddComponent
+ } from './interb2ccustomer-management/interb2ccustomer-management/interb2ccustomer-management.component';
+import { Interb2cmarketManagementComponent, InterB2cmarketEditComponent,
+  InterB2cmarketAddComponent
+ } from './interb2cmarket-management/interb2cmarket-management/interb2cmarket-management.component';
+import { MessageManagementComponent 
+} from './message-management/message-management/message-management.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +139,20 @@ import {
     AgentManagementComponent,
     OthersAddComponent,
     OthersEditComponent,
-    OtherCustomerComponent
+    OtherCustomerComponent,
+    Interb2bcustomerManagementComponent,
+    InterB2bCustomerEditComponent,
+    InterB2bCustomerAddComponent,
+    Interb2bmarketManagementComponent,
+    InterB2bmarketAddComponent,
+    InterB2bmarketEditComponent,
+    InterB2ccustomerEditComponent,
+    InterB2ccustomerAddComponent,
+    Interb2ccustomerManagementComponent,
+    Interb2cmarketManagementComponent,
+    InterB2cmarketEditComponent,
+    InterB2cmarketAddComponent,
+    MessageManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -185,7 +213,15 @@ import {
     EmployeeEditComponent,
     OtherCustomerComponent,
     OthersAddComponent,
-    OthersEditComponent
+    OthersEditComponent,
+    InterB2cmarketEditComponent,
+    InterB2cmarketAddComponent,
+    InterB2ccustomerEditComponent,
+    InterB2ccustomerAddComponent,
+    InterB2bCustomerEditComponent,
+    InterB2bCustomerAddComponent,
+    InterB2bmarketAddComponent,
+    InterB2bmarketEditComponent,
   ]
 })
 export class AppModule { }

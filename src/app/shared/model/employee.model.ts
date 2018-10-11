@@ -3,10 +3,9 @@ export class Employee {
     empName: string;
     empNo: string;
     gender: string;
-    landLine: string;
     email: string;
     mobileNumber: string;
-    whatsappNo: string;
+    whatsAppNo: string;
     dateOfJoin: string;
     dateOfBirth: string;
     designation: string;
@@ -15,10 +14,9 @@ export class Employee {
         empName: string,
         empNo: string,
         gender: string,
-        landLine: string,
         email: string,
         mobileNumber: string,
-        whatsappNo: string,
+        whatsAppNo: string,
         dateOfBirth: string,
         dateOfJoin: string,
         designation: string,
@@ -27,11 +25,10 @@ export class Employee {
         this.empName = empName;
         this.empNo = empNo;
         this.gender = gender;
-        this.landLine = landLine;
         this.email = email;
         this.dateOfJoin = dateOfJoin;
         this.mobileNumber = mobileNumber;
-        this.whatsappNo = whatsappNo;
+        this.whatsAppNo = whatsAppNo;
         this.dateOfBirth = dateOfBirth;
         this.designation = designation;
         this.address = address;
