@@ -99,7 +99,6 @@ export class SmsManagementComponent implements OnInit {
     });
   }
   // get B2B Customer //
-
     getAllB2bCustomer() {
     this.smsService.allCustomer()
       .subscribe((response) => {
