@@ -101,8 +101,9 @@ import { Interb2ccustomerManagementComponent, InterB2ccustomerEditComponent,
 import { Interb2cmarketManagementComponent, InterB2cmarketEditComponent,
   InterB2cmarketAddComponent
  } from './interb2cmarket-management/interb2cmarket-management/interb2cmarket-management.component';
-import { MessageManagementComponent 
+import { MessageManagementComponent, MessageAddComponent
 } from './message-management/message-management/message-management.component';
+import { InteruploadManagementComponent } from './interupload-management/interupload-management/interupload-management.component';
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ import { MessageManagementComponent
     CustomerEditComponent,
     B2bmarketEditComponent,
     B2ccustomerEditComponent,
+    
     VendoorEditComponent,
     CustomerAddComponent,
     EmployeeAddComponent,
@@ -152,7 +154,9 @@ import { MessageManagementComponent
     Interb2cmarketManagementComponent,
     InterB2cmarketEditComponent,
     InterB2cmarketAddComponent,
-    MessageManagementComponent
+    MessageManagementComponent,
+    MessageAddComponent,
+    InteruploadManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -222,6 +226,7 @@ import { MessageManagementComponent
     InterB2bCustomerAddComponent,
     InterB2bmarketAddComponent,
     InterB2bmarketEditComponent,
+    MessageAddComponent,
   ]
 })
 export class AppModule { }

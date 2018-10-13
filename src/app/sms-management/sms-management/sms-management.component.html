@@ -1,26 +1,159 @@
-<div class=" col-sm-12 d-flex border-dark p-3 flex-row">
-    <!-- *ngFor="let data of role.b2bCustomer" -->
-  <div class=" col-sm-2 col" >
-      <!-- *ngIf="data.smsPermission" -->
-    <button mat-raised-button  [routerLinkActive]="['activeLink']" color="primary"
-      (click)="getAllB2bCustomer()">
-      B2B Customers</button>
-  </div>
-  <div class="col-sm-1 col">
-  </div>
-  <div class="col-sm-2  col" *ngFor="let data of role.b2cMarket"
-   [routerLinkActive]="['activeLink']">
-   <!-- *ngIf="data.smsPermission" -->
-    <button mat-raised-button  color="primary" (click)="getAllB2cMarketCustomer()">B2C
-      Market</button>
-  </div>
-  <div class="col-sm-7 col">
-  </div>
-</div>
 <div class="col-sm-12">
   <mat-horizontal-stepper #stepper>
     <mat-step>
+      <ng-template matStepLabel>Select DB</ng-template>
+      <mat-nav-list>
+        <div fxLayout="row wrap" fxLayout.lt-sm="column">
+          <div fxFlex="100%">
+            <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+              <span *ngIf="isExpanded || isShowing">National Database</span>
+              <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">add_circle_outline</mat-icon>
+            </mat-list-item>
+            <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="showSubmenu">
+              <div id="scroll-area" class="navigation-hold" fxLayout="column">
+                <div class="sidenav-hold">
+                  <ul class="sidenav" *ngFor="let nb of nationalDatabse">
+                    <li>
+                      <div (click)="getAllB2bCustomer()" *ngIf="nb.type === 'B2B CUSTOMER DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllB2bMarket()" *ngIf="nb.type === 'B2B MARKET DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllB2cCustomer()" *ngIf="nb.type === 'B2C CUSTOMER DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllB2cMarket()" *ngIf="nb.type === 'B2C MARKET DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllEmployee()" *ngIf="nb.type === 'EMPLOYEE DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllVendor()" *ngIf="nb.type === 'VENDOR DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllAgent()" *ngIf="nb.type === 'AGENT DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllOthers()" *ngIf="nb.type === 'OTHERS DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxFlex="100%">
+            <mat-list-item (click)="showInterNational = !showInterNational" class="parent">
+              <span *ngIf="isExpanded || isShowing">International Database</span>
+              <mat-icon class="menu-button" [ngClass]="{'rotated' : showInterNational}" *ngIf="isExpanded || isShowing">add_circle_outline</mat-icon>
+            </mat-list-item>
+            <div class="submenu" [ngClass]="{'expanded' : showInterNational}" *ngIf="showInterNational">
+              <div id="scroll-area" class="navigation-hold" fxLayout="column">
+                <div class="sidenav-hold">
+                  <ul class="sidenav" *ngFor="let idb of interNationalDatabse">
+                    <li>
+                      <div (click)="getAllInterB2bcustomer()" *ngIf="idb.type === 'B2B CUSTOMER DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{idb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllInterB2bMarket()" *ngIf="idb.type === 'B2B MARKET DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{idb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllInterB2cCustomer()" *ngIf="idb.type === 'B2C CUSTOMER DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{idb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllInterB2cMarket()" *ngIf="idb.type === 'B2C MARKET DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{idb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-nav-list>
+      <div fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="warn" matStepperNext>
+          next
+        </button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <div class="text-center mb-5 textHeader">
+        <h4>{{textHeader}}</h4>
+      </div>
       <div class=" col-sm-12 d-flex border-dark  flex-row">
+
         <div class=" col-sm-4 col">
           <strong>MOBILE NUMBER</strong>
         </div>
@@ -32,7 +165,6 @@
         </div>
       </div><br>
       <ng-template matStepLabel>Mobile Numbers</ng-template>
-
       <div class=" col-sm-12 d-flex  flex-row">
         <div class="col-sm-4">
           <mat-checkbox [checked]="selectCheckbox" (change)="selectAllMobileNumber($event, newCustomer)" class="inbox-toggle-all mr-1"><b>ALL</b>
@@ -45,8 +177,7 @@
         </mat-form-field>
         <div *ngFor="let edit of dataSource;  let i = index" class="col-sm-12 d-flex   flex-row">
           <div class=" col-sm-4 col">
-            <mat-checkbox [checked]="selectCheckbox"
-             name="{{edit.mobileNumber}}" value="{{edit.mobileNumber}}"
+            <mat-checkbox [checked]="selectCheckbox" name="{{edit.mobileNumber}}" value="{{edit.mobileNumber}}"
               (change)="selectedMobileNumber($event, edit.mobileNumber)" class="mail-checkbox"> {{edit.mobileNumber}}</mat-checkbox>
           </div>
           <div class="col-sm-4 col">
@@ -60,41 +191,104 @@
           [length]="totalSize" [pageIndex]="currentPage" (page)="handlePage($event)">
         </mat-paginator>
       </div>
-      <div>
-        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      <div fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="warn" matStepperNext>
+          next
+        </button>
       </div>
     </mat-step>
     <mat-step>
-      <form [formGroup]="b2cMarketDetailsForm" (ngSubmit)="sendSms(b2cMarketDetailsForm)">
-        <ng-template matStepLabel>Message</ng-template>
-        <label for="comment">Select Message</label>
+      <form [formGroup]="smsDetailsForm">
         <div class="row">
           <div class="col-md-5">
-            <div class="card col-sm-12" *ngFor="let template of messageTemplates; let i = index">
-              <mat-checkbox [checked]="selected === i" (change)="selected = i" (change)="setNameValue($event, template)"
-                class="inbox-toggle-all mr-1"><b>{{template}}</b></mat-checkbox>
+            <label for="comment" class="textHeader"><b>Wishes Message</b></label>
+            <div class="card col-sm-12" *ngFor="let template of newMessage; let i = index">
+              <mat-checkbox [checked]="selected === i" (change)="selected = i" (change)="setNameValue($event, template.messageDescription)"
+                class="inbox-toggle-all mr-1"><b>{{template.messageDescription}}</b></mat-checkbox>
             </div><br>
+          </div>
+          <div class="col-md-2">
+            
+            </div>
+          <div class="col-md-5">
+              <label for="comment" class="textHeader"><b>Text Message</b></label>
+              <textarea class="form-control" formControlName="message" rows="4" required>
+            </textarea><br>
+              <div *ngIf="showMessage" class="alert alert-danger">
+                <div>Please enter Message</div>
+              </div>
+              <div *ngIf="showMobileNumber" class="alert alert-danger">
+                <div>Please enter Mobile Number</div>
+              </div>
+              <button mat-raised-button (click)="sendSms(smsDetailsForm)" color="primary">
+                SMS sent
+              </button>
+            </div>
+        </div>
+        <ng-template matStepLabel>Message</ng-template>
+        <div class="row">
+          <div class="col-md-5">
+            <label for="comment" class="textHeader"><b>Payment Reminder</b></label>
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+              <div *ngIf="showBillDetails" class="alert alert-danger">
+                <div>Please enter Bill Details</div>
+              </div>
+              <div fxFlex="100%">
+                <mat-form-field class="example-full-width">
+                  <input #billNumber matInput placeholder="Bill No" formControlName="billNo">
+                </mat-form-field>
+              </div>
+              <div fxFlex="100%">
+                <mat-form-field class="example-full-width">
+                  <input #billTotal matInput placeholder="Bill Amount" formControlName="billAmount">
+                </mat-form-field>
+              </div>
+              <div fxFlex="100%">
+                <mat-form-field class="example-full-width">
+                  <input #billDate matInput placeholder="Bill Date" formControlName="billDate">
+                </mat-form-field>
+              </div>
+              <div fxFlex="100">
+                <button mat-raised-button (click)="getBillDetails()" color="accent">ADD</button>
+              </div>
+
+            </div>
           </div>
           <div class="col-md-2">
 
           </div>
-          <div class="card col-md-5">
-            <label for="comment">Text Message:</label>
-            <textarea class="form-control" formControlName="message" rows="5" required></textarea><br>
-            <div *ngIf="showMessage" class="alert alert-danger">
-              <div>Please enter Message</div>
+          <div class="col-md-5">
+            <label for="comment" class="textHeader"><b>LLR Details</b></label>
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+              <div *ngIf="showLlrDetails" class="alert alert-danger">
+                <div>Please enter LLR Details</div>
+              </div>
+              <div fxFlex="100%">
+                <mat-form-field class="example-full-width">
+                  <input #llrNumber matInput placeholder="LLR Number" formControlName="llrNo">
+                </mat-form-field>
+              </div>
+              <div fxFlex="100%">
+                <mat-form-field class="example-full-width">
+                  <input #dateLlr matInput placeholder="Date" formControlName="dateOfLlr">
+                </mat-form-field>
+              </div>
+              <div fxFlex="100%">
+                <mat-form-field class="example-full-width">
+                  <input #transp matInput placeholder="Transporter" formControlName="transporter">
+                </mat-form-field>
+              </div>
+              <div fxFlex="100">
+                <button mat-raised-button mat-button (click)="getLlrDetails()" color="accent" type="button">ADD</button>
+              </div>
             </div>
-            <div *ngIf="showMobileNumber" class="alert alert-danger">
-              <div>Please enter Mobile Number</div>
-            </div>
-            <button mat-raised-button color="primary">
-              SMS sent
-            </button>
           </div>
         </div>
         <br>
-        <div fxLayout="row">
-          <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+        <div class="m-2" fxLayout="row" fxLayoutAlign="end center">
+          <button mat-raised-button color="warn" matStepperPrevious>
+            back
+          </button>
         </div>
       </form>
     </mat-step>

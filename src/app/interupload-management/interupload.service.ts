@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Customer } from './../shared/model/customer.model';
-import { B2cMarket } from './../shared/model/b2cmarket.model';
-import { B2bMarket } from './../shared/model/b2bmarket.model';
-import { B2cCustomer } from './../shared/model/b2ccustomer.model';
-import { Employee } from './../shared/model/employee.model';
-import { Vendor } from './../shared/model/vendor.model';
-import { Agent } from './../shared/model/agent.model';
-import { Others } from './../shared/model/other.model';
+import { InterB2bCustomer } from './../shared/model/interb2bcustomer.model';
+import { InterB2bMarket } from './../shared/model/interb2bmarket.model';
+import { InterB2cCustomer } from './../shared/model/interb2ccustomer.model';
+import { InterB2cMarket } from './../shared/model/interb2cmarket.model';
 import { AppSetting } from './../config/appSetting';
 import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
@@ -21,7 +17,7 @@ const EXCEL_EXTENSION = '.xlsx';
   providedIn: 'root'
 })
 
-export class UploadService {
+export class InteruploadService {
   serviceUrl: string = AppSetting.serviceUrl;
   headers: Headers = new Headers({
     'Content-Type': 'application/json; charset=utf-8'
@@ -39,47 +35,26 @@ export class UploadService {
     };
   }
   constructor(private http: Http, private httpClient: HttpClient) { }
-  createCustomer(data: any): Observable<any> {
-    const addUrl = 'customers';
+  createInterB2bCustomer(data: any): Observable<any> {
+    const addUrl = 'interb2bcustomer';
     const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<Customer[]>(url, data);
+    return this.httpClient.post<InterB2bCustomer[]>(url, data);
   }
-  createB2cMarket(data: any): Observable<any> {
-    const addUrl = 'b2cmarket';
+  createInterB2bMarket(data: any): Observable<any> {
+    const addUrl = 'interb2bmarket';
     const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<B2cMarket[]>(url, data);
+    return this.httpClient.post<InterB2bMarket[]>(url, data);
   }
-  createB2bMarket(data: any): Observable<any> {
-    const addUrl = 'b2bmarket';
+  createInterB2cMarket(data: any): Observable<any> {
+    const addUrl = 'interb2cmarket';
     const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<B2bMarket[]>(url, data);
+    return this.httpClient.post<InterB2cCustomer[]>(url, data);
   }
-  createB2cCustomer(data: any): Observable<any> {
-    const addUrl = 'b2ccustomer';
+  createInterB2cCustomer(data: any): Observable<any> {
+    const addUrl = 'interb2ccustomer';
     const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<B2cCustomer[]>(url, data);
+    return this.httpClient.post<InterB2cMarket[]>(url, data);
   }
-  createEmployee(data: any): Observable<any> {
-    const addUrl = 'employee';
-    const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<Employee[]>(url, data);
-  }
-  createVendor(data: any): Observable<any> {
-    const addUrl = 'vendor';
-    const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<Vendor[]>(url, data);
-  }
-  createAgent(data: any): Observable<any> {
-    const addUrl = 'agent';
-    const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<Agent[]>(url, data);
-  }
-  createOthers(data: any): Observable<any> {
-    const addUrl = 'others';
-    const url: string = this.serviceUrl + addUrl;
-    return this.httpClient.post<Others[]>(url, data);
-  }
-
   exportAsExcelFile(json: any[], excelFileName: string) {
     try {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
@@ -91,7 +66,6 @@ export class UploadService {
       alert(Error);
   }
   }
-
   saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], {
       type: EXCEL_TYPE

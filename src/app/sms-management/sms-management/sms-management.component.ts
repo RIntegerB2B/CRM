@@ -1,13 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MobileSend } from './sms-model';
 /* import { Customer } from './../../shared/model/customer.model'; */
 import { B2cMarket } from './../../shared/model/b2cmarket.model';
 import { SmsService } from './../sms.service';
+import { Message } from './../../shared/model/message.model';
 import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { PageEvent } from '@angular/material';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
+import { MessageService } from '../../message-management/message.service'
 import { AccessPermission } from './../../user-management/permission/accessPermission.model';
 
 @Component({
@@ -17,21 +19,36 @@ import { AccessPermission } from './../../user-management/permission/accessPermi
 })
 export class SmsManagementComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  @ViewChild('billNumber') billNumber: ElementRef;
+  @ViewChild('billTotal') billTotal: ElementRef;
+  @ViewChild('llrNumber') llrNumber: ElementRef;
+  @ViewChild('dateLlr') dateLlr: ElementRef;
+  @ViewChild('transp') transp: ElementRef;
+  @ViewChild('billDate') billDate: ElementRef;
   b2cMarketDetailsForm: FormGroup;
   customerDetailsForm: FormGroup;
+  smsDetailsForm: FormGroup;
   smsCompleted = false;
   mobileSend: MobileSend;
   newCustomer: any;
   selectedMobileNumbers = [];
   sendMobileNumber;
+  textHeader;
   selectCheckbox = false;
   selectTemplate: boolean;
   mobiles;
+  isExpanded = true;
+  showSubmenu = false;
+  showInterNational = false;
+  isShowing = false;
   showMobileNumber = false;
   showMessage = false;
-  messageTemplates = ['Happy New Year', 'Happy Diwali', 'Thanks for purchase', 'Welcome to UCCHAL'];
+  showBillDetails = false;
+  showLlrDetails = false;
   messages = [];
+  newMessage: Message[];
+  setFullBillDetails;
+  setFullLlrDetails;
   // array of all items to be paged
   array: any;
   displayedColumns = ['', '', '', '', ''];
@@ -41,66 +58,64 @@ export class SmsManagementComponent implements OnInit {
   temp: any = [];
   role: AccessPermission;
   // pageEvent: PageEvent;
+  nationalDatabse = [ {'type': 'B2B CUSTOMER DB'},
+  {'type':  'B2B MARKET DB'}, {'type': 'B2C CUSTOMER DB'}, {'type': 'B2C MARKET DB'},
+  {'type': 'EMPLOYEE DB'}, {'type': 'VENDOR DB'}, { 'type':  'AGENT DB' },
+  {'type': 'OTHERS DB'}];
+  interNationalDatabse = [ {'type': 'B2B CUSTOMER DB'},
+  {'type':  'B2B MARKET DB'}, {'type': 'B2C CUSTOMER DB'}, {'type': 'B2C MARKET DB'}];
+  textb2bcustomer;
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;
   public searchString: string;
 
-  constructor(private fb: FormBuilder, private smsService: SmsService, private headerSideService: HeaderSideService) {
+  constructor(private fb: FormBuilder, private smsService: SmsService, private headerSideService: HeaderSideService,
+    private messageService: MessageService) {
   }
 
 
   ngOnInit() {
-    this.createB2cMarketForm();
+    this.createMessageForm();
+    this.getAllMessage();
     this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
- /*  ngDoCheck() {
-    console.log(this.temp);
-  } */
-// b2c market Form//
-  createB2cMarketForm() {
-    this.b2cMarketDetailsForm = this.fb.group({
-      _id: [],
-      customerName: [],
-      gender: [],
-      mobileNumber: [],
-      email: [],
-      dateOfBirth: [],
-      nationality: [],
-      categoryType: [],
-      customerGrade: [],
-      designation: [],
-      location: [],
+
+  createMessageForm() {
+    this.smsDetailsForm = this.fb.group({
       message: ['', Validators.minLength(3)],
-      messageTemplates: [],
-      pagedItems: []
+      billNo: [],
+      billDate: [],
+      billAmount: [],
+      mobileNumber: [],
+      llrNo: [],
+      transporter: [],
+      dateOfLlr: [],
     });
   }
-// b2b customer Form//
-  createForm() {
-    this.customerDetailsForm = this.fb.group({
-      _id: [],
-      emailMessage: [],
-      customerName: [],
-      mobileNumber: [],
-      whatsAppNo: [],
-      landLine: [],
-      email: [],
-      companyName: [],
-      companyAddress: [],
-      location: [],
-      gst: [],
-      customerGrade: [],
-      brandName: [],
-      message: ['', Validators.minLength(3)],
-      messageTemplates: [],
-      pagedItems: []
+  mouseenter() {
+    if (!this.isExpanded) {
+      this.isShowing = true;
+    }
+  }
+  mouseleave() {
+    if (!this.isExpanded) {
+      this.isShowing = false;
+    }
+  }
+  getAllMessage() {
+    this.messageService.allMessage().subscribe(data => {
+      this.newMessage = data;
+      console.log(this.newMessage);
+    }, error => {
+      console.log(error);
     });
   }
   // get B2B Customer //
-    getAllB2bCustomer() {
-    this.smsService.allCustomer()
+  getAllB2bCustomer() {
+    this.textHeader = this.nationalDatabse[0].type;
+    this.smsService.allB2bCustomer()
       .subscribe((response) => {
         this.dataSource = new MatTableDataSource<Element>(response);
         this.dataSource.paginator = this.paginator;
@@ -109,10 +124,43 @@ export class SmsManagementComponent implements OnInit {
         this.totalSize = this.array.length;
         this.temp = response;
         this.iterator();
+      }, error => {
+        console.log(error);
+      });
+  }
+  getAllB2bMarket() {
+    this.textHeader = this.nationalDatabse[1].type;
+    this.smsService.allB2bMarket()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource<Element>(response);
+        this.dataSource.paginator = this.paginator;
+        this.array = response;
+        this.newCustomer = response;
+        this.totalSize = this.array.length;
+        this.temp = response;
+        this.iterator();
+      }, error => {
+        console.log(error);
+      });
+  }
+  getAllB2cCustomer() {
+    this.textHeader = this.nationalDatabse[2].type;
+    this.smsService.allB2cCustomer()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource<Element>(response);
+        this.dataSource.paginator = this.paginator;
+        this.array = response;
+        this.newCustomer = response;
+        this.totalSize = this.array.length;
+        this.temp = response;
+        this.iterator();
+      }, error => {
+        console.log(error);
       });
   }
   // get B2C Market //
-  getAllB2cMarketCustomer() {
+  getAllB2cMarket() {
+    this.textHeader = this.nationalDatabse[3].type;
     this.smsService.allB2cMarket()
       .subscribe((response) => {
         this.dataSource = new MatTableDataSource<Element>(response);
@@ -122,8 +170,130 @@ export class SmsManagementComponent implements OnInit {
         this.newCustomer = response;
         this.temp = response;
         this.iterator();
+      }, error => {
+        console.log(error);
       });
   }
+  getAllEmployee() {
+    this.textHeader = this.nationalDatabse[4].type;
+    this.smsService.allEmployee()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource<Element>(response);
+        this.dataSource.paginator = this.paginator;
+        this.array = response;
+        this.totalSize = this.array.length;
+        this.newCustomer = response;
+        this.temp = response;
+        this.iterator();
+      }, error => {
+        console.log(error);
+      });
+  }
+  getAllVendor() {
+    this.textHeader = this.nationalDatabse[5].type;
+    this.smsService.allVendor()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource<Element>(response);
+        this.dataSource.paginator = this.paginator;
+        this.array = response;
+        this.totalSize = this.array.length;
+        this.newCustomer = response;
+        this.temp = response;
+        this.iterator();
+      }, error => {
+        console.log(error);
+      });
+  }
+  getAllAgent() {
+    this.textHeader = this.nationalDatabse[6].type;
+    this.smsService.allAgent()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource<Element>(response);
+        this.dataSource.paginator = this.paginator;
+        this.array = response;
+        this.totalSize = this.array.length;
+        this.newCustomer = response;
+        this.temp = response;
+        this.iterator();
+      }, error => {
+        console.log(error);
+      });
+  }
+  getAllOthers() {
+    this.textHeader = this.nationalDatabse[7].type;
+    this.smsService.allOthers()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource<Element>(response);
+        this.dataSource.paginator = this.paginator;
+        this.array = response;
+        this.totalSize = this.array.length;
+        this.newCustomer = response;
+        this.temp = response;
+        this.iterator();
+      }, error => {
+        console.log(error);
+      });
+  }
+  getAllInterB2bcustomer() {
+    this.textHeader = 'INTERNATIONAL B2B CUSTOMER';
+    this.smsService.allInterB2bcustomer()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource<Element>(response);
+        this.dataSource.paginator = this.paginator;
+        this.array = response;
+        this.totalSize = this.array.length;
+        this.newCustomer = response;
+        this.temp = response;
+        this.iterator();
+      }, error => {
+        console.log(error);
+      });
+  }
+  getAllInterB2bMarket() {
+    this.textHeader = 'INTERNATIONAL B2B MARKET';
+    this.smsService.allInterB2bMarket()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource<Element>(response);
+        this.dataSource.paginator = this.paginator;
+        this.array = response;
+        this.totalSize = this.array.length;
+        this.newCustomer = response;
+        this.temp = response;
+        this.iterator();
+      }, error => {
+        console.log(error);
+      });
+   }
+   getAllInterB2cCustomer() {
+    this.textHeader = 'INTERNATIONAL B2C CUSTOMER';
+    this.smsService.allInterB2cCustomer()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource<Element>(response);
+        this.dataSource.paginator = this.paginator;
+        this.array = response;
+        this.totalSize = this.array.length;
+        this.newCustomer = response;
+        this.temp = response;
+        this.iterator();
+      }, error => {
+        console.log(error);
+      });
+   }
+   getAllInterB2cMarket() {
+    this.textHeader = 'INTERNATIONAL B2C MARKET';
+    this.smsService.allInterB2cMarket()
+      .subscribe((response) => {
+        this.dataSource = new MatTableDataSource<Element>(response);
+        this.dataSource.paginator = this.paginator;
+        this.array = response;
+        this.totalSize = this.array.length;
+        this.newCustomer = response;
+        this.temp = response;
+        this.iterator();
+      }, error => {
+        console.log(error);
+      });
+   }
 
   handlePage(e: any) {
     this.currentPage = e.pageIndex;
@@ -138,18 +308,20 @@ export class SmsManagementComponent implements OnInit {
     console.log(this.dataSource);
   }
 
-  sendSms(b2cMarketDetailsForm: FormGroup) {
-    if (b2cMarketDetailsForm.controls.mobileNumber.value === null) {
+  sendSms(smsDetailsForm: FormGroup) {
+    if (smsDetailsForm.controls.mobileNumber.value === null) {
       this.showMobileNumber = true;
       this.showMessage = false;
     } else {
-      if (b2cMarketDetailsForm.controls.message.value === '') {
+      if (smsDetailsForm.controls.message.value === '') {
         this.showMessage = true;
         this.showMobileNumber = false;
       } else {
+        this.showMessage = false;
+        this.showMobileNumber = false;
         this.mobileSend = new MobileSend(
-          b2cMarketDetailsForm.controls.mobileNumber.value,
-          b2cMarketDetailsForm.controls.message.value
+          smsDetailsForm.controls.mobileNumber.value,
+          smsDetailsForm.controls.message.value
         );
         this.smsService.mobileMessage(this.mobileSend).subscribe(data => {
           if (data.result = 1) {
@@ -180,7 +352,7 @@ export class SmsManagementComponent implements OnInit {
       this.selectedMobileNumbers.splice(index, 1);
     }
     this.sendMobileNumber = this.selectedMobileNumbers.toString();
-    this.b2cMarketDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
+    this.smsDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
     console.log(this.selectedMobileNumbers);
   }
   findIndexToUpdate(mobileData) {
@@ -188,14 +360,42 @@ export class SmsManagementComponent implements OnInit {
   }
   selectAllMobileNumber(e, mobileData) {
     this.selectCheckbox = !this.selectCheckbox;
-    mobileData.map(element => element.mobileNumber);
-    this.selectedMobileNumber(e, mobileData);
+    mobileData.forEach(element => {
+      this.selectedMobileNumber(e, element.mobileNumber);
+    });
+  }
+  getBillDetails() {
+    if (this.billNumber.nativeElement.value === '' ||
+      this.billTotal.nativeElement.value === '' ||
+      this.billDate.nativeElement.value === ''
+    ) {
+      this.showBillDetails = true;
+    } else {
+      this.showBillDetails = false;
+      this.setFullBillDetails = 'Bill Number: ' + this.billNumber.nativeElement.value
+        + '\nBill Amount: ' + this.billTotal.nativeElement.value + '\nBill Date: ' + this.billDate.nativeElement.value;
+      this.smsDetailsForm.controls.message.setValue(this.setFullBillDetails);
+    }
+  }
+  getLlrDetails() {
+    if (this.llrNumber.nativeElement.value === '' ||
+      this.dateLlr.nativeElement.value === '' ||
+      this.transp.nativeElement.value === ''
+    ) {
+      this.showLlrDetails = true;
+    } else {
+      this.showLlrDetails = false;
+      this.setFullLlrDetails = 'Your LLR# ' + this.llrNumber.nativeElement.value
+        + ' goods is dispatched ' + this.transp.nativeElement.value + ' on ' +
+        this.dateLlr.nativeElement.value + '\n Thank you for purchase';
+      this.smsDetailsForm.controls.message.setValue(this.setFullLlrDetails);
+    }
   }
   setNameValue(e, template) {
     if (e.checked === true) {
-      this.b2cMarketDetailsForm.controls.message.setValue(template);
+      this.smsDetailsForm.controls.message.setValue(template);
     } else {
-      this.b2cMarketDetailsForm.controls.message.reset();
+      this.smsDetailsForm.controls.message.reset();
     }
   }
   updateFilter(event) {
@@ -220,5 +420,5 @@ export class SmsManagementComponent implements OnInit {
       }
     });
     this.dataSource = rows;
-}
+  }
 }

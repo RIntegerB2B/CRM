@@ -362,7 +362,7 @@ export class UploadManagementComponent implements OnInit {
 /* sample xlsx download */
 
   b2cCustomerAsXLSX() {
-    this.uploadService.exportAsB2cCustomerExcelFile(this.excelB2CcustomerData,
+    this.uploadService.exportAsExcelFile(this.excelB2CcustomerData,
       'B2Ccustomer');
   }
   b2bMarketAsXLSX() {

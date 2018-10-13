@@ -130,6 +130,13 @@ export class HeaderSideService {
       state: 'tables',
     },
     {
+      name: 'MESSAGE SETTING',
+      type: 'message',
+      tooltip: 'message',
+      icon: 'message',
+      state: 'message',
+    },
+    {
       name: 'UPLOAD',
       type: 'upload',
       tooltip: 'email',

@@ -48,7 +48,7 @@ import { ResponseResult } from './../shared/model/response-result.model';
     return this.httpClient.put<InterB2bCustomer[]>(url, edit);
   }
   addSingleInterB2bCustomer(data: any): Observable<any> {
-    const addUrl = 'singleinterb2ccustomer';
+    const addUrl = 'singleinterb2bcustomer';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<InterB2bCustomer[]>(url, data);
   }

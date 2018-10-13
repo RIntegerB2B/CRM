@@ -13,7 +13,7 @@
           </div>
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput formControlName="gender" placeholder="Gender" required>
+              <input matInput formControlName="gender" placeholder="Gender" [required]="false">
               <mat-error *ngIf="interB2cMarketDetailsForm.controls['gender'].errors?.required">
                 Enter Gender
                 <strong>required</strong>
@@ -31,7 +31,7 @@
           </div>
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput formControlName="email" placeholder="Email" required>
+              <input matInput formControlName="email" placeholder="Email" [required]="false">
               <mat-error *ngIf="interB2cMarketDetailsForm.controls['email'].errors?.required">
                 Enter email address
                 <strong>required</strong>
@@ -41,7 +41,7 @@
           </div>
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput formControlName="dateOfBirth" placeholder="Date of Birth" required>
+              <input matInput formControlName="dateOfBirth" placeholder="Date of Birth" [required]="false">
       
               <mat-error *ngIf="interB2cMarketDetailsForm.controls['dateOfBirth'].errors?.required">
                 Enter Date of Birth
@@ -51,7 +51,7 @@
           </div>
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput formControlName="designation" placeholder="Designation" required>
+              <input matInput formControlName="designation" placeholder="Designation" [required]="false">
               <mat-error *ngIf="interB2cMarketDetailsForm.controls['designation'].errors?.required">
                 Enter Designation
                 <strong>required</strong>

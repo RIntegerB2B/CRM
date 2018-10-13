@@ -1,8 +1,37 @@
 .mat-horizontal-stepper-header .mat-stepper-horizontal-line {
-    border-top-width: 1px;
-    border-top-style: solid;
-    flex: none !important;
-    height: 0;
-    margin: 0 -16px;
-    min-width: 32px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  flex: none !important;
+  height: 0;
+  margin: 0 -16px;
+  min-width: 32px;
+}
+.mat-list,
+.mat-nav-list,
+.mat-selection-list {
+  transition: transform .3s cubic-bezier(.35, 0, .25, 1);
+  width: 15rem;
+}
+.menu-button.rotated {
+  transform: rotate(46deg);
+}
+
+.submenu {
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.submenu.expanded {
+  transform: scaleY(1);
+}
+
+.parent {
+  font-size: 14px;
+  font-weight: bolder;
+}
+
+.parent mat-icon {
+  margin-left: auto;
 }

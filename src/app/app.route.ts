@@ -30,7 +30,8 @@ import {
  import { Interb2cmarketManagementComponent
   } from './interb2cmarket-management/interb2cmarket-management/interb2cmarket-management.component';
   import { MessageManagementComponent
-  } from './message-management/message-management/message-management.component';  
+  } from './message-management/message-management/message-management.component';
+  import { InteruploadManagementComponent } from './interupload-management/interupload-management/interupload-management.component';
 
 const routes: Routes = [
     { path: 'sms', canActivate: [AuthGuard], component: SmsManagementComponent },
@@ -96,6 +97,10 @@ const routes: Routes = [
     {
         path: 'permission',
         component: PermissionComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'interupload',
+        component: InteruploadManagementComponent, canActivate: [AuthGuard]
     },
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
