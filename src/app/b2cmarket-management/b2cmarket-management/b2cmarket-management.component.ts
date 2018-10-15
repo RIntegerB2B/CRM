@@ -38,10 +38,10 @@ export class B2cmarketManagementComponent implements OnInit {
     this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
-  changePageLimit(limit: any): void {
+  changePageLimit(limit) {
     this.currentPageLimit = parseInt(limit, 10);
   }
-  onLimitChange(limit: any): void {
+  onLimitChange(limit) {
     this.changePageLimit(limit);
     this.table.limit = this.currentPageLimit;
     this.table.recalculate();
@@ -69,7 +69,6 @@ export class B2cmarketManagementComponent implements OnInit {
       itemsPerPage: new FormControl('100'),
     });
   }
- 
   updateFilter(event) {
     // this.showData = true;
     const val = event.target.value.toLowerCase();

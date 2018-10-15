@@ -113,7 +113,6 @@ import { InteruploadManagementComponent } from './interupload-management/interup
     CustomerEditComponent,
     B2bmarketEditComponent,
     B2ccustomerEditComponent,
-    
     VendoorEditComponent,
     CustomerAddComponent,
     EmployeeAddComponent,

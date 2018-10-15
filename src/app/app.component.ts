@@ -13,11 +13,8 @@ export class AppComponent implements OnInit {
   constructor(
     public headerSideService: HeaderSideService
   ) {
-    this.role = JSON.parse(sessionStorage.getItem('role'));
   }
 
   ngOnInit() {
-    this.role = JSON.parse(sessionStorage.getItem('role'));
-    this.headerSideService.makeMenuTransparent();
   }
 }

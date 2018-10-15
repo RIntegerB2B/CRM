@@ -56,6 +56,7 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterContentCheck
     });
     /* this.userManagementService.logIn().subscribe(data => data); */
     // this.role = sessionStorage.getItem('role');
+    this.headerSideService.makeMenuTransparent();
   }
   ngOnDestroy() {
     this.mobileQuery.removeListener(this._mobileQueryListener);

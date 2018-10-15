@@ -12,8 +12,10 @@
       <small>Logout</small>
     </button>
   </mat-toolbar>
-  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav [ngClass]="headerSideService.menuTransparent " #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+  <mat-sidenav-container  class="example-sidenav-container" 
+  [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [ngClass]="headerSideService.menuTransparent"  
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
       [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list>
         <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
@@ -290,7 +292,7 @@
                   </li>
                 <li>
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
-                        true}">
+                        true}" routerLink="/backup">
                     <a matRipple *ngIf="item.type === 'backup'">
                       <mat-icon>{{item.icon}}</mat-icon>
                       <span class="item-name">{{item.name}}</span>

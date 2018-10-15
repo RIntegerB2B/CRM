@@ -33,6 +33,7 @@ import {
   } from './message-management/message-management/message-management.component';
   import { InteruploadManagementComponent } from './interupload-management/interupload-management/interupload-management.component';
 
+
 const routes: Routes = [
     { path: 'sms', canActivate: [AuthGuard], component: SmsManagementComponent },
     {

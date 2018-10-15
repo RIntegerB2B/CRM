@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MobileSend } from './sms-model';
+import { MatStepper } from '@angular/material';
 /* import { Customer } from './../../shared/model/customer.model'; */
 import { B2cMarket } from './../../shared/model/b2cmarket.model';
 import { SmsService } from './../sms.service';
@@ -49,21 +50,21 @@ export class SmsManagementComponent implements OnInit {
   newMessage: Message[];
   setFullBillDetails;
   setFullLlrDetails;
-  // array of all items to be paged
   array: any;
   displayedColumns = ['', '', '', '', ''];
   dataSource: any = [];
   rows: any = [];
   columns: any = [];
   temp: any = [];
+  smsStatus: any = [];
   role: AccessPermission;
   // pageEvent: PageEvent;
-  nationalDatabse = [ {'type': 'B2B CUSTOMER DB'},
-  {'type':  'B2B MARKET DB'}, {'type': 'B2C CUSTOMER DB'}, {'type': 'B2C MARKET DB'},
-  {'type': 'EMPLOYEE DB'}, {'type': 'VENDOR DB'}, { 'type':  'AGENT DB' },
-  {'type': 'OTHERS DB'}];
-  interNationalDatabse = [ {'type': 'B2B CUSTOMER DB'},
-  {'type':  'B2B MARKET DB'}, {'type': 'B2C CUSTOMER DB'}, {'type': 'B2C MARKET DB'}];
+  nationalDatabse = [{ 'type': 'B2B CUSTOMER DB' },
+  { 'type': 'B2B MARKET DB' }, { 'type': 'B2C CUSTOMER DB' }, { 'type': 'B2C MARKET DB' },
+  { 'type': 'EMPLOYEE DB' }, { 'type': 'VENDOR DB' }, { 'type': 'AGENT DB' },
+  { 'type': 'OTHERS DB' }];
+  interNationalDatabse = [{ 'type': 'B2B CUSTOMER DB' },
+  { 'type': 'B2B MARKET DB' }, { 'type': 'B2C CUSTOMER DB' }, { 'type': 'B2C MARKET DB' }];
   textb2bcustomer;
   public pageSize = 10;
   public currentPage = 0;
@@ -80,6 +81,13 @@ export class SmsManagementComponent implements OnInit {
     this.getAllMessage();
     this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
+  }
+  goBack(stepper: MatStepper) {
+    stepper.previous();
+  }
+
+  goForward(stepper: MatStepper) {
+    stepper.next();
   }
 
   createMessageForm() {
@@ -263,8 +271,8 @@ export class SmsManagementComponent implements OnInit {
       }, error => {
         console.log(error);
       });
-   }
-   getAllInterB2cCustomer() {
+  }
+  getAllInterB2cCustomer() {
     this.textHeader = 'INTERNATIONAL B2C CUSTOMER';
     this.smsService.allInterB2cCustomer()
       .subscribe((response) => {
@@ -278,8 +286,8 @@ export class SmsManagementComponent implements OnInit {
       }, error => {
         console.log(error);
       });
-   }
-   getAllInterB2cMarket() {
+  }
+  getAllInterB2cMarket() {
     this.textHeader = 'INTERNATIONAL B2C MARKET';
     this.smsService.allInterB2cMarket()
       .subscribe((response) => {
@@ -293,7 +301,7 @@ export class SmsManagementComponent implements OnInit {
       }, error => {
         console.log(error);
       });
-   }
+  }
 
   handlePage(e: any) {
     this.currentPage = e.pageIndex;
@@ -324,10 +332,9 @@ export class SmsManagementComponent implements OnInit {
           smsDetailsForm.controls.message.value
         );
         this.smsService.mobileMessage(this.mobileSend).subscribe(data => {
-          if (data.result = 1) {
-            this.smsCompleted = true;
-          }
           console.log(data);
+          this.smsStatus.push(data);
+
         }, error => {
           console.log(error);
         });
@@ -336,10 +343,9 @@ export class SmsManagementComponent implements OnInit {
   }
   selectedMobileNumber(e, mobileData) {
     if (e.checked) {
-      if (mobileData.length > 10) {
+         if (mobileData.length > 10) {
         const lengthOf = mobileData.length - 10;
         const newValue = mobileData.substr(lengthOf);
-        console.log(newValue);
         this.selectedMobileNumbers.push(newValue);
       } else {
         this.selectedMobileNumbers.push(mobileData);
@@ -358,9 +364,9 @@ export class SmsManagementComponent implements OnInit {
   findIndexToUpdate(mobileData) {
     return mobileData === this;
   }
-  selectAllMobileNumber(e, mobileData) {
+  selectAllMobileNumber(e, dataSource) {
     this.selectCheckbox = !this.selectCheckbox;
-    mobileData.forEach(element => {
+    dataSource.forEach(element => {
       this.selectedMobileNumber(e, element.mobileNumber);
     });
   }

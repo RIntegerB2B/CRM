@@ -79,7 +79,6 @@ export class UploadService {
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<Others[]>(url, data);
   }
-
   exportAsExcelFile(json: any[], excelFileName: string) {
     try {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
@@ -91,6 +90,7 @@ export class UploadService {
       alert(Error);
   }
   }
+
 
   saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], {

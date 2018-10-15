@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserManagementService } from './../user-management.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Register } from './register.model';
+import { AccessPermission } from './../permission/accessPermission.model';
 import { AuthService } from '../auth.service';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
 @Component({
@@ -14,14 +15,9 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   accessForm: FormGroup;
   register: Register;
+  accessPermission: AccessPermission[];
   userTypes = ['operation', 'mananger', 'testoperator'];
   selectedPermissions = [];
-  logOutSession = false;
-  manager_id;
-  paramsValue: Params;
-  allowEdit = false;
-  message: Register;
-
   constructor(
     private fb: FormBuilder,
     private userManagementService: UserManagementService, private router: Router, public route: ActivatedRoute,
@@ -31,11 +27,17 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.userRegister();
-    this.headerSideService.currentRegister.subscribe(message => this.message = message);
-    console.log(this.message.userType);
     this.headerSideService.hideMenuTransparent();
+    this.getAllUserType();
   }
-
+  getAllUserType() {
+    this.userManagementService.permissionUserType().subscribe(data => {
+      this.accessPermission = data;
+      console.log(this.accessPermission);
+    }, error => {
+      console.log(error);
+    });
+  }
   userRegister() {
     this.registerForm = this.fb.group({
       _id: [''],
@@ -47,17 +49,12 @@ export class RegisterComponent implements OnInit {
     });
   }
   regSubmit(registerForm: FormGroup) {
-  
     this.register = new Register(
       registerForm.controls.userName.value,
       registerForm.controls.password.value,
       registerForm.controls.mobileNumber.value,
       registerForm.controls.email.value,
-      registerForm.controls.userType.value,
-      /*    registerForm.controls.smsPermission.value,
-         registerForm.controls.emailPermission.value,
-         registerForm.controls.editPermission.value,
-         registerForm.controls.deletePermission.value */
+      registerForm.controls.userType.value
     );
     this.userManagementService.registration(this.register).subscribe(data => {
       console.log(data);

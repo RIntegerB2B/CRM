@@ -51,8 +51,9 @@
         <div class="form-group">
           <mat-form-field>
             <mat-select formControlName="userType" placeholder="User Type">
-              <mat-option style="padding:5px;" *ngFor="let userType of userTypes" [value]="userType">
-                {{userType}}
+              <mat-option style="padding:5px;" *ngFor="let access of accessPermission" 
+              [value]="access.userType">
+                {{access.userType}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="registerForm.controls['userType'].errors?.required">
@@ -63,6 +64,7 @@
         </div>
         <div>
           <button mat-raised-button color="primary">register</button>
+        
         </div>
       </div>
     </div>

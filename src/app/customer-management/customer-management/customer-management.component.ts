@@ -322,17 +322,17 @@ export class CustomerAddComponent implements OnInit {
   }
   addMember(customerDetailsForm: FormGroup)   {
      this.newCustomer = new Customer(
-      customerDetailsForm.controls.companyAddress.value,
-      customerDetailsForm.controls.mobileNumber.value,
-      customerDetailsForm.controls.location.value,
-      customerDetailsForm.controls.gstNumber.value,
-      customerDetailsForm.controls.brandName.value,
-      customerDetailsForm.controls.customerGrade.value,
       customerDetailsForm.controls.customerName.value,
       customerDetailsForm.controls.mobileNumber.value,
       customerDetailsForm.controls.whatsAppNo.value,
+      customerDetailsForm.controls.landLine.value,
       customerDetailsForm.controls.email.value,
-      customerDetailsForm.controls.companyName.value
+      customerDetailsForm.controls.location.value,
+      customerDetailsForm.controls.companyName.value,
+      customerDetailsForm.controls.companyAddress.value,
+      customerDetailsForm.controls.gstNumber.value,
+      customerDetailsForm.controls.customerGrade.value,
+      customerDetailsForm.controls.brandName.value
     );
     this.customerManagementService.addSingleCustomer(this.newCustomer).subscribe(data => {
       this.newCustomer = data;
