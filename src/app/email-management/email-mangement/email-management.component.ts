@@ -56,7 +56,6 @@ export class EmailManagementComponent implements OnInit {
    //    this.getAllB2cMarketCustomer();
     // this.getArray();
     console.log(this.content.nativeElement.innerHTML);
-    this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
    createForm() {

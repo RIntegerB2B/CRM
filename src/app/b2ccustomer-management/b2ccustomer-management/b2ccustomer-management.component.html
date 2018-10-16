@@ -12,9 +12,9 @@
           {{newCustomer.length}}
         </button>
       </div>
-      <div class="text-center">
+      <div class="text-center" *ngFor="let data of role.b2cCustomer">
         <h5>Add Customer</h5>
-        <button mat-mini-fab color="warn" (click)="addCustomer(b2cCustomerDetailsForm, true)">
+        <button mat-mini-fab [disabled]="!data.addPermission" color="warn" (click)="addCustomer(b2cCustomerDetailsForm, true)">
           <mat-icon>add_box</mat-icon>
         </button>
       </div>
@@ -51,7 +51,7 @@
               </div>
       </div>
     </div>
-    <div  *ngFor="let data of role.b2bCustomer">
+    <div  *ngFor="let data of role.b2cCustomer">
   
       <ngx-datatable #myTable class="material pl-5 ml-0 mr-0" 
       (select)="onSelect($event)" 
@@ -63,11 +63,18 @@
             {{row?.customerName}}
           </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column [sortable]="false" [draggable]="false" name="MOBILE NUMBER" [flexGrow]="1">
+        <ngx-datatable-column  *ngIf="role.userType == 'admin'; else noAdmin" [sortable]="false" [draggable]="false" name="MOBILE NUMBER" [flexGrow]="1">
           <ng-template let-row="row" ngx-datatable-cell-template>
             {{row?.mobileNumber}}
           </ng-template>
         </ngx-datatable-column>
+        <ng-template #noAdmin>
+            <ngx-datatable-column  [sortable]="false" [draggable]="false" name="MOBILE NUMBER" [flexGrow]="1">
+                <ng-template  let-row="row" ngx-datatable-cell-template>
+                  **********
+                </ng-template>
+              </ngx-datatable-column>
+            </ng-template>
         <ngx-datatable-column [sortable]="false" [draggable]="false" name="LOCATION" [flexGrow]="1">
           <ng-template let-row="row" ngx-datatable-cell-template>
             {{row?.location}}
@@ -82,12 +89,12 @@
           <ng-template let-row="row" ngx-datatable-cell-template>
   
             <button mat-icon-button mat-sm-button color="primary"
-             [disabled]="data.addPermission" 
+             [disabled]="!data.editPermission" 
              (click)="getEditB2cCustomer(b2cCustomerDetailsForm, row)"
              >
               <mat-icon>edit</mat-icon>
             </button>
-            <button [disabled]="data.deletePermission"
+            <button [disabled]="!data.deletePermission"
              mat-icon-button mat-sm-button color="accent" 
              (click)="getDeleteB2cCustomer(b2cCustomerDetailsForm, row)"
              >

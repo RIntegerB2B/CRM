@@ -11,9 +11,9 @@
         {{newCustomer.length}}
       </button>
     </div>
-    <div class="text-center">
+    <div class="text-center" *ngFor="let data of role.b2bMarket">
       <h5>Add Customer</h5>
-      <button mat-mini-fab color="warn" (click)="addCustomer(b2bMarketDetailsForm, true)">
+      <button [disabled]="!data.addPermission" mat-mini-fab color="warn" (click)="addCustomer(b2bMarketDetailsForm, true)">
         <mat-icon>add_box</mat-icon>
       </button>
     </div>
@@ -49,7 +49,7 @@
         </div>
     </div>
   </div>
-  <div  *ngFor="let data of role.b2bCustomer">
+  <div  *ngFor="let data of role.b2bMarket">
 
     <ngx-datatable #myTable class="material pl-5 ml-0 mr-0" [rows]="newCustomer" [columnMode]="'force'" [externalPaging]="false"
       (select)="onSelect($event)" [headerHeight]="50" [footerHeight]="50" [draggable]="false" 
@@ -60,11 +60,18 @@
           {{row?.customerName}}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column [sortable]="false" [draggable]="false" name="MOBILE NUMBER" [flexGrow]="1">
+      <ngx-datatable-column  *ngIf="role.userType == 'admin'; else noAdmin" [sortable]="false" [draggable]="false" name="MOBILE NUMBER" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{row?.mobileNumber}}
         </ng-template>
       </ngx-datatable-column>
+      <ng-template #noAdmin>
+          <ngx-datatable-column  [sortable]="false" [draggable]="false" name="MOBILE NUMBER" [flexGrow]="1">
+              <ng-template  let-row="row" ngx-datatable-cell-template>
+                **********
+              </ng-template>
+            </ngx-datatable-column>
+          </ng-template>
       <ngx-datatable-column [sortable]="false" [draggable]="false" name="LOCATION" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{row?.location}}
@@ -78,10 +85,10 @@
       <ngx-datatable-column [sortable]="false" [draggable]="false" name="EDIT" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
 
-          <button mat-icon-button mat-sm-button color="primary" [disabled]="data.addPermission" (click)="editB2bMarketCustomer(b2bMarketDetailsForm, row)">
+          <button mat-icon-button mat-sm-button color="primary" [disabled]="!data.editPermission" (click)="editB2bMarketCustomer(b2bMarketDetailsForm, row)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button [disabled]="data.deletePermission" mat-icon-button mat-sm-button color="accent" (click)="deleteB2bMarketCustomer(b2bMarketDetailsForm, row)">
+          <button [disabled]="!data.deletePermission" mat-icon-button mat-sm-button color="accent" (click)="deleteB2bMarketCustomer(b2bMarketDetailsForm, row)">
             <mat-icon>delete</mat-icon>
           </button>
         </ng-template>

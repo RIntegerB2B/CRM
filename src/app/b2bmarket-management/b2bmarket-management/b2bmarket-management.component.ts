@@ -34,7 +34,6 @@ export class B2bmarketManagementComponent implements OnInit {
   ngOnInit() {
     this.createB2bMarketForm();
     this.getAllB2bMarketCustomer();
-    this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
   createB2bMarketForm() {

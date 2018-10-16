@@ -1,5 +1,5 @@
 
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 // import PerfectScrollbar from 'perfect-scrollbar';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
 import { UserManagementService } from './../../user-management/user-management.service';
@@ -17,17 +17,13 @@ import { AccessPermission } from './../../user-management/permission/accessPermi
   styleUrls: ['./header-side.component.css']
 })
 
-export class HeaderSideComponent implements OnInit, OnDestroy, AfterContentChecked {
+export class HeaderSideComponent implements OnInit, OnDestroy {
   // private sidebarPS: PerfectScrollbar;
   menuItems: any[];
   public hasIconTypeMenuItem: boolean;
   menuItemsSub: Subscription;
   mobileQuery: MediaQueryList;
   allowEdit: false;
-  paramsVal;
-  paramsValue: Params[];
-  roleIsEmpty = false;
-  // message: Register;
   role: AccessPermission;
   isExpanded = true;
   showSubmenu = false;
@@ -35,7 +31,6 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterContentCheck
   showSubSubMenu = false;
   showInternational = false;
   showSetting = false;
-  message;
   private _mobileQueryListener: () => void;
   shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
   fillerNav = Array.from({ length: 50 }, (_, i) => `Nav Item ${i + 1}`);
@@ -45,33 +40,21 @@ export class HeaderSideComponent implements OnInit, OnDestroy, AfterContentCheck
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-    this.paramsValue = this.route.snapshot.children.map(d => d.params);
-    console.log(this.paramsValue);
   }
 
   ngOnInit() {
-    this.menuItemsSub = this.headerSideService.menuItems$.subscribe(menuItem => {
-      this.menuItems = menuItem.filter(item => item.type !== 'icon' && item.type !== 'separator');
-      this.hasIconTypeMenuItem = !!this.menuItems.filter(item => item.type === 'icon').length;
-    });
-    /* this.userManagementService.logIn().subscribe(data => data); */
-    // this.role = sessionStorage.getItem('role');
-    this.headerSideService.makeMenuTransparent();
+    this.role = JSON.parse(sessionStorage.getItem('role'));
+    console.log(this.role);
+    console.log('sample', this.role);
   }
   ngOnDestroy() {
     this.mobileQuery.removeListener(this._mobileQueryListener);
-    if (this.menuItemsSub) {
-      this.menuItemsSub.unsubscribe();
-    }
     this.authService.logout();
-  }
-  ngAfterContentChecked() {
   }
   logout() {
     console.log('Logout');
     this.authService.logout();
     this.router.navigate(['/login']);
-    this.headerSideService.makeMenuTransparent();
   }
   mouseenter() {
     if (!this.isExpanded) {

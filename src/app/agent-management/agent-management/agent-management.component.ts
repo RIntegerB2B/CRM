@@ -34,7 +34,6 @@ export class AgentManagementComponent implements OnInit {
   ngOnInit() {
     this.createAgentForm();
     this.getAllAgentCustomer();
-    this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
   createAgentForm() {

@@ -33,7 +33,6 @@ export class Interb2ccustomerManagementComponent implements OnInit {
   ngOnInit() {
     this.createInterB2cCustomerForm();
     this.getAllInterB2cCustomer();
-    this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
   createInterB2cCustomerForm() {

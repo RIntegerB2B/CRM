@@ -35,75 +35,42 @@ import {
 
 
 const routes: Routes = [
-    { path: 'sms', canActivate: [AuthGuard], component: SmsManagementComponent },
-    {
-        path: 'headerside', canActivate: [AuthGuard], component: HeaderSideComponent
-    },
-    { path: 'upload', canActivate: [AuthGuard], component: UploadManagementComponent },
-    { path: 'backup', canActivate: [AuthGuard], component: BackupComponent },
-    { path: 'b2cmarket', canActivate: [AuthGuard], component: B2cmarketManagementComponent },
-    { path: 'customers', canActivate: [AuthGuard], component: CustomerManagementComponent },
-    {
-        path: 'b2bmarket',
-        component: B2bmarketManagementComponent, canActivate: [AuthGuard]
-    },
-    {
-        path: 'b2ccustomer',
-        component: B2ccustomerManagementComponent, canActivate: [AuthGuard]
-    },
-    {
-        path: 'employee',
-        component: EmployeeManagementComponent, canActivate: [AuthGuard]
-    },
-    {
-        path: 'vendor',
-        component: VendorManagementComponent, canActivate: [AuthGuard]
-    },
-    {
-        path: 'agent',
-        component: AgentManagementComponent, canActivate: [AuthGuard]
-    },
-    {
-        path: 'others',
-        component: OtherCustomerComponent, canActivate: [AuthGuard]
-    },
-    {
-        path: 'interb2bcustomer',
-        component: Interb2bcustomerManagementComponent, canActivate: [AuthGuard]
-    },
-    {
-        path: 'interb2bmarket',
-        component: Interb2bmarketManagementComponent, canActivate: [AuthGuard]
-    },
-    {
-        path: 'interb2ccustomer',
-        component: Interb2ccustomerManagementComponent, canActivate: [AuthGuard]
-    },
-    {
-        path: 'interb2cmarket',
-        component: Interb2cmarketManagementComponent, canActivate: [AuthGuard]
-    },
-    {
-        path: 'message',
-        component: MessageManagementComponent, canActivate: [AuthGuard]
-    },
     {
         path: 'login', component: LoginComponent
     },
-    { path: 'email', component: EmailManagementComponent, canActivate: [AuthGuard] },
     {
-        path: 'register',
-        component: RegisterComponent, canActivate: [AuthGuard]
+        path: '', canActivate: [AuthGuard],
+    children: [
+        {
+            path: 'headerside', canActivate: [AuthGuard], component: HeaderSideComponent,
+          children: [
+            { path: 'b2bcustomer', component: CustomerManagementComponent, canActivate: [AuthGuard] },
+            { path: 'b2bmarket', component: B2bmarketManagementComponent, canActivate: [AuthGuard]
+            },
+            { path: 'b2ccustomer', component: B2ccustomerManagementComponent, canActivate: [AuthGuard]},
+            { path: 'b2cmarket', component: B2cmarketManagementComponent,  canActivate: [AuthGuard] },
+            { path: 'employee', component: EmployeeManagementComponent, canActivate: [AuthGuard] },
+            { path: 'vendor',  component: VendorManagementComponent, canActivate: [AuthGuard] },
+            { path: 'agent', component: AgentManagementComponent, canActivate: [AuthGuard] },
+            { path: 'others', component: OtherCustomerComponent, canActivate: [AuthGuard]
+            },
+            { path: 'interb2bcustomer',  canActivate: [AuthGuard], component: Interb2bcustomerManagementComponent },
+            { path: 'interb2bmarket',  canActivate: [AuthGuard], component: Interb2bmarketManagementComponent},
+            { path: 'interb2ccustomer', canActivate: [AuthGuard], component: Interb2ccustomerManagementComponent},
+            { path: 'interb2cmarket', canActivate: [AuthGuard],  component: Interb2cmarketManagementComponent, },
+            { path: 'email', canActivate: [AuthGuard],  component: EmailManagementComponent},
+            { path: 'sms', canActivate: [AuthGuard], component: SmsManagementComponent },
+            { path: 'upload',  component: UploadManagementComponent, canActivate: [AuthGuard] },
+            { path: 'interupload', component: InteruploadManagementComponent, canActivate: [AuthGuard]
+            },
+            { path: 'message', component: MessageManagementComponent, canActivate: [AuthGuard] },
+            { path: 'permission', component: PermissionComponent, canActivate: [AuthGuard] },
+            { path: 'register', canActivate: [AuthGuard], component: RegisterComponent },
+            { path: 'backup',  canActivate: [AuthGuard], component: BackupComponent },
+            ]
+        }]
     },
-    {
-        path: 'permission',
-        component: PermissionComponent, canActivate: [AuthGuard]
-    },
-    {
-        path: 'interupload',
-        component: InteruploadManagementComponent, canActivate: [AuthGuard]
-    },
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
+   //  { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

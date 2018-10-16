@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   login: LogIn;
   showError = false;
   logOutSession: false;
-  manager_id;
+  loginFailed = false;
   returnUrl: string;
   message: Register;
   role: AccessPermission;
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.returnUrl = '/register';
+    this.returnUrl = '/headerside/b2bcustomer';
   }
   createForm() {
     this.onLoginForm = this.fb.group({
@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginSubmit(onAdminForm: FormGroup) {
+    this.loginFailed = false;
     this.login = new LogIn(
       onAdminForm.controls.userName.value,
       onAdminForm.controls.password.value
@@ -51,21 +52,16 @@ export class LoginComponent implements OnInit {
       const fullData = Object.assign(data[0], data[1]);
       if (this.login.userName === fullData.userName
          && this.login.password === fullData.password ) {
-        this.message = fullData;
         console.log(fullData);
-        console.log(this.message);
-        this.headerSideService.changeRegister(this.message);
         sessionStorage.setItem('isLoggedIn', 'true');
         sessionStorage.setItem('role', JSON.stringify(fullData));
         this.router.navigate([this.returnUrl]);
-        this.headerSideService.hideMenuTransparent();
       } else {
-        /* const userID = data;
-        localStorage.setItem('userID', JSON.stringify(userID)); */
-        // this.router.navigate(['/register', data.userName], { queryParams: { allowEdit: '1' } });
+          this.loginFailed = true;
       }
     }, error => {
       console.log(error);
+      this.loginFailed = true;
     });
   }
 }

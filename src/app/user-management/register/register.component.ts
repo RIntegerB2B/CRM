@@ -15,8 +15,8 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   accessForm: FormGroup;
   register: Register;
-  accessPermission: AccessPermission[];
-  userTypes = ['operation', 'mananger', 'testoperator'];
+  role: AccessPermission[];
+  newUserType: any;
   selectedPermissions = [];
   constructor(
     private fb: FormBuilder,
@@ -27,13 +27,14 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.userRegister();
-    this.headerSideService.hideMenuTransparent();
+    this.role = JSON.parse(sessionStorage.getItem('role'));
+    console.log('sample', this.role);
     this.getAllUserType();
   }
-  getAllUserType() {
+   getAllUserType() {
     this.userManagementService.permissionUserType().subscribe(data => {
-      this.accessPermission = data;
-      console.log(this.accessPermission);
+      this.newUserType = data;
+      console.log(this.newUserType);
     }, error => {
       console.log(error);
     });

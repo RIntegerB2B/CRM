@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Inject, AfterContentChecked, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { Customer } from './customer.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CustomerManagementService } from './../customer-management.service';
@@ -21,7 +21,7 @@ import { AccessPermission } from './../../user-management/permission/accessPermi
   styleUrls: ['./customer-management.component.css']
 })
 
-export class CustomerManagementComponent implements OnInit, AfterContentChecked {
+export class CustomerManagementComponent implements OnInit {
   arrayBuffer: any;
   file: File;
   customerDetailsForm: FormGroup;
@@ -59,13 +59,9 @@ export class CustomerManagementComponent implements OnInit, AfterContentChecked 
   ngOnInit() {
     this.createForm();
     this.getAllCustomer();
-    this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
-  ngAfterContentChecked() {
-    this.headerSideService.currentRegister.subscribe(message => this.message = message);
-    console.log(this.message.userType);
-  }
+
 
   updateFilter(event) {
     // this.showData = true;

@@ -36,7 +36,6 @@ export class Interb2cmarketManagementComponent implements OnInit {
   ngOnInit() {
     this.createInterB2cMarketForm();
     this.getAllInterB2cMarketCustomer();
-    this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
   changePageLimit(limit: any): void {

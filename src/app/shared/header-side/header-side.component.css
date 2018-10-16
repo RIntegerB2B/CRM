@@ -9,6 +9,7 @@
 }
 .submenu li {
   padding-left:15px;
+  padding-top: 5px;
 }
 ul li + .submenu {
   display: block;

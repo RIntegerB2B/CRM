@@ -79,7 +79,6 @@ export class SmsManagementComponent implements OnInit {
   ngOnInit() {
     this.createMessageForm();
     this.getAllMessage();
-    this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
   goBack(stepper: MatStepper) {

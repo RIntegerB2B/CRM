@@ -33,7 +33,6 @@ export class VendorManagementComponent implements OnInit {
   ngOnInit() {
     this.createVendorForm();
     this.getAllVendor();
-    this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
   createVendorForm() {

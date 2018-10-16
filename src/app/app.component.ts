@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HeaderSideService } from './shared/header-side/header-side.service';
 import { AccessPermission } from './user-management/permission/accessPermission.model';
 
@@ -11,10 +12,11 @@ import { AccessPermission } from './user-management/permission/accessPermission.
 export class AppComponent implements OnInit {
   role: AccessPermission;
   constructor(
-    public headerSideService: HeaderSideService
+    public headerSideService: HeaderSideService, private router: Router
   ) {
   }
 
   ngOnInit() {
+
   }
 }

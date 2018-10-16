@@ -11,9 +11,9 @@
         {{newCustomer.length}}
       </button>
     </div>
-    <div class="text-center">
+    <div class="text-center" *ngFor="let data of role.vendor">
       <h5>Add Customer</h5>
-      <button mat-mini-fab color="warn" (click)="addCustomer(vendorDetailsForm, true)">
+      <button [disabled]="!data.addPermission" mat-mini-fab color="warn" (click)="addCustomer(vendorDetailsForm, true)">
         <mat-icon>add_box</mat-icon>
       </button>
     </div>
@@ -48,7 +48,8 @@
               </div>
     </div>
   </div>
-  <div class="card" *ngFor="let data of role.b2cMarket">
+<div>
+  <div class="card" *ngFor="let data of role.vendor">
     <ngx-datatable #myTable  class="material pl-5 ml-0 mr-0" [rows]="newCustomer" [columnMode]="'flex'" [headerHeight]="50"
       [footerHeight]="50" [draggable]="false" [limit]="10" [rowHeight]="'auto'">
       <ngx-datatable-column [sortable]="false" [draggable]="false" name="VENDOR NAME" [flexGrow]="1">
@@ -56,11 +57,18 @@
           {{row?.vendorName}}
         </ng-template>
       </ngx-datatable-column>
-      <ngx-datatable-column [sortable]="false" [draggable]="false" name="MOBILE NUMBER" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
+      <ngx-datatable-column  *ngIf="role.userType == 'admin'; else noAdmin" [sortable]="false" [draggable]="false" name="MOBILE NUMBER" [flexGrow]="1">
+        <ng-template  let-row="row" ngx-datatable-cell-template>
           {{row?.mobileNumber}}
         </ng-template>
       </ngx-datatable-column>
+      <ng-template #noAdmin>
+      <ngx-datatable-column  [sortable]="false" [draggable]="false" name="MOBILE NUMBER" [flexGrow]="1">
+          <ng-template  let-row="row" ngx-datatable-cell-template>
+            **********
+          </ng-template>
+        </ngx-datatable-column>
+      </ng-template>
       <ngx-datatable-column [sortable]="false" [draggable]="false" name="ADDRESS" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{row?.address}}
@@ -73,14 +81,15 @@
       </ngx-datatable-column>
       <ngx-datatable-column [sortable]="false" [draggable]="false" name="EDIT" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <button mat-icon-button mat-sm-button color="primary" [disabled]="data.editPermission" (click)="getEditVendor(vendorDetailsForm, row) ">
+          <button mat-icon-button mat-sm-button color="primary" [disabled]="!data.editPermission" (click)="getEditVendor(vendorDetailsForm, row) ">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button mat-sm-button color="accent" [disabled]="data.deletePermission" (click)="getDeleteVendor(vendorDetailsForm, row)">
+          <button mat-icon-button mat-sm-button color="accent" [disabled]="!data.deletePermission" (click)="getDeleteVendor(vendorDetailsForm, row)">
             <mat-icon>delete</mat-icon>
           </button>
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>
   </div>
+</div>
 </form>

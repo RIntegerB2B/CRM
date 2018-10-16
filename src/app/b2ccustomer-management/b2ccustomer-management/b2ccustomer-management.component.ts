@@ -33,7 +33,6 @@ export class B2ccustomerManagementComponent implements OnInit {
   ngOnInit() {
     this.createB2cCustomerForm();
     this.getAllB2cCustomer();
-    this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
   createB2cCustomerForm() {

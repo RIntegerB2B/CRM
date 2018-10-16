@@ -35,7 +35,6 @@ export class OtherCustomerComponent implements OnInit {
   ngOnInit() {
     this.createOthersForm();
     this.getAllOthers();
-    this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
   createOthersForm() {

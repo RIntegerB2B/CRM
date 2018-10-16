@@ -33,7 +33,6 @@ export class EmployeeManagementComponent implements OnInit {
   ngOnInit() {
     this.createEmployeeForm();
     this.getAllEmployee();
-    this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
   createEmployeeForm() {

@@ -17,7 +17,6 @@ export class PermissionComponent implements OnInit {
   register: Register;
   selectedPermissions = [];
   accessPermission: AccessPermission;
-  allowEdit = false;
   message: Register;
 
 
@@ -32,8 +31,6 @@ export class PermissionComponent implements OnInit {
   ngOnInit() {
     this.getAllRegister();
     this.userAccess();
-    this.headerSideService.currentRegister.subscribe(message => this.message = message);
-    console.log(this.message.userType);
   }
 
   userAccess() {
@@ -48,7 +45,77 @@ export class PermissionComponent implements OnInit {
         smsPermission: new FormControl(false, Validators.required),
         emailPermission: new FormControl(false, Validators.required)
       }),
+      b2bMarket: this.fb.group( {
+        addPermission: new FormControl(false, Validators.required),
+        editPermission: new FormControl(false, Validators.required),
+        deletePermission: new FormControl(false, Validators.required),
+        smsPermission: new FormControl(false, Validators.required),
+        emailPermission: new FormControl(false, Validators.required)
+      }),
+      b2cCustomer: this.fb.group( {
+        addPermission: new FormControl(false, Validators.required),
+        editPermission: new FormControl(false, Validators.required),
+        deletePermission: new FormControl(false, Validators.required),
+        smsPermission: new FormControl(false, Validators.required),
+        emailPermission: new FormControl(false, Validators.required)
+      }),
       b2cMarket: this.fb.group( {
+        addPermission: new FormControl(false, Validators.required),
+        editPermission: new FormControl(false, Validators.required),
+        deletePermission: new FormControl(false, Validators.required),
+        smsPermission: new FormControl(false, Validators.required),
+        emailPermission: new FormControl(false, Validators.required)
+      }),
+      interB2bCustomer: this.fb.group({
+        addPermission: new FormControl(false, Validators.required),
+        editPermission: new FormControl(false, Validators.required),
+        deletePermission: new FormControl(false, Validators.required),
+        smsPermission: new FormControl(false, Validators.required),
+        emailPermission: new FormControl(false, Validators.required)
+      }),
+      interB2bMarket: this.fb.group( {
+        addPermission: new FormControl(false, Validators.required),
+        editPermission: new FormControl(false, Validators.required),
+        deletePermission: new FormControl(false, Validators.required),
+        smsPermission: new FormControl(false, Validators.required),
+        emailPermission: new FormControl(false, Validators.required)
+      }),
+      interB2cCustomer: this.fb.group( {
+        addPermission: new FormControl(false, Validators.required),
+        editPermission: new FormControl(false, Validators.required),
+        deletePermission: new FormControl(false, Validators.required),
+        smsPermission: new FormControl(false, Validators.required),
+        emailPermission: new FormControl(false, Validators.required)
+      }),
+      interB2cMarket: this.fb.group( {
+        addPermission: new FormControl(false, Validators.required),
+        editPermission: new FormControl(false, Validators.required),
+        deletePermission: new FormControl(false, Validators.required),
+        smsPermission: new FormControl(false, Validators.required),
+        emailPermission: new FormControl(false, Validators.required)
+      }),
+      employee: this.fb.group({
+        addPermission: new FormControl(false, Validators.required),
+        editPermission: new FormControl(false, Validators.required),
+        deletePermission: new FormControl(false, Validators.required),
+        smsPermission: new FormControl(false, Validators.required),
+        emailPermission: new FormControl(false, Validators.required)
+      }),
+      vendor: this.fb.group( {
+        addPermission: new FormControl(false, Validators.required),
+        editPermission: new FormControl(false, Validators.required),
+        deletePermission: new FormControl(false, Validators.required),
+        smsPermission: new FormControl(false, Validators.required),
+        emailPermission: new FormControl(false, Validators.required)
+      }),
+      agent: this.fb.group( {
+        addPermission: new FormControl(false, Validators.required),
+        editPermission: new FormControl(false, Validators.required),
+        deletePermission: new FormControl(false, Validators.required),
+        smsPermission: new FormControl(false, Validators.required),
+        emailPermission: new FormControl(false, Validators.required)
+      }),
+      others: this.fb.group( {
         addPermission: new FormControl(false, Validators.required),
         editPermission: new FormControl(false, Validators.required),
         deletePermission: new FormControl(false, Validators.required),
@@ -57,11 +124,26 @@ export class PermissionComponent implements OnInit {
       }),
       menuList: this.fb.group( {
         b2bCustomerPermission: new FormControl(false, Validators.required),
+        b2bMarketPermission: new FormControl(false, Validators.required),
+        b2cCustomerPermission: new FormControl(false, Validators.required),
         b2cMarketPermission: new FormControl(false, Validators.required),
+        employeePermission: new FormControl(false, Validators.required),
+        vendorPermission: new FormControl(false, Validators.required),
+        agentPermission: new FormControl(false, Validators.required),
+        othersPermission: new FormControl(false, Validators.required),
+        interB2bCustomerPermission: new FormControl(false, Validators.required),
+        interB2bMarketPermission: new FormControl(false, Validators.required),
+        interB2cCustomerPermission: new FormControl(false, Validators.required),
+        interB2cMarketPermission: new FormControl(false, Validators.required),
         smsMenuPermission: new FormControl(false, Validators.required),
         emailMenuPermission: new FormControl(false, Validators.required),
         uploadPermission: new FormControl(false, Validators.required),
+        reportPermission: new FormControl(false, Validators.required),
+        interUploadPermission: new FormControl(false, Validators.required),
+        userPermission: new FormControl(false, Validators.required),
         backupPermission: new FormControl(false, Validators.required),
+        registerPermission: new FormControl(false, Validators.required),
+        messagePermission: new FormControl(false, Validators.required)
       })
     });
   }
@@ -95,7 +177,17 @@ export class PermissionComponent implements OnInit {
       accessForm.controls.userType.value,
       accessForm.controls.currentDate.value,
       accessForm.controls.b2bCustomer.value,
+      accessForm.controls.b2bMarket.value,
+      accessForm.controls.b2cCustomer.value,
       accessForm.controls.b2cMarket.value,
+      accessForm.controls.interB2bCustomer.value,
+      accessForm.controls.interB2bMarket.value,
+      accessForm.controls.interB2cCustomer.value,
+      accessForm.controls.interB2cMarket.value,
+      accessForm.controls.employee.value,
+      accessForm.controls.vendor.value,
+      accessForm.controls.agent.value,
+      accessForm.controls.others.value,
       accessForm.controls.menuList.value
     );
     console.log(this.accessPermission);

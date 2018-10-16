@@ -31,7 +31,6 @@ export class Interb2bmarketManagementComponent implements OnInit {
   ngOnInit() {
     this.createInterB2bMarketForm();
     this.getAllInterB2bMarketCustomer();
-    this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
   createInterB2bMarketForm() {

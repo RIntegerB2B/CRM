@@ -51,7 +51,7 @@
         <div class="form-group">
           <mat-form-field>
             <mat-select formControlName="userType" placeholder="User Type">
-              <mat-option style="padding:5px;" *ngFor="let access of accessPermission" 
+              <mat-option style="padding:5px;" *ngFor="let access of newUserType" 
               [value]="access.userType">
                 {{access.userType}}
               </mat-option>

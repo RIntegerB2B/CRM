@@ -35,7 +35,6 @@ export class B2cmarketManagementComponent implements OnInit {
   ngOnInit() {
     this.createB2cMarketForm();
     this.getAllB2cMarketCustomer();
-    this.headerSideService.hideMenuTransparent();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
   changePageLimit(limit) {
