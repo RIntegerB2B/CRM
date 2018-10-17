@@ -65,7 +65,6 @@ export class SmsManagementComponent implements OnInit {
   { 'type': 'OTHERS DB' }];
   interNationalDatabse = [{ 'type': 'B2B CUSTOMER DB' },
   { 'type': 'B2B MARKET DB' }, { 'type': 'B2C CUSTOMER DB' }, { 'type': 'B2C MARKET DB' }];
-  textb2bcustomer;
   public pageSize = 10;
   public currentPage = 0;
   public totalSize = 0;

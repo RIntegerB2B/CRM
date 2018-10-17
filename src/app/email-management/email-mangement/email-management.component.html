@@ -1,27 +1,161 @@
-<div class=" col-sm-12 d-flex border-dark p-3 flex-row">
-    <!-- *ngFor="let data of role.b2bCustomer" -->
-  <div class=" col-sm-2 col">
-      <!-- *ngIf="data.emailPermission" -->
-    <button mat-raised-button color="primary"  [routerLinkActive]="['activeLink']"
-      (click)="getAllCustomer()">
-      B2B Customers</button>
-  </div>
-  <div class="col-sm-1 col">
-  </div>
-  <div class="col-sm-2 col" *ngFor="let data of role.b2cMarket">
-      <!-- *ngIf="data.emailPermission" -->
-    <button mat-raised-button color="primary"  [routerLinkActive]="['activeLink']"
-      (click)="getAllB2cMarketCustomer()">B2C Market</button>
-  </div>
-  <div class="col-sm-7 col">
-  </div>
-</div>
-<div class="col-sm-12 card">
+<div class="container-fluid">
   <mat-horizontal-stepper #stepper>
     <mat-step>
-      <div class=" col-sm-12 d-flex border-dark  flex-row">
+      <ng-template matStepLabel>Select DB</ng-template>
+      <mat-nav-list>
+        <div fxLayout="row wrap" fxLayout.lt-sm="column">
+          <div fxFlex="100%">
+            <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+              <span *ngIf="isExpanded || isShowing">National Database</span>
+              <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">add_circle_outline</mat-icon>
+            </mat-list-item>
+            <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="showSubmenu">
+              <div id="scroll-area" class="navigation-hold" fxLayout="column">
+                <div class="sidenav-hold">
+                  <ul class="sidenav" *ngFor="let nb of nationalDatabse">
+                    <li>
+                      <div (click)="getAllB2bCustomer(); goForward(stepper)" *ngIf="nb.type === 'B2B CUSTOMER DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllB2bMarket(); goForward(stepper)" *ngIf="nb.type === 'B2B MARKET DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllB2cCustomer(); goForward(stepper)" *ngIf="nb.type === 'B2C CUSTOMER DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllB2cMarket(); goForward(stepper)" *ngIf="nb.type === 'B2C MARKET DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllEmployee(); goForward(stepper)" *ngIf="nb.type === 'EMPLOYEE DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllVendor(); goForward(stepper)" *ngIf="nb.type === 'VENDOR DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllAgent(); goForward(stepper)" *ngIf="nb.type === 'AGENT DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllOthers(); goForward(stepper)" *ngIf="nb.type === 'OTHERS DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{nb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxFlex="100%">
+            <mat-list-item (click)="showInterNational = !showInterNational" class="parent">
+              <span *ngIf="isExpanded || isShowing">International Database</span>
+              <mat-icon class="menu-button" [ngClass]="{'rotated' : showInterNational}" *ngIf="isExpanded || isShowing">add_circle_outline</mat-icon>
+            </mat-list-item>
+            <div class="submenu" [ngClass]="{'expanded' : showInterNational}" *ngIf="showInterNational">
+              <div id="scroll-area" class="navigation-hold" fxLayout="column">
+                <div class="sidenav-hold">
+                  <ul class="sidenav" *ngFor="let idb of interNationalDatabse">
+                    <li>
+                      <div (click)="getAllInterB2bcustomer(); goForward(stepper)" *ngIf="idb.type === 'B2B CUSTOMER DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{idb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllInterB2bMarket(); goForward(stepper)" *ngIf="idb.type === 'B2B MARKET DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{idb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllInterB2cCustomer(); goForward(stepper)" *ngIf="idb.type === 'B2C CUSTOMER DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{idb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                    <li>
+                      <div (click)="getAllInterB2cMarket(); goForward(stepper)" *ngIf="idb.type === 'B2C MARKET DB'">
+                        <a matRipple class="nav-item-sep">
+                          <mat-icon>group</mat-icon>
+                          <span>{{idb.type}}</span>
+                          <span fxFlex></span>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-nav-list>
+      <div fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="warn" matStepperNext>
+          next
+        </button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <div class="text-center mb-5 textHeader">
+        <h4>{{textHeader}}</h4>
+      </div>
+      <div class="row d-flex border-dark  flex-row">
+
         <div class=" col-sm-4 col">
-          <strong>EMAIL</strong>
+          <strong>MOBILE NUMBER</strong>
         </div>
         <div class="col-sm-4 col">
           <strong>CUSTOMER NAME</strong>
@@ -30,102 +164,231 @@
           <strong>LOCATION</strong>
         </div>
       </div><br>
-      <ng-template matStepLabel>Emails</ng-template>
-
-      <div class=" col-sm-12 d-flex  flex-row">
+      <ng-template matStepLabel>Mobile Numbers</ng-template>
+      <div class="row d-flex  flex-row">
         <div class="col-sm-4">
-          <mat-checkbox [checked]="selectCheckbox" (change)="selectEmailAll($event, newCustomer)" class="inbox-toggle-all mr-1"><b>ALL</b></mat-checkbox>
+
         </div>
       </div>
-      <div *ngFor="let edit of dataSource; let i = index" class=" col-sm-12 d-flex  flex-row">
-        <div class=" col-sm-4 col">
-          <mat-checkbox name="{{edit.email}}" value="{{edit.email}}" [checked]="selectCheckbox" (change)="selectedEmail($event, edit.email)"
-            class="mail-checkbox">
-            {{edit.email}}</mat-checkbox>
-        </div>
-        <div class="col-sm-4 col">
-          {{edit.customerName}}
-        </div>
-        <div class="col-sm-4 col">
-          {{edit.location}}
-        </div>
-        <!-- <div class="col-sm-3 col">
-            {{edit.mobileNumber}}
-          </div> -->
-      </div>
-      <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"
-        [length]="totalSize" [pageIndex]="currentPage" (page)="handlePage($event)">
-      </mat-paginator>
       <div>
-        <button mat-raised-button color="primary" matStepperNext>Next</button>
+        <mat-form-field class="margin-333" style="width: 100%">
+          <input matInput placeholder="Type to filter all columns" (keyup)='updateFilter($event)'>
+        </mat-form-field>
+        <div *ngFor="let edit of dataSource;  let i = index" class="col-sm-12 d-flex   flex-row">
+          <div class=" col-sm-4 col">
+            <mat-checkbox name="{{edit.email}}" value="{{edit.email}}" [checked]="selectCheckbox" (change)="selectedEmail($event, edit.email)"
+              class="mail-checkbox">
+              {{edit.email}}</mat-checkbox>
+          </div>
+          <div class="col-sm-4 col">
+            {{edit.customerName}}
+          </div>
+          <div class="col-sm-4 col">
+            {{edit.location}}
+          </div>
+        </div><br>
+        <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[100, 200, 300, 400, 500]"
+          [showFirstLastButtons]="true" [length]="totalSize" [pageIndex]="currentPage" (page)="handlePage($event)">
+        </mat-paginator>
+      </div>
+      <div fxLayout="row">
+        <div fxFlex="50%">
+          <button mat-raised-button color="warn" matStepperPrevious>
+            back
+          </button>
+        </div>
+        <div fxFlex="50%" fxLayoutAlign="end center">
+          <button mat-raised-button color="warn" matStepperNext>
+            next
+          </button>
+        </div>
       </div>
     </mat-step>
     <mat-step>
-      <form [formGroup]="b2cMarketDetailsForm">
-        <ng-template matStepLabel>Email Message</ng-template>
-
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="form-group">
-              <div class="col-sm-12">
-                <input type="text" class="form-control" type="text" [(ngModel)]="titleName" formControlName="titleName"
-                  placeholder="Enter Title" rows="5">
+      <ng-template matStepLabel>Message</ng-template>
+      <div fxLayout="row">
+        <div fxFlex="100%">
+          <button mat-raised-button color="accent" (click)="getText()">
+            Template
+          </button>
+        </div>
+        <div fxFlex="100%">
+            <button mat-raised-button color="accent" (click)="getImage()">Image</button>
+          </div>
+      </div><br>
+      <div class="container-fluid">
+        <form [formGroup]="customerDetailsForm" *ngIf="selectOneTemplate">
+            <b>{{textTemplate}}</b>
+          <ng-template matStepLabel>Email Message</ng-template>
+          <div class="row">
+            <div class="col-sm-8 d-flex  flex-row">
+              <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <div fxFlex="100%">
+                  <mat-form-field class="example-full-width">
+                    <input matInput type="text"
+                      formControlName="subjectTitle" placeholder="Enter Subject">
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100%">
+                  <mat-form-field class="example-full-width">
+                    <input matInput [(ngModel)]="subjectBody"
+                     formControlName="subjectBody" placeholder="Enter Body">
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100%">
+                    <mat-form-field class="example-full-width">
+                      <input matInput [(ngModel)]="subjectFooter"
+                       formControlName="subjectBody" placeholder="Enter Footer">
+                    </mat-form-field>
+                  </div>
               </div>
             </div>
-            <div class="form-group">
-              <div class="col-sm-12">
-                <input type="text" class="form-control" type="text" [(ngModel)]="subTitle" formControlName="subTitle"
-                  placeholder="Enter Path" rows="5">
-              </div>
+            <div class="col-md-4">
+
             </div>
           </div>
-          <div #contentWrapper class="col-sm-4 d-flex  flex-row">
-            <!--  <div class="col-sm-12">
-              <textarea class="form-control" type="text" [(ngModel)]="titleName" formControlName="titleName" rows="5">
-                {{titleName}}
-            </textarea>
-            </div> -->
+          <div #contentWrapper>
+            <a href="https://ucchal.com" style="color:black; text-decoration:none;">
+              <table cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+                <tr style="border: 1px solid #7777;">
+                  <td valign="top">
+                    <table border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer">
+                      <tr>
+                        <td valign="top">
+                          <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
+                            <tr>
+                              <td align="left" placholer="sample" valign="top">
+                                <div class="row">
+                                 
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center" valign="top">
+                          <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailBody">
+                            <tr>
+                              <td align="center" valign="top">
+                                {{subjectBody}}
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td valign="top">
+                          <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailFooter">
+                            <tr>
+                              <td align="center" valign="top">
+                              <!--   {{subjectTitle}} -->
+                              </td>
+                            </tr>
+                          </table>
 
-            <div class="col-sm-12">
-              <div class="row">
-                <div style="font-weight: bold; font-size: 16px;text-align: center;">&nbsp;{{titleName}}</div>
-                <!-- <div class="col-sm-12" style="background-color:peru;">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                  et dolore magna aliqua.<br>
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat.
-                </div> -->
-                <img src="{{subTitle}}">
-                <!-- <div class="col-sm-12" style="background-color:palegreen;">
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                  totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta
-                  sunt explicabo.
-                </div> -->
-              </div>
-            </div>
+                        </td>
+                      </tr>
+                    </table>
+                    <div style="text-align: left">
+                      <ul style="list-style: none; color: black">
+                        <li>
+                            {{subjectFooter}}
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </a>
           </div>
-          <div class="col-md-4">
-            <!-- <div class="card col-sm-12" *ngFor="let template of messageTemplates; let i = index">
-              <mat-checkbox [checked]="selected === i" (change)="selected = i" (change)="selectedTemplate($event)"
-                class="inbox-toggle-all mr-1"><b>{{template}}</b></mat-checkbox>
-            </div> -->
-            <div class="card col-sm-12 pt-3">
-              <textarea hidden class="form-control" type="text" [(ngModel)]="emailMessage" formControlName="emailMessage"
+          <div fxLayout="row" fxLayoutAlign="end center">
+            <div class="pt-3">
+              <textarea hidden class="form-control" type="text" [(ngModel)]="emailMessage"
+               formControlName="emailMessage"
                 rows="5">
                 </textarea>
-              <button mat-raised-button color="primary" (click)="sendEmail(b2cMarketDetailsForm)">
+              <button mat-raised-button color="primary" (click)="sendEmail(customerDetailsForm)">
                 Email sent
               </button>
             </div>
           </div>
+          <div class="m-2" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-raised-button color="warn" matStepperPrevious>
+              back
+            </button>
+          </div>
+        </form>
+        <form [formGroup]="customerDetailsForm" *ngIf="selectSecondTemplate">
+          <b>{{textTemplate}}</b>
+          <ng-template matStepLabel>Email Message</ng-template>
+          <div class="row">
+            <div class="col-sm-8 d-flex  flex-row">
+              <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                  <div fxFlex="100%">
+                      <mat-form-field class="example-full-width">
+                        <input matInput
+                         formControlName="subjectTitle" 
+                        placeholder="Enter Subject">
+                      </mat-form-field>
+                    </div>
+                <div fxFlex="100%">
+                  <mat-form-field class="example-full-width">
+                    <input matInput [(ngModel)]="subjectImage" formControlName="subjectImage" 
+                    placeholder="Enter image path">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
 
-        </div>
-
-        <div fxLayout="row">
-          <button mat-raised-button color="primary" matStepperPrevious>Back</button>
-        </div>
-      </form>
+            </div>
+          </div>
+          <div #contentWrapper>
+            <a href="https://ucchal.com" style="color:black; text-decoration:none;">
+              <table cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+                <tr style="border: 1px solid #7777;">
+                  <td valign="top">
+                    <table border="0" cellpadding="20" cellspacing="0" width="600" id="emailContainer">
+                      <tr>
+                        <td valign="top">
+                          <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
+                            <tr>
+                              <td align="left" placholer="sample" valign="top">
+                                <div class="row">
+                                  <div style="text-align: left">
+                                      <img src="{{subjectImage}}">
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      
+                    </table>         
+                  </td>
+                </tr>
+              </table>
+            </a>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end center">
+            <div class="pt-3">
+              <textarea hidden class="form-control" type="text" [(ngModel)]="emailMessage" formControlName="emailMessage"
+                rows="5">
+                  </textarea>
+              <button mat-raised-button color="primary" (click)="sendEmail(customerDetailsForm)">
+                Email sent
+              </button>
+            </div>
+          </div>
+          <div class="m-2" fxLayout="row" fxLayoutAlign="end center">
+            <button mat-raised-button color="warn" matStepperPrevious>
+              back
+            </button>
+          </div>
+        </form>
+      </div>
     </mat-step>
   </mat-horizontal-stepper>
 </div>
-
