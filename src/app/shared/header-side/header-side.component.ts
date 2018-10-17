@@ -31,6 +31,13 @@ export class HeaderSideComponent implements OnInit, OnDestroy {
   showSubSubMenu = false;
   showInternational = false;
   showSetting = false;
+  /* smsCheck = 
+  {'status':'success',
+  'mobilenumbers': '9965437973', 'remainingcredits': 24014, 'msgcount': 1, 'selectedRoute': 'transactional',
+  'refid': -1664547636797540033,
+  'senttime': '2018-10-17 09:36:56', 
+  'response': [{'mobile_number': '919965437973','unique_id':'5bc6b56075701'}]}; */
+
   private _mobileQueryListener: () => void;
   shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
   fillerNav = Array.from({ length: 50 }, (_, i) => `Nav Item ${i + 1}`);
@@ -40,6 +47,9 @@ export class HeaderSideComponent implements OnInit, OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+    /* const check = Object.keys(this.smsCheck).map(key => this.smsCheck[key]);
+    console.log(check);
+ */
   }
 
   ngOnInit() {

@@ -144,7 +144,8 @@ export class PermissionComponent implements OnInit {
         backupPermission: new FormControl(false, Validators.required),
         registerPermission: new FormControl(false, Validators.required),
         messagePermission: new FormControl(false, Validators.required)
-      })
+      }),
+        mobilePermission: [false, Validators.required]
     });
   }
   getAllRegister() {
@@ -188,7 +189,8 @@ export class PermissionComponent implements OnInit {
       accessForm.controls.vendor.value,
       accessForm.controls.agent.value,
       accessForm.controls.others.value,
-      accessForm.controls.menuList.value
+      accessForm.controls.menuList.value,
+      accessForm.controls.mobilePermission.value
     );
     console.log(this.accessPermission);
     this.userManagementService.permissionUsers(this.accessPermission).subscribe(data => {

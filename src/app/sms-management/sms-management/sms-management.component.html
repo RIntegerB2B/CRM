@@ -179,11 +179,11 @@
           <input matInput placeholder="Type to filter all columns" (keyup)='updateFilter($event)'>
         </mat-form-field>
         <div *ngFor="let edit of dataSource;  let i = index" class="col-sm-12 d-flex   flex-row">
-          <div class=" col-sm-4 col" *ngIf="role.userType == 'admin'; else noAdmin">
+          <div class=" col-sm-4 col" *ngIf="role.mobilePermission; else noMobile" >
             <mat-checkbox [checked]="selectCheckbox" name="{{edit.mobileNumber}}" value="{{edit.mobileNumber}}"
               (change)="selectedMobileNumber($event, edit.mobileNumber)" class="mail-checkbox"> {{edit.mobileNumber}}</mat-checkbox>
           </div>
-          <ng-template #noAdmin>
+          <ng-template #noMobile>
             <div class=" col-sm-4 col">
               <mat-checkbox [checked]="selectCheckbox" name="{{edit.mobileNumber}}" value="{{edit.mobileNumber}}"
                 (change)="selectedMobileNumber($event, edit.mobileNumber)" class="mail-checkbox">***********</mat-checkbox>
@@ -216,7 +216,8 @@
 <mat-step>
   <ng-template matStepLabel>Message</ng-template>
   <form [formGroup]="smsDetailsForm">
-    <div class="bg-primary text-white" *ngFor="let status of smsStatus">
+    <div class="bg-primary text-white" 
+    *ngFor="let status of smsStatus">
       {{status.body}}
     </div>
     <div class="row">

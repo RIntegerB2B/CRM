@@ -19,14 +19,7 @@ export class MessageManagementComponent implements OnInit {
 
   ngOnInit() {
     this.getAllMessage();
-   /*  this.createMessageForm(); */
   }
-  /* createMessageForm() {
-    this.messageDetailsForm = this.fb.group({
-      messageTitle: [],
-      messageDescription: []
-    });
-  } */
 
   addMessage(messageDetailsForm: FormGroup, row) {
 

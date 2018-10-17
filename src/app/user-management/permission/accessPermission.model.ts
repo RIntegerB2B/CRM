@@ -15,6 +15,7 @@ export class AccessPermission {
     agent: [string];
     others: [string];
     menuList: [string];
+    mobilePermission: boolean;
     constructor(
         userType: string,
         currentDate: string,
@@ -30,7 +31,8 @@ export class AccessPermission {
         vendor: [string],
         agent: [string],
         others: [string],
-        menuList: [string]
+        menuList: [string],
+        mobilePermission: boolean
     ) {
         this.userType = userType;
         this.currentDate = currentDate;
@@ -47,5 +49,6 @@ export class AccessPermission {
         this.agent = agent;
         this.others = others;
         this.menuList = menuList;
+        this.mobilePermission = mobilePermission;
     }
 }
