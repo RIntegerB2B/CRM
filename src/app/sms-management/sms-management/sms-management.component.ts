@@ -31,7 +31,7 @@ export class SmsManagementComponent implements OnInit {
   smsDetailsForm: FormGroup;
   smsCompleted = false;
   mobileSend: MobileSend;
-  newCustomer: any;
+  newCustomer: B2cMarket;
   selectedMobileNumbers = [];
   sendMobileNumber;
   textHeader;
@@ -47,6 +47,7 @@ export class SmsManagementComponent implements OnInit {
   showBillDetails = false;
   showLlrDetails = false;
   messages = [];
+  isChecked: any;
   newMessage: Message[];
   setFullBillDetails;
   setFullLlrDetails;
@@ -80,6 +81,7 @@ export class SmsManagementComponent implements OnInit {
     this.getAllMessage();
     this.role = JSON.parse(sessionStorage.getItem('role'));
   }
+
   goBack(stepper: MatStepper) {
     stepper.previous();
   }
@@ -87,7 +89,6 @@ export class SmsManagementComponent implements OnInit {
   goForward(stepper: MatStepper) {
     stepper.next();
   }
-
   createMessageForm() {
     this.smsDetailsForm = this.fb.group({
       message: ['', Validators.minLength(3)],
@@ -311,7 +312,6 @@ export class SmsManagementComponent implements OnInit {
     const start = this.currentPage * this.pageSize;
     const part = this.array.slice(start, end);
     this.dataSource = part;
-    console.log(this.dataSource);
   }
 
   sendSms(smsDetailsForm: FormGroup) {
@@ -360,14 +360,15 @@ export class SmsManagementComponent implements OnInit {
     console.log(this.selectedMobileNumbers);
   }
   findIndexToUpdate(mobileData) {
+    console.log('find:', mobileData);
     return mobileData === this;
   }
-  selectAllMobileNumber(e, dataSource) {
+  /* selectAllMobileNumber(e, dataSource) {
     this.selectCheckbox = !this.selectCheckbox;
     dataSource.forEach(element => {
       this.selectedMobileNumber(e, element.mobileNumber);
     });
-  }
+  } */
   getBillDetails() {
     if (this.billNumber.nativeElement.value === '' ||
       this.billTotal.nativeElement.value === '' ||

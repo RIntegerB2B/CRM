@@ -1,7 +1,7 @@
 
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { InterB2bCustomer   } from './../../shared/model/interb2bcustomer.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Interb2bcustomerService } from './../interb2bcustomer.service';
 import { map } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -89,6 +89,7 @@ export class Interb2bcustomerManagementComponent implements OnInit {
       _id: [],
       emailMessage: [],
       customerName: [],
+      countryCode: ['', Validators.maxLength(5)],
       mobileNumber: [],
       whatsAppNo: [],
       landLine: [],
@@ -96,6 +97,7 @@ export class Interb2bcustomerManagementComponent implements OnInit {
       companyName: [],
       companyAddress: [],
       location: [],
+      country: [],
       gstNumber: [],
       customerGrade: [],
       brandName: [],
@@ -192,12 +194,14 @@ export class InterB2bCustomerEditComponent implements OnInit {
       _id: [],
       customerName: [],
       mobileNumber: [],
+      countryCode: ['', Validators.maxLength(5)],
       whatsAppNo: [],
       landLine: [],
       email: [],
       companyName: [],
       companyAddress: [],
       location: [],
+      country: [],
       gstNumber: [],
       customerGrade: [],
       brandName: []
@@ -237,6 +241,7 @@ export class InterB2bCustomerAddComponent implements OnInit {
     this.interB2bCustomerDetailsForm = this.fb.group({
       _id: [],
       customerName: [],
+      countryCode: ['', Validators.maxLength(5)],
       mobileNumber: [],
       whatsAppNo: [],
       landLine: [],
@@ -244,6 +249,7 @@ export class InterB2bCustomerAddComponent implements OnInit {
       companyName: [],
       companyAddress: [],
       location: [],
+      country: [],
       gstNumber: [],
       customerGrade: [],
       brandName: []
@@ -252,11 +258,13 @@ export class InterB2bCustomerAddComponent implements OnInit {
   addMember(interB2bCustomerDetailsForm: FormGroup)   {
      this.newCustomer = new InterB2bCustomer(
       interB2bCustomerDetailsForm.controls.customerName.value,
+      interB2bCustomerDetailsForm.controls.countryCode.value,
       interB2bCustomerDetailsForm.controls.mobileNumber.value,
       interB2bCustomerDetailsForm.controls.whatsAppNo.value,
       interB2bCustomerDetailsForm.controls.landLine.value,
       interB2bCustomerDetailsForm.controls.email.value,
       interB2bCustomerDetailsForm.controls.location.value,
+      interB2bCustomerDetailsForm.controls.country.value,
       interB2bCustomerDetailsForm.controls.companyName.value,
       interB2bCustomerDetailsForm.controls.companyAddress.value,
       interB2bCustomerDetailsForm.controls.gstNumber.value,

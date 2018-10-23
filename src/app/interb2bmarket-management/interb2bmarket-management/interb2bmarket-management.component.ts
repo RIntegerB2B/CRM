@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { InterB2bMarket } from './../../shared/model/interb2bmarket.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Interb2bmarketService } from './../interb2bmarket.service';
 import { map } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -38,6 +38,7 @@ export class Interb2bmarketManagementComponent implements OnInit {
       _id: [],
       emailMessage: [],
       customerName: [],
+      countryCode: ['', Validators.maxLength(5)],
       mobileNumber: [],
       whatsAppNo: [],
       landLine: [],
@@ -45,6 +46,7 @@ export class Interb2bmarketManagementComponent implements OnInit {
       companyName: [],
       companyAddress: [],
       location: [],
+      country: [],
       gstNumber: [],
       customerGrade: [],
       brandName: [],
@@ -179,6 +181,7 @@ export class InterB2bmarketEditComponent implements OnInit {
       _id: [],
       emailMessage: [],
       customerName: [],
+      countryCode: ['', Validators.maxLength(5)],
       mobileNumber: [],
       whatsAppNo: [],
       landLine: [],
@@ -186,6 +189,7 @@ export class InterB2bmarketEditComponent implements OnInit {
       companyName: [],
       companyAddress: [],
       location: [],
+      country: [],
       gstNumber: [],
       customerGrade: [],
       brandName: [],
@@ -225,12 +229,14 @@ export class InterB2bmarketAddComponent implements OnInit {
     this.interB2bMarketDetailsForm = this.fb.group({
       _id: [],
       customerName: [],
+      countryCode: ['', Validators.maxLength(5)],
       mobileNumber: [],
       whatsAppNo: [],
       landLine: [],
       email: [],
       companyName: [],
       companyAddress: [],
+      country: [],
       location: [],
       gstNumber: [],
       customerGrade: [],
@@ -240,11 +246,13 @@ export class InterB2bmarketAddComponent implements OnInit {
   addMember(interB2bMarketDetailsForm: FormGroup) {
     this.newCustomer = new InterB2bMarket(
       interB2bMarketDetailsForm.controls.customerName.value,
+      interB2bMarketDetailsForm.controls.countryCode.value,
       interB2bMarketDetailsForm.controls.mobileNumber.value,
       interB2bMarketDetailsForm.controls.whatsAppNo.value,
       interB2bMarketDetailsForm.controls.landLine.value,
       interB2bMarketDetailsForm.controls.email.value,
       interB2bMarketDetailsForm.controls.location.value,
+      interB2bMarketDetailsForm.controls.country.value,
       interB2bMarketDetailsForm.controls.companyName.value,
       interB2bMarketDetailsForm.controls.companyAddress.value,
       interB2bMarketDetailsForm.controls.gstNumber.value,

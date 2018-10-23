@@ -19,7 +19,7 @@ body {
     background-color: #e9e7e7;
     font-size: 8px;
   }
-  table, thead, tbody, th, td, tr { 
+  table, thead, tbody, tr { 
 		display: block; 
 	}
 

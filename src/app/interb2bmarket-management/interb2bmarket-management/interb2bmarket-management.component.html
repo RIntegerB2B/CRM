@@ -61,6 +61,19 @@
           {{row?.customerName}}
         </ng-template>
       </ngx-datatable-column>
+      <ngx-datatable-column  *ngIf="role.mobilePermission; else noCode" [sortable]="false" [draggable]="false" name="COUNTRY CODE" [flexGrow]="1">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row?.countryCode}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ng-template #noCode>
+            <ngx-datatable-column  [sortable]="false" [draggable]="false" name="COUNTRY CODE" [flexGrow]="1">
+                <ng-template  let-row="row" ngx-datatable-cell-template>
+                  **********
+                </ng-template>
+              </ngx-datatable-column>
+            </ng-template>
+      
       <ngx-datatable-column  *ngIf="role.mobilePermission; else noMobile"  [sortable]="false" [draggable]="false" name="MOBILE NUMBER" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{row?.mobileNumber}}

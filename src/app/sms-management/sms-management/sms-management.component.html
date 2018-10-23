@@ -170,19 +170,24 @@
       <ng-template matStepLabel>Mobile Numbers</ng-template>
       <div class=" col-sm-12 d-flex  flex-row">
         <div class="col-sm-4">
-          <mat-checkbox [checked]="selectCheckbox" (change)="selectAllMobileNumber($event, dataSource)" class="inbox-toggle-all mr-1"><b>ALL</b>
+          <mat-checkbox [checked]="selectCheckbox" 
+          (change)="selectAllMobileNumber($event, dataSource)" 
+          class="inbox-toggle-all mr-1"><b>ALL</b>
           </mat-checkbox>
         </div>
       </div>
-      <div>
         <mat-form-field class="margin-333" style="width: 100%">
-          <input matInput placeholder="Type to filter all columns" (keyup)='updateFilter($event)'>
+          <input matInput placeholder="Type to filter all columns"
+           (keyup)='updateFilter($event)'>
         </mat-form-field>
-        <div *ngFor="let edit of dataSource;  let i = index" class="col-sm-12 d-flex   flex-row">
+        
+        <div *ngFor="let edit of dataSource; let i = index " class="col-sm-12 d-flex   flex-row">
           <div class=" col-sm-4 col" *ngIf="role.mobilePermission; else noMobile" >
-            <mat-checkbox [checked]="selectCheckbox" name="{{edit.mobileNumber}}" value="{{edit.mobileNumber}}"
-              (change)="selectedMobileNumber($event, edit.mobileNumber)" class="mail-checkbox"> {{edit.mobileNumber}}</mat-checkbox>
-          </div>
+            <mat-checkbox 
+              (change)="selectedMobileNumber($event, edit.mobileNumber)"
+               class="mail-checkbox">{{edit.mobileNumber}}
+              </mat-checkbox>
+            </div>
           <ng-template #noMobile>
             <div class=" col-sm-4 col">
               <mat-checkbox [checked]="selectCheckbox" name="{{edit.mobileNumber}}" value="{{edit.mobileNumber}}"
@@ -196,10 +201,14 @@
           {{edit.location}}
         </div>
       </div><br>
-      <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[100, 200, 300, 400, 500]"
-        [showFirstLastButtons]="true" [length]="totalSize" [pageIndex]="currentPage" (page)="handlePage($event)">
+    
+    
+      <mat-paginator #paginator [pageSize]="pageSize" 
+      [pageSizeOptions]="[100, 200, 300, 400, 500]"
+        [showFirstLastButtons]="true" 
+        [length]="totalSize" 
+        [pageIndex]="currentPage" (page)="handlePage($event)">
       </mat-paginator>
-</div>
 <div fxLayout="row">
   <div fxFlex="50%">
     <button mat-raised-button color="warn" matStepperPrevious>

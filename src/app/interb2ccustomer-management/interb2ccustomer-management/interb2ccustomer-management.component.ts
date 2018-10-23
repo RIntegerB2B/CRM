@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { InterB2cCustomer } from './../../shared/model/interb2ccustomer.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Interb2ccustomerService } from './../interb2ccustomer.service';
 import { map } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -39,10 +39,12 @@ export class Interb2ccustomerManagementComponent implements OnInit {
     this.interB2cCustomerDetailsForm = this.fb.group({
       _id: [],
       customerName: [],
+      countryCode: [],
       gender: [],
       mobileNumber: [],
       email: [],
       dateOfBirth: [],
+      country: [],
       nationality: [],
       categoryType: [],
       designation: [],
@@ -172,9 +174,11 @@ export class InterB2ccustomerEditComponent implements OnInit {
       customerName: [],
       gender: [],
       mobileNumber: [],
+      countryCode: [],
       email: [],
       dateOfBirth: [],
       nationality: [],
+      country: [],
       categoryType: [],
       designation: [],
       location: []
@@ -213,12 +217,14 @@ export class InterB2ccustomerAddComponent implements OnInit {
     this.interB2cCustomerDetailsForm = this.fb.group({
       _id: [],
       customerName: [],
+      countryCode: [],
       gender: [],
       mobileNumber: [],
       email: [],
       dateOfBirth: [],
       nationality: [],
       categoryType: [],
+      country: [],
       designation: [],
       location: []
     });
@@ -226,10 +232,12 @@ export class InterB2ccustomerAddComponent implements OnInit {
   addMember(interB2cCustomerDetailsForm: FormGroup) {
     this.newCustomer = new InterB2cCustomer(
       interB2cCustomerDetailsForm.controls.customerName.value,
-      interB2cCustomerDetailsForm.controls.gender.value,
+      interB2cCustomerDetailsForm.controls.countryCode.value,
       interB2cCustomerDetailsForm.controls.mobileNumber.value,
       interB2cCustomerDetailsForm.controls.email.value,
+      interB2cCustomerDetailsForm.controls.gender.value,
       interB2cCustomerDetailsForm.controls.dateOfBirth.value,
+      interB2cCustomerDetailsForm.controls.country.value,
       interB2cCustomerDetailsForm.controls.nationality.value,
       interB2cCustomerDetailsForm.controls.categoryType.value,
       interB2cCustomerDetailsForm.controls.designation.value,

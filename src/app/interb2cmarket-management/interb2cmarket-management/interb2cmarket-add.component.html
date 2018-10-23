@@ -12,14 +12,16 @@
             </mat-form-field>
           </div>
           <div fxFlex="50" class="pr-1">
-            <mat-form-field class="full-width">
-              <input matInput formControlName="gender" placeholder="Gender" [required]="false">
-              <mat-error *ngIf="interB2cMarketDetailsForm.controls['gender'].errors?.required">
-                Enter Gender
-                <strong>required</strong>
-              </mat-error>
-            </mat-form-field>
+              <mat-form-field class="full-width">
+                <input matInput formControlName="countryCode" placeholder="Country Code" required>
+                <mat-error *ngIf="interB2cMarketDetailsForm.controls['countryCode'].errors?.required" required>
+                  Enter Country Code
+                  <strong>required</strong>
+                </mat-error>
+        
+              </mat-form-field>
           </div>
+      
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
               <input matInput formControlName="mobileNumber" placeholder="Mobile Number" required>
@@ -29,6 +31,15 @@
               </mat-error>
             </mat-form-field>
           </div>
+          <div fxFlex="50" class="pr-1">
+              <mat-form-field class="full-width">
+                <input matInput formControlName="gender" placeholder="Gender" [required]="false">
+                <mat-error *ngIf="interB2cMarketDetailsForm.controls['gender'].errors?.required">
+                  Enter Gender
+                  <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
               <input matInput formControlName="email" placeholder="Email" [required]="false">
@@ -77,6 +88,16 @@
                 </mat-error>
           </mat-form-field>
         </div>
+        <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <input matInput  formControlName="country"
+                name="country" placeholder="Country">
+                <mat-error *ngIf="interB2cMarketDetailsForm.controls['country'].errors?.required">
+                    Enter Nationality
+                    <strong>required</strong>
+                  </mat-error>
+            </mat-form-field>
+          </div>
         <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
               <input matInput  formControlName="nationality"

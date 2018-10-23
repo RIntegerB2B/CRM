@@ -1,15 +1,35 @@
-<form [formGroup]="interB2cCustomerDetailsForm" (ngSubmit)="interB2cCustomerDetailsForm.valid &&
+<form [formGroup]="interB2cCustomerDetailsForm"
+ (ngSubmit)="interB2cCustomerDetailsForm.valid &&
  addMember(interB2cCustomerDetailsForm)">
   <div fxLayout="row wrap" fxLayout.lt-sm="column">
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
         <input matInput formControlName="customerName" placeholder="Customer Name" required>
-        <mat-error *ngIf="interB2cCustomerDetailsForm.controls['customerName'].errors?.required" required>
+        <mat-error *ngIf="interB2cCustomerDetailsForm.controls['customerName'].errors?.required">
           Enter Customer Name
           <strong>required</strong>
         </mat-error>
       </mat-form-field>
     </div>
+    <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput formControlName="countryCode" placeholder="Country Code" required>
+          <mat-error *ngIf="interB2cCustomerDetailsForm.controls['countryCode'].errors?.required">
+            Enter Country Code
+            <strong>required</strong>
+          </mat-error>
+  
+        </mat-form-field>
+    </div>
+    <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput formControlName="mobileNumber" placeholder="Mobile Number" required>
+          <mat-error *ngIf="interB2cCustomerDetailsForm.controls['mobileNumber'].errors?.required">
+            Enter Mobile No
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
         <input matInput formControlName="gender" placeholder="Gender" required>
@@ -19,18 +39,10 @@
         </mat-error>
       </mat-form-field>
     </div>
+    
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput formControlName="mobileNumber" placeholder="Mobile Number" required>
-        <mat-error *ngIf="interB2cCustomerDetailsForm.controls['mobileNumber'].errors?.required">
-          Enter Mobile No
-          <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div fxFlex="50" class="pr-1">
-      <mat-form-field class="full-width">
-        <input matInput formControlName="email" placeholder="Email" [required="false">
+        <input matInput formControlName="email" placeholder="Email" [required]="false">
         <mat-error *ngIf="interB2cCustomerDetailsForm.controls['email'].errors?.required">
           Enter email address
           <strong>required</strong>
@@ -75,6 +87,15 @@
         </mat-error>
       </mat-form-field>
     </div>
+   <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Country" formControlName="country" [required]="false">
+          <mat-error *ngIf="interB2cCustomerDetailsForm.controls['country'].errors?.required">
+            Enter Country
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
     <div fxFlex="50" class="pr-1">
       <mat-form-field class="full-width">
         <input matInput formControlName="nationality" name="nationality" placeholder="Nationality" [required]="false">
@@ -83,11 +104,12 @@
           <strong>required</strong>
         </mat-error>
       </mat-form-field>
-    </div>
+    </div> 
     <div fxFlex="100" class="mt-1">
       <button mat-raised-button color="primary">Save</button>
       <span fxFlex></span>
-      <button mat-raised-button mat-button color="warn" type="button" (click)="cancel()">Cancel</button>
+      <button mat-raised-button mat-button color="warn" type="button"
+       (click)="cancel()">Cancel</button>
     </div>
   </div>
 </form>

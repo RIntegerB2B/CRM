@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { B2cMarket } from './../../shared/model/b2cmarket.model';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { InterB2cMarket } from './../../shared/model/interb2cmarket.model';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Interb2cmarketService } from './../interb2cmarket.service';
 import { map } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -15,7 +15,7 @@ import { AccessPermission } from './../../user-management/permission/accessPermi
   styleUrls: ['./interb2cmarket-management.component.css']
 })
 export class Interb2cmarketManagementComponent implements OnInit {
-  newCustomer: B2cMarket[] = [];
+  newCustomer: InterB2cMarket[] = [];
   role: AccessPermission;
   @ViewChild('myTable') table: any;
   interB2cMarketDetailsForm: FormGroup;
@@ -58,12 +58,14 @@ export class Interb2cmarketManagementComponent implements OnInit {
     this.interB2cMarketDetailsForm = this.fb.group({
       _id: [],
       customerName: [],
+      countryCode: ['', Validators.maxLength(5)],
       gender: [],
       mobileNumber: [],
       email: [],
       dateOfBirth: [],
       nationality: [],
       categoryType: [],
+      country: [],
       designation: [],
       location: [],
       itemsPerPage: new FormControl('100'),
@@ -160,10 +162,10 @@ export class Interb2cmarketManagementComponent implements OnInit {
 })
 export class InterB2cmarketEditComponent implements OnInit {
   interB2cMarketDetailsForm: FormGroup;
-  newCustomer: B2cMarket[] = [];
+  newCustomer: InterB2cMarket[] = [];
   constructor(private fb: FormBuilder, private interb2cmarketService:
     Interb2cmarketService, public dialogRef: MatDialogRef<InterB2cmarketEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: B2cMarket) {
+    @Inject(MAT_DIALOG_DATA) public data: InterB2cMarket) {
     console.log(data);
   }
 
@@ -179,9 +181,11 @@ export class InterB2cmarketEditComponent implements OnInit {
       _id: [],
       customerName: [],
       gender: [],
+      countryCode: ['', Validators.maxLength(5)],
       mobileNumber: [],
       email: [],
       dateOfBirth: [],
+      country: [],
       nationality: [],
       categoryType: [],
       designation: [],
@@ -202,10 +206,10 @@ export class InterB2cmarketEditComponent implements OnInit {
 })
 export class InterB2cmarketAddComponent implements OnInit {
   interB2cMarketDetailsForm: FormGroup;
-  newCustomer: B2cMarket;
+  newCustomer: InterB2cMarket;
   constructor(private fb: FormBuilder, private interb2cmarketService: Interb2cmarketService
     , public dialogRef: MatDialogRef<InterB2cmarketAddComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: B2cMarket) {
+    @Inject(MAT_DIALOG_DATA) public data: InterB2cMarket) {
     console.log(data);
   }
   cancel(): void {
@@ -220,10 +224,12 @@ export class InterB2cmarketAddComponent implements OnInit {
     this.interB2cMarketDetailsForm = this.fb.group({
       _id: [],
       customerName: [],
+      countryCode: ['', Validators.maxLength(5)],
       gender: [],
       mobileNumber: [],
       email: [],
       dateOfBirth: [],
+      country: [],
       nationality: [],
       categoryType: [],
       designation: [],
@@ -231,12 +237,14 @@ export class InterB2cmarketAddComponent implements OnInit {
     });
   }
   addMember(interB2cMarketDetailsForm: FormGroup) {
-    this.newCustomer = new B2cMarket(
+    this.newCustomer = new InterB2cMarket(
       interB2cMarketDetailsForm.controls.customerName.value,
-      interB2cMarketDetailsForm.controls.gender.value,
+      interB2cMarketDetailsForm.controls.countryCode.value,
       interB2cMarketDetailsForm.controls.mobileNumber.value,
+      interB2cMarketDetailsForm.controls.gender.value,
       interB2cMarketDetailsForm.controls.email.value,
       interB2cMarketDetailsForm.controls.dateOfBirth.value,
+      interB2cMarketDetailsForm.controls.country.value,
       interB2cMarketDetailsForm.controls.nationality.value,
       interB2cMarketDetailsForm.controls.categoryType.value,
       interB2cMarketDetailsForm.controls.designation.value,
