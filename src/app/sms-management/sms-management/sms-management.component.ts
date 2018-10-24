@@ -311,7 +311,7 @@ export class SmsManagementComponent implements OnInit {
     const end = (this.currentPage + 1) * this.pageSize;
     const start = this.currentPage * this.pageSize;
     const part = this.array.slice(start, end);
-    this.dataSource = part;
+    this.newCustomer = part;
   }
 
   sendSms(smsDetailsForm: FormGroup) {
@@ -363,12 +363,12 @@ export class SmsManagementComponent implements OnInit {
     console.log('find:', mobileData);
     return mobileData === this;
   }
-  /* selectAllMobileNumber(e, dataSource) {
+  selectAllMobileNumber(e, dataSource) {
     this.selectCheckbox = !this.selectCheckbox;
     dataSource.forEach(element => {
       this.selectedMobileNumber(e, element.mobileNumber);
     });
-  } */
+  }
   getBillDetails() {
     if (this.billNumber.nativeElement.value === '' ||
       this.billTotal.nativeElement.value === '' ||

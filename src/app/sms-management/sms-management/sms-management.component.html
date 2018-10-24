@@ -183,7 +183,7 @@
         
         <div *ngFor="let edit of dataSource; let i = index " class="col-sm-12 d-flex   flex-row">
           <div class=" col-sm-4 col" *ngIf="role.mobilePermission; else noMobile" >
-            <mat-checkbox 
+            <mat-checkbox [checked]="selectedMobileNumbers[i]"
               (change)="selectedMobileNumber($event, edit.mobileNumber)"
                class="mail-checkbox">{{edit.mobileNumber}}
               </mat-checkbox>
