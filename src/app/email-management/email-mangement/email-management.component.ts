@@ -346,6 +346,7 @@ export class EmailManagementComponent implements OnInit {
     }
     this.sendEmaillist = this.selectedEmails.toString();
     this.customerDetailsForm.controls.email.setValue(this.sendEmaillist);
+    console.log(this.selectedEmails);
   }
   findIndexToUpdate(value) {
     return value === this;
@@ -359,12 +360,11 @@ export class EmailManagementComponent implements OnInit {
       this.customerDetailsForm.controls.emailMessage.reset();
     }
   }
-  selectEmailAll(e, value) {
+  selectEmailAll(e, dataSource) {
     this.selectCheckbox = !this.selectCheckbox;
-    value.forEach(element => {
+    dataSource.forEach(element => {
       this.selectedEmail(e, element.email);
-    }
-    );
+    });
   }
 
   updateFilter(event) {
