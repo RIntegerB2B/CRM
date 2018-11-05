@@ -183,7 +183,7 @@
         
         <div *ngFor="let edit of dataSource; let i = index " class="col-sm-12 d-flex   flex-row">
           <div class=" col-sm-4 col" *ngIf="role.mobilePermission; else noMobile" >
-            <mat-checkbox [checked]="selectedMobileNumbers[i]"
+            <mat-checkbox [checked]="selectCheckbox"
               (change)="selectedMobileNumber($event, edit.mobileNumber)"
                class="mail-checkbox">{{edit.mobileNumber}}
               </mat-checkbox>
@@ -241,6 +241,10 @@
 
       </div>
       <div class="col-md-5">
+          <label for="comment" class="textHeader"><b>Selected Mobile Number</b></label>
+          <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="MobileNumber" formControlName="mobileNumber" required></textarea>
+            </mat-form-field>
         <label for="comment" class="textHeader"><b>Text Message</b></label>
         <textarea class="form-control" formControlName="message" rows="4" required>
             </textarea><br>
@@ -248,7 +252,7 @@
           <div>Please enter Message</div>
         </div>
         <div *ngIf="showMobileNumber" class="alert alert-danger">
-          <div>Please enter Mobile Number</div>
+          <div>Please select Mobile Number</div>
         </div>
         <button mat-raised-button (click)="sendSms(smsDetailsForm)" color="primary">
           SMS sent
@@ -258,6 +262,9 @@
         <div fxLayout="row wrap" fxLayout.lt-sm="column">
           <div *ngIf="showBillDetails" class="alert alert-danger">
             <div>Please enter Bill Details</div>
+          </div>
+          <div *ngIf="showPrimaryNumber" class="alert alert-danger">
+            <div>Please select Mobile Number</div>
           </div>
           <div fxFlex="100%">
             <mat-form-field class="example-full-width">
