@@ -87,6 +87,7 @@ export class EmailManagementComponent implements OnInit {
       message: [],
       subjectTitle: [],
       subjectBody: [],
+      subjectSecondBody: [],
       subjectImage: [],
       subjectFooter: []
     });
