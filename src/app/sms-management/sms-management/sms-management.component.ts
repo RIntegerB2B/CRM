@@ -96,6 +96,7 @@ export class SmsManagementComponent implements OnInit {
       billDate: [],
       billAmount: [],
       mobileNumber: [],
+      smsHeader: [],
       llrNo: [],
       transporter: [],
       dateOfLlr: [],
@@ -329,7 +330,8 @@ export class SmsManagementComponent implements OnInit {
         this.showMobileNumber = false;
         this.mobileSend = new MobileSend(
           smsDetailsForm.controls.mobileNumber.value,
-          smsDetailsForm.controls.message.value
+          smsDetailsForm.controls.message.value,
+          smsDetailsForm.controls.smsHeader.value
         );
         this.smsService.mobileMessage(this.mobileSend).subscribe(data => {
           console.log(data);

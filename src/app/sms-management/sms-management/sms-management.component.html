@@ -245,6 +245,16 @@
           <mat-form-field class="example-full-width">
               <textarea matInput placeholder="MobileNumber" formControlName="mobileNumber" required></textarea>
             </mat-form-field>
+            <mat-form-field class="example-full-width">
+            <input matInput placeholder="Sms Header"
+            [maxlength]="5"
+             formControlName="smsHeader" required>
+             <mat-error *ngIf="smsDetailsForm.controls['smsHeader'].errors?.required">
+                SMS Header 6 Letter is
+                <strong>required</strong>
+              </mat-error>
+              <mat-hint class="text-primary">UCCHAL, RUDRMA</mat-hint>
+            </mat-form-field>
         <label for="comment" class="textHeader"><b>Text Message</b></label>
         <textarea class="form-control" formControlName="message" rows="4" required>
             </textarea><br>
