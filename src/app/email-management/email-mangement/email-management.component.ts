@@ -58,6 +58,7 @@ export class EmailManagementComponent implements OnInit {
   public currentPage = 0;
   public totalSize = 0;
   public searchString: string;
+  showEmailMessage = false;
 
 
 
@@ -315,8 +316,9 @@ export class EmailManagementComponent implements OnInit {
   }
 
   sendEmail(customerDetailsForm: FormGroup) {
-    /*  this.htmlTemplate = this.content.nativeElement.innerHTML;
-     */
+    this.sendEmaillist = this.selectedEmails.toString();
+    this.customerDetailsForm.controls.email.setValue(this.sendEmaillist);
+    console.log(this.selectedEmails);
     this.htmlTemplate = this.content.nativeElement.innerHTML;
     this.customerDetailsForm.controls.emailMessage.setValue(this.htmlTemplate);
     this.emailSend = new EmailSend(
@@ -325,8 +327,11 @@ export class EmailManagementComponent implements OnInit {
       customerDetailsForm.controls.subjectTitle.value
     );
     this.emailService.emailSender(this.emailSend).subscribe(data => {
+      console.log(data);
       if (data.result = 1) {
-
+        this.showEmailMessage = true;
+      } else {
+        this.showEmailMessage = false;
       }
     }, error => {
       console.log(error);
@@ -344,8 +349,6 @@ export class EmailManagementComponent implements OnInit {
 
       this.selectedEmails.splice(index, 1);
     }
-    this.sendEmaillist = this.selectedEmails.toString();
-    this.customerDetailsForm.controls.email.setValue(this.sendEmaillist);
     console.log(this.selectedEmails);
   }
   findIndexToUpdate(value) {

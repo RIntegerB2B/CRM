@@ -164,7 +164,7 @@
           <strong>LOCATION</strong>
         </div>
       </div><br>
-      <ng-template matStepLabel>Mobile Numbers</ng-template>
+      <ng-template matStepLabel>Emails</ng-template>
       <div class="row d-flex  flex-row">
         <div class="col-sm-4">
             <div class="col-sm-4">
@@ -213,6 +213,7 @@
     <mat-step>
       <ng-template matStepLabel>Message</ng-template>
       <div fxLayout="row">
+         
         <div fxFlex="100%">
           <button mat-raised-button color="accent" (click)="getText()">
             Template
@@ -223,6 +224,9 @@
           </div>
       </div><br>
       <div class="container-fluid">
+          <div *ngIf="showEmailMessage" class="alert alert-danger">
+              <div>Email send successfully</div>
+            </div>
         <form [formGroup]="customerDetailsForm" *ngIf="selectOneTemplate">
             <b>{{textTemplate}}</b>
           <ng-template matStepLabel>Email Message</ng-template>
