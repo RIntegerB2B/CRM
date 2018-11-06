@@ -317,8 +317,8 @@ export class SmsManagementComponent implements OnInit {
 
   sendSms(smsDetailsForm: FormGroup) {
     if (
-      smsDetailsForm.controls.mobileNumber.value === null ||
-      this.selectedMobileNumbers[0] === undefined) {
+       smsDetailsForm.controls.mobileNumber.value === null ||
+       this.selectedMobileNumbers[0] === undefined ) {
       this.showMobileNumber = true;
       this.showMessage = false;
     } else {
@@ -343,17 +343,17 @@ export class SmsManagementComponent implements OnInit {
       }
     }
   }
-  selectedMobileNumber(e, mobileData) {
+  /* selectedMobileNumber(e, mobileData) {
     const index = this.selectedMobileNumbers.indexOf(mobileData);
     if (e.checked === true) {
-      if (mobileData.length > 10) {
+         if (mobileData.length > 10) {
         const lengthOf = mobileData.length - 10;
         const newValue = mobileData.substr(lengthOf);
         this.selectedMobileNumbers.push(newValue);
       } else {
         this.selectedMobileNumbers.push(mobileData);
       }
-    } else if (index > -1) {
+    } else  if (index > -1 ) {
       this.selectedMobileNumbers.splice(index, 1);
     }
     this.sendMobileNumber = this.selectedMobileNumbers.toString();
@@ -362,41 +362,67 @@ export class SmsManagementComponent implements OnInit {
   }
 
 
-  selectAllMobileNumber(e, newCustomer) {
+  selectAllMobileNumber(e, dataSource) {
+    this.selectCheckbox = !this.selectCheckbox;
+    dataSource.forEach(element => {
+      this.selectedMobileNumber(e, element.mobileNumber);
+    });
+  } */
+  selectedMobileNumber(e, mobileData) {
+    if (e.checked) {
+         if (mobileData.length > 10) {
+        const lengthOf = mobileData.length - 10;
+        const newValue = mobileData.substr(lengthOf);
+        this.selectedMobileNumbers.push(newValue);
+      } else {
+        this.selectedMobileNumbers.push(mobileData);
+      }
+    } else {
+      const updateItem = this.selectedMobileNumbers.find(this.findIndexToUpdate, mobileData);
 
-    if (e.checked === true) {
-      this.selectCheckbox = !this.selectCheckbox;
-      newCustomer.forEach(element => {
-        this.selectedMobileNumber(e, element.mobileNumber);
-      });
+      const index = this.selectedMobileNumbers.indexOf(updateItem);
+
+      this.selectedMobileNumbers.splice(index, 1);
     }
-    }
+    this.sendMobileNumber = this.selectedMobileNumbers.toString();
+    this.smsDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
+    console.log(this.selectedMobileNumbers);
+  }
+  findIndexToUpdate(mobileData) {
+    return mobileData === this;
+  }
+  selectAllMobileNumber(e, dataSource) {
+    this.selectCheckbox = !this.selectCheckbox;
+    dataSource.forEach(element => {
+      this.selectedMobileNumber(e, element.mobileNumber);
+    });
+  }
   getBillDetails() {
-    if (this.selectedMobileNumbers[0] === undefined || this.smsDetailsForm.controls.mobileNumber.value === null) {
+    if (this.selectedMobileNumbers[0] === undefined  || this.smsDetailsForm.controls.mobileNumber.value === null) {
       this.showPrimaryNumber = true;
     } else {
-      if (this.billNumber.nativeElement.value === '' ||
-        this.billTotal.nativeElement.value === '' ||
-        this.billDate.nativeElement.value === ''
-      ) {
-        this.showBillDetails = true;
-        this.showPrimaryNumber = false;
-      } else {
-        this.showBillDetails = false;
-        this.showPrimaryNumber = false;
-        this.setFullBillDetails = 'Bill Number: ' + this.billNumber.nativeElement.value
-          + '\nBill Amount: ' + this.billTotal.nativeElement.value + '\nBill Date: ' + this.billDate.nativeElement.value;
-        this.smsDetailsForm.controls.message.setValue(this.setFullBillDetails);
-        const inSms = ',9845263436,9880039896,9108329309';
-        this.sendMobileNumber = this.selectedMobileNumbers.toString() + inSms;
-        console.log(this.sendMobileNumber);
-        this.smsDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
-        this.smsDetailsForm.controls.billDate.reset();
-        this.smsDetailsForm.controls.billNo.reset();
-        this.smsDetailsForm.controls.billAmount.reset();
-      }
+    if (this.billNumber.nativeElement.value === '' ||
+      this.billTotal.nativeElement.value === '' ||
+      this.billDate.nativeElement.value === ''
+    ) {
+      this.showBillDetails = true;
+      this.showPrimaryNumber = false;
+    } else {
+      this.showBillDetails = false;
+      this.showPrimaryNumber = false;
+      this.setFullBillDetails = 'Bill Number: ' + this.billNumber.nativeElement.value
+        + '\nBill Amount: ' + this.billTotal.nativeElement.value + '\nBill Date: ' + this.billDate.nativeElement.value;
+      this.smsDetailsForm.controls.message.setValue(this.setFullBillDetails);
+      const inSms = ',9845263436,9880039896,9108329309';
+      this.sendMobileNumber = this.selectedMobileNumbers.toString() + inSms;
+      console.log(this.sendMobileNumber);
+      this.smsDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
+      this.smsDetailsForm.controls.billDate.reset();
+      this.smsDetailsForm.controls.billNo.reset();
+      this.smsDetailsForm.controls.billAmount.reset();
     }
   }
+}
   getLlrDetails() {
     if (this.llrNumber.nativeElement.value === '' ||
       this.dateLlr.nativeElement.value === '' ||
