@@ -171,7 +171,7 @@
       <div class=" col-sm-12 d-flex  flex-row">
         <div class="col-sm-4">
           <mat-checkbox [checked]="selectCheckbox" 
-          (change)="selectAllMobileNumber($event, dataSource)" 
+          (change)="selectAllMobileNumber($event, newCustomer)" 
           class="inbox-toggle-all mr-1"><b>ALL</b>
           </mat-checkbox>
         </div>
@@ -247,7 +247,7 @@
             </mat-form-field>
             <mat-form-field class="example-full-width">
             <input matInput placeholder="Sms Header"
-            [maxlength]="5"
+            [maxlength]="6"
              formControlName="smsHeader" required>
              <mat-error *ngIf="smsDetailsForm.controls['smsHeader'].errors?.required">
                 SMS Header 6 Letter is
