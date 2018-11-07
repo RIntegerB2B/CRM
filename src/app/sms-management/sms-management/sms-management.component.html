@@ -240,31 +240,44 @@
       <div class="col-md-2">
 
       </div>
-      <div class="col-md-5">
+      <div class="col-md-5" (ngSubmit)="smsDetailsForm.valid && sendSms(smsDetailsForm)">
           <label for="comment" class="textHeader"><b>Selected Mobile Number</b></label>
           <mat-form-field class="example-full-width">
-              <textarea matInput placeholder="MobileNumber" formControlName="mobileNumber" required></textarea>
+              <textarea matInput placeholder="MobileNumber"
+               formControlName="mobileNumber"
+                required></textarea>
             </mat-form-field>
             <mat-form-field class="example-full-width">
             <input matInput placeholder="Sms Header"
-            [maxlength]="6"
-             formControlName="smsHeader" required>
-             <mat-error *ngIf="smsDetailsForm.controls['smsHeader'].errors?.required">
-                SMS Header 6 Letter is
-                <strong>required</strong>
-              </mat-error>
+             formControlName="smsHeader" [maxLength]="7" required>
               <mat-hint class="text-primary">UCCHAL, RUDRMA</mat-hint>
             </mat-form-field>
+            <div *ngIf="smsDetailsForm.controls['smsHeader'].errors && 
+            smsDetailsForm.controls['smsHeader'].errors.maxlength"
+            class="alert alert-danger"
+            >
+              SMS Header 6 Letter is
+              <strong>required</strong>
+           </div>
         <label for="comment" class="textHeader"><b>Text Message</b></label>
-        <textarea class="form-control" formControlName="message" rows="4" required>
+        <textarea class="form-control" 
+        formControlName="message" rows="4" required>
             </textarea><br>
+            <div *ngIf="smsDetailsForm.controls['message'].errors && 
+            smsDetailsForm.controls['message'].errors.maxlength"  class="alert alert-danger">
+              <span class="error-message">Maximum character length is 160</span>
+            </div>
+            <div *ngIf="smsDetailsForm.controls['message'].errors && 
+            smsDetailsForm.controls['message'].errors.minlength"  class="alert alert-danger">
+              <span class="error-message">Minimum  character length is 3</span>
+            </div>
         <div *ngIf="showMessage" class="alert alert-danger">
           <div>Please enter Message</div>
         </div>
         <div *ngIf="showMobileNumber" class="alert alert-danger">
           <div>Please select Mobile Number</div>
         </div>
-        <button mat-raised-button (click)="sendSms(smsDetailsForm)" color="primary">
+        <button mat-raised-button  color="primary">
           SMS sent
         </button><br>
 

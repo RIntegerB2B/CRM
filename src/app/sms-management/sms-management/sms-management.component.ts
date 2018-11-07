@@ -91,12 +91,12 @@ export class SmsManagementComponent implements OnInit {
   }
   createMessageForm() {
     this.smsDetailsForm = this.fb.group({
-      message: ['', Validators.minLength(3)],
+      message: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(155)])],
       billNo: [],
       billDate: [],
       billAmount: [],
       mobileNumber: [],
-      smsHeader: [],
+      smsHeader: ['', Validators.maxLength(6)],
       llrNo: [],
       transporter: [],
       dateOfLlr: [],
@@ -316,9 +316,9 @@ export class SmsManagementComponent implements OnInit {
   }
 
   sendSms(smsDetailsForm: FormGroup) {
+    console.log(smsDetailsForm);
     if (
-       smsDetailsForm.controls.mobileNumber.value === null ||
-       this.selectedMobileNumbers[0] === undefined ) {
+       smsDetailsForm.controls.mobileNumber.value === null ) {
       this.showMobileNumber = true;
       this.showMessage = false;
     } else {
