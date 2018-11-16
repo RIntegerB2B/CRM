@@ -38,6 +38,8 @@ const routes: Routes = [
     {
         path: 'login', component: LoginComponent
     },
+    { path: 'permission', component: PermissionComponent},
+            { path: 'register',  component: RegisterComponent },
     {
         path: '', canActivate: [AuthGuard],
     children: [
