@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serviceUrl: 'https://ucchal.com/crmservice/'
+  serviceUrl: 'http://35.154.115.74:3021/'
 };

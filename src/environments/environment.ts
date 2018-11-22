@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   serviceUrl: 'http://localhost:3021/'
-  // serviceUrl: 'https://rinteger.com/adminservice/'
+   //serviceUrl: 'https://rinteger.com/adminservice/'
 };
 
 /*
