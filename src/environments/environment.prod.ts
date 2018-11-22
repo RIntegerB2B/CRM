@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serviceUrl: 'http://ucchal.com/crmservice/'
+  serviceUrl: 'https://ucchal.com/crmservice/'
 };
