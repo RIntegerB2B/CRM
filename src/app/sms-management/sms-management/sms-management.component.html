@@ -240,7 +240,7 @@
       <div class="col-md-2">
 
       </div>
-      <div class="col-md-5" (ngSubmit)="smsDetailsForm.valid && sendSms(smsDetailsForm)">
+      <div class="col-md-5">
           <label for="comment" class="textHeader"><b>Selected Mobile Number</b></label>
           <mat-form-field class="example-full-width">
               <textarea matInput placeholder="MobileNumber"
@@ -277,7 +277,7 @@
         <div *ngIf="showMobileNumber" class="alert alert-danger">
           <div>Please select Mobile Number</div>
         </div>
-        <button mat-raised-button  color="primary">
+        <button mat-raised-button  (click)="sendSms(smsDetailsForm)" color="primary">
           SMS sent
         </button><br>
 
