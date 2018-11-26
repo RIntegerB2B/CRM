@@ -84,11 +84,16 @@
           </button>
           <button mat-icon-button mat-sm-button color="accent"
            [disabled]="!data.deletePermission" 
-           (click)="deleteAgentCustomer(agentDetailsForm, row)">
+           (click)="deleteOpen(row)">
             <mat-icon>delete</mat-icon>
           </button>
+        
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>
   </div>
 </form>
+<app-confirm-alert
+      (messageEvent)="deleteAgentCustomer($event, deleteRow)"
+      [confirmAlertBox] ="this.confirmAlertBox">
+</app-confirm-alert>

@@ -11,6 +11,7 @@ import { PageEvent } from '@angular/material';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
 import { MessageService } from '../../message-management/message.service'
 import { AccessPermission } from './../../user-management/permission/accessPermission.model';
+import { AlertBox } from './../../shared/alert/alert.model';
 
 @Component({
   selector: 'app-sms-management',
@@ -34,6 +35,7 @@ export class SmsManagementComponent implements OnInit {
   selectedMobileNumbers = [];
   sendMobileNumber;
   textHeader;
+  smsRespone;
   selectCheckbox = false;
   selectTemplate: boolean;
   mobiles;
@@ -53,12 +55,15 @@ export class SmsManagementComponent implements OnInit {
   setFullLlrDetails;
   array: any;
   displayedColumns = ['', '', '', '', ''];
+  alertBox: AlertBox;
+  alertBoxSuccess: AlertBox;
+  alertBoxError:  AlertBox;
   dataSource: any = [];
   rows: any = [];
   columns: any = [];
   temp: any = [];
-  smsStatus: any = [];
   role: AccessPermission;
+  smsResponeSuccess: any;
   // pageEvent: PageEvent;
   nationalDatabse = [{ 'type': 'B2B CUSTOMER DB' },
   { 'type': 'B2B MARKET DB' }, { 'type': 'B2C CUSTOMER DB' }, { 'type': 'B2C MARKET DB' },
@@ -70,7 +75,12 @@ export class SmsManagementComponent implements OnInit {
   public currentPage = 0;
   public totalSize = 0;
   public searchString: string;
-
+/* smsRepsone = {  body: {'status':'success', 'mobilenumbers': '9965437973',
+'remainingcredits': 3809, 'msgcount': 1, 'selectedRoute': 'transactional',
+'refid': -3178967485238437313, 'senttime': '2018-11-25 14:11:37',
+'response': [ {'mobile_number': '919965437973', 'unique_id': '5bfa604167fee'}]},
+statusCode: 200};
+ */
   constructor(private fb: FormBuilder, private smsService: SmsService, private headerSideService: HeaderSideService,
     private messageService: MessageService) {
   }
@@ -80,6 +90,21 @@ export class SmsManagementComponent implements OnInit {
     this.createMessageForm();
     this.getAllMessage();
     this.role = JSON.parse(sessionStorage.getItem('role'));
+    this.alertBoxSuccess = new AlertBox(
+      'displayNone',
+      'Information',
+      ''
+    );
+    this.alertBox = new AlertBox(
+      'displayNone',
+      'Information',
+      'SMS send Successfully!'
+    );
+    this.alertBoxError = new AlertBox(
+      'displayNone',
+      'Information',
+      'Server Down. Please try again'
+    );
   }
 
   goBack(stepper: MatStepper) {
@@ -318,7 +343,8 @@ export class SmsManagementComponent implements OnInit {
   sendSms(smsDetailsForm: FormGroup) {
     console.log(smsDetailsForm);
     if (
-       smsDetailsForm.controls.mobileNumber.value === null ) {
+       smsDetailsForm.controls.mobileNumber.value === null
+       || smsDetailsForm.controls.mobileNumber.value === ''  ) {
       this.showMobileNumber = true;
       this.showMessage = false;
     } else {
@@ -335,9 +361,17 @@ export class SmsManagementComponent implements OnInit {
         );
         this.smsService.mobileMessage(this.mobileSend).subscribe(data => {
           console.log(data);
-          this.smsStatus.push(data);
-          smsDetailsForm.controls.mobileNumber.reset();
+          this.smsRespone = data;
+          this.smsResponeSuccess = JSON.parse(this.smsRespone.body);
+          console.log(this.smsResponeSuccess.status);
+          this.alertBoxSuccess.displayClass = 'displayBlock';
+          this.alertBoxSuccess.modalBody = 'status: ' + this.smsResponeSuccess.status;
+          this.alertBox = this.alertBoxSuccess;
+          smsDetailsForm.reset();
         }, error => {
+          this.alertBoxError.displayClass = 'displayBlock';
+          this.alertBox = this.alertBoxError;
+          smsDetailsForm.reset();
           console.log(error);
         });
       }
@@ -398,7 +432,7 @@ export class SmsManagementComponent implements OnInit {
     });
   }
   getBillDetails() {
-    if (this.selectedMobileNumbers[0] === undefined  || this.smsDetailsForm.controls.mobileNumber.value === null) {
+    if (this.smsDetailsForm.controls.mobileNumber.value === null || this.smsDetailsForm.controls.mobileNumber.value === '' ) {
       this.showPrimaryNumber = true;
     } else {
     if (this.billNumber.nativeElement.value === '' ||
@@ -414,7 +448,7 @@ export class SmsManagementComponent implements OnInit {
         + '\nBill Amount: ' + this.billTotal.nativeElement.value + '\nBill Date: ' + this.billDate.nativeElement.value;
       this.smsDetailsForm.controls.message.setValue(this.setFullBillDetails);
       const inSms = ',9845263436,9880039896,9108329309';
-      this.sendMobileNumber = this.selectedMobileNumbers.toString() + inSms;
+      this.sendMobileNumber = this.smsDetailsForm.controls.mobileNumber.value + inSms;
       console.log(this.sendMobileNumber);
       this.smsDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
       this.smsDetailsForm.controls.billDate.reset();
@@ -424,6 +458,9 @@ export class SmsManagementComponent implements OnInit {
   }
 }
   getLlrDetails() {
+    if (this.smsDetailsForm.controls.mobileNumber.value === null || this.smsDetailsForm.controls.mobileNumber.value === '' ) {
+      this.showPrimaryNumber = true;
+    } else {
     if (this.llrNumber.nativeElement.value === '' ||
       this.dateLlr.nativeElement.value === '' ||
       this.transp.nativeElement.value === ''
@@ -431,11 +468,19 @@ export class SmsManagementComponent implements OnInit {
       this.showLlrDetails = true;
     } else {
       this.showLlrDetails = false;
+      this.showPrimaryNumber = false;
       this.setFullLlrDetails = 'Your LLR# ' + this.llrNumber.nativeElement.value
         + ' goods is dispatched ' + this.transp.nativeElement.value + ' on ' +
-        this.dateLlr.nativeElement.value + '\n Thank you for purchase';
-      this.smsDetailsForm.controls.message.setValue(this.setFullLlrDetails);
+        this.dateLlr.nativeElement.value + 'Thank you for purchase';
+        const inSms = ',9845263436,9880039896,9108329309';
+        this.sendMobileNumber = this.smsDetailsForm.controls.mobileNumber.value + inSms;
+        this.smsDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
+        this.smsDetailsForm.controls.message.setValue(this.setFullLlrDetails);
+        this.smsDetailsForm.controls.llrNo.reset();
+        this.smsDetailsForm.controls.dateOfLlr.reset();
+        this.smsDetailsForm.controls.transporter.reset();
     }
+  }
   }
 
   setNameValue(e, template) {

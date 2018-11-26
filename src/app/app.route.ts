@@ -32,14 +32,15 @@ import {
   import { MessageManagementComponent
   } from './message-management/message-management/message-management.component';
   import { InteruploadManagementComponent } from './interupload-management/interupload-management/interupload-management.component';
-
+  import { AlertComponent } from './shared/alert/alert.component';
 
 const routes: Routes = [
     {
         path: 'login', component: LoginComponent
     },
     { path: 'permission', component: PermissionComponent},
-            { path: 'register',  component: RegisterComponent },
+    { path: 'register',  component: RegisterComponent },
+    { path: 'alert',  component: AlertComponent },
     {
         path: '', canActivate: [AuthGuard],
     children: [

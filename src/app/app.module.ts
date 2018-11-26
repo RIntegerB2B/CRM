@@ -104,6 +104,8 @@ import { Interb2cmarketManagementComponent, InterB2cmarketEditComponent,
 import { MessageManagementComponent, MessageAddComponent
 } from './message-management/message-management/message-management.component';
 import { InteruploadManagementComponent } from './interupload-management/interupload-management/interupload-management.component';
+import { AlertComponent } from './shared/alert/alert.component';
+import { ConfirmAlertComponent } from './shared/confirm-alert/confirm-alert.component';
 
 @NgModule({
   declarations: [
@@ -155,7 +157,9 @@ import { InteruploadManagementComponent } from './interupload-management/interup
     InterB2cmarketAddComponent,
     MessageManagementComponent,
     MessageAddComponent,
-    InteruploadManagementComponent
+    InteruploadManagementComponent,
+    AlertComponent,
+    ConfirmAlertComponent
   ],
   imports: [
     BrowserModule,

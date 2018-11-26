@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, EventEmitter, Output } from '@angular/core';
 import { Agent } from './../../shared/model/agent.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AgentService } from './../agent.service';
@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
 import { AccessPermission } from './../../user-management/permission/accessPermission.model';
 import { Customer } from 'src/app/shared/model/customer.model';
+import { ConfirmAlertBox } from 'src/app/shared/confirm-alert/confirmAlert.model';
 
 
 @Component({
@@ -15,10 +16,12 @@ import { Customer } from 'src/app/shared/model/customer.model';
   styleUrls: ['./agent-management.component.css']
 })
 export class AgentManagementComponent implements OnInit {
-
   newCustomer: Agent[] = [];
+  message;
+  deleteRow;
   @ViewChild('myTable') table: any;
   temp = [];
+  confirmAlertBox: ConfirmAlertBox;
   currentPageLimit = 0;
   pageLimitOptions = [
     { value: 10 },
@@ -35,6 +38,14 @@ export class AgentManagementComponent implements OnInit {
     this.createAgentForm();
     this.getAllAgentCustomer();
     this.role = JSON.parse(sessionStorage.getItem('role'));
+    this.confirmAlertBox = new ConfirmAlertBox(
+      'displayNone',
+      'Confirm Delete',
+      'Do You want to delete'
+    );
+  }
+  recieveMessage($event)   {
+    this.message = $event;
   }
   createAgentForm() {
     this.agentDetailsForm = this.fb.group({
@@ -123,16 +134,25 @@ export class AgentManagementComponent implements OnInit {
       console.log(error);
     });
   }
-  deleteAgentCustomer(agentDetailsForm: FormGroup, row) {
-    row.editing = false;
-    agentDetailsForm.reset();
-    this.agentService.deleteAgent(row).subscribe(data => {
-      if (data) {
-      this.newCustomer = this.newCustomer.filter(customer => customer._id !== row);
-      }
-    }, error => {
-      console.log(error);
-    });
+  deleteOpen(row)   {
+    this.confirmAlertBox.displayClass = 'displayBlock';
+    this.confirmAlertBox = this.confirmAlertBox;
+    this.deleteRow = row;
+  }
+  deleteAgentCustomer($event, row) {
+    /* row.editing = false; */
+    this.message = $event;
+    if (this.message === 'Yes')   {
+      /* this.agentService.deleteAgent(row).subscribe(data => {
+        if (data) {
+        this.newCustomer = this.newCustomer.filter(customer => customer._id !== row);
+        } */
+        this.agentService.deleteAgent(row).subscribe(data => {
+          this.newCustomer = data;
+      }, error => {
+        console.log(error);
+      });
+    }
   }
   addCustomer(agentDetailsForm: FormGroup, row) {
 

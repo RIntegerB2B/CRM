@@ -42,7 +42,7 @@ export class EmployeeManagementComponent implements OnInit {
       empNo: [],
       gender: [],
       mobileNumber: [],
-      whatsappNo: [],
+      whatsAppNo: [],
       email: [],
       dateOfBirth: [],
       dateOfJoin: [],
@@ -175,10 +175,10 @@ export class EmployeeEditComponent implements OnInit {
       empNo: [],
       gender: [],
       mobileNumber: [],
-      whatsappNo: [],
+      WhatsAppNo: [],
       email: [],
-      dateOfJoin: [],
       dateOfBirth: [],
+      dateOfJoin: [],
       designation: [],
       address: []
     });
