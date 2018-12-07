@@ -93,11 +93,11 @@ export class MessageAddComponent implements OnInit {
     });
     this.dialogRef.close();
   }
-  getEditMessage(messageDetailsForm: FormGroup, row) {
+ /*  getEditMessage(messageDetailsForm: FormGroup, row) {
     this.messageService.editMessage(row).subscribe(data => {
       this.newMessage = data;
     }, error => {
       console.log(error);
     });
-  }
+  } */
 }
