@@ -30,6 +30,14 @@ export class MessageManagementComponent implements OnInit {
     });
     dialogRef.afterClosed();
   }
+  getEditMessage(messageDetailsForm: FormGroup, row)   {
+    const dialogRef = this.dialog.open(MessageAddComponent, {
+      width: '360px',
+      disableClose: true,
+      data: row
+    });
+    dialogRef.afterClosed();
+  }
   getDeleteMessage(messageDetailsForm: FormGroup, row) {
     this.messageService.deleteMessage(row).subscribe(data => {
       this.newMessage = data;
@@ -84,5 +92,12 @@ export class MessageAddComponent implements OnInit {
       console.log(error);
     });
     this.dialogRef.close();
+  }
+  getEditMessage(messageDetailsForm: FormGroup, row) {
+    this.messageService.editMessage(row).subscribe(data => {
+      this.newMessage = data;
+    }, error => {
+      console.log(error);
+    });
   }
 }

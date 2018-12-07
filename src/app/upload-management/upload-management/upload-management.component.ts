@@ -7,9 +7,12 @@ import { B2bMarket } from './../../shared/model/b2bmarket.model';
 import { B2cCustomer } from './../../shared/model/b2ccustomer.model';
 import { Vendor } from './../../shared/model/vendor.model';
 import { Employee } from './../../shared/model/employee.model';
+import { Others } from './../../shared/model/other.model';
+import { Agent } from './../../shared/model/agent.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UploadService } from './../upload.service';
 import { HttpClient } from '@angular/common/http';
+import { AlertBox } from './../../shared/alert/alert.model';
 
 
 @Component({
@@ -20,12 +23,16 @@ import { HttpClient } from '@angular/common/http';
 export class UploadManagementComponent implements OnInit {
   arrayBuffer: any;
   file: File;
+  alertBoxSuccess: AlertBox;
+  alertBox: AlertBox;
   customerDetailsForm: FormGroup;
   b2cMarket: B2cMarket[];
   b2bMarket: B2bMarket[];
   b2cCustomer: B2cCustomer[];
   employee: Employee[];
   vendor: Vendor[];
+  others: Others;
+  agent: Agent;
   fullVendor;
   customers;
   b2cMarketCustomer;
@@ -148,6 +155,11 @@ export class UploadManagementComponent implements OnInit {
   constructor(private uploadService: UploadService) { }
 
   ngOnInit() {
+    this.alertBoxSuccess = new AlertBox(
+      'displayNone',
+      'Information',
+      ''
+    );
   }
   /* b2b customer */
 
@@ -168,8 +180,16 @@ export class UploadManagementComponent implements OnInit {
       this.uploadService.createCustomer(this.customers)
         .subscribe(detail => {
           this.newCustomer = detail;
-          console.log(detail);
-        });
+          if (detail.length > 0)           {
+            this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
+            this.alertBox = this.alertBoxSuccess;
+          }
+        }, error => {
+          this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Server Down please try again';
+            console.log(error);
+          });
     };
     fileReader.readAsArrayBuffer(this.file);
   }
@@ -194,8 +214,16 @@ export class UploadManagementComponent implements OnInit {
       this.uploadService.createB2cCustomer(this.fullb2cCustomer)
         .subscribe(detail => {
           this.b2cCustomer = detail;
-          console.log(detail);
-        });
+          if (detail.length > 0)           {
+            this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
+            this.alertBox = this.alertBoxSuccess;
+          }
+        }, error => {
+          this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Server Down please try again';
+            console.log(error);
+          });
     };
     fileReader.readAsArrayBuffer(this.file);
   }
@@ -221,8 +249,16 @@ export class UploadManagementComponent implements OnInit {
       this.uploadService.createB2cMarket(this.b2cMarketCustomer)
         .subscribe(detail => {
           this.b2cMarket = detail;
-          console.log(detail);
-        });
+          if (detail.length > 0)           {
+            this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
+            this.alertBox = this.alertBoxSuccess;
+          }
+        }, error => {
+          this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Server Down please try again';
+            console.log(error);
+          });
     };
     fileReader.readAsArrayBuffer(this.file);
   }
@@ -246,9 +282,16 @@ export class UploadManagementComponent implements OnInit {
       this.b2bMarketCustomer = XLSX.utils.sheet_to_json(worksheet);
       this.uploadService.createB2bMarket(this.b2bMarketCustomer)
         .subscribe(detail => {
-          this.b2bMarket = detail;
-          console.log(detail);
-        });
+          if (detail.length > 0)           {
+            this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
+            this.alertBox = this.alertBoxSuccess;
+          }
+        }, error => {
+          this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Server Down please try again';
+            console.log(error);
+          });
     };
     fileReader.readAsArrayBuffer(this.file);
   }
@@ -273,8 +316,16 @@ export class UploadManagementComponent implements OnInit {
       this.uploadService.createEmployee(this.fullEmployee)
         .subscribe(detail => {
           this.employee = detail;
-          console.log(detail);
-        });
+          if (detail.length > 0)           {
+            this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
+            this.alertBox = this.alertBoxSuccess;
+          }
+        }, error => {
+          this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Server Down please try again';
+            console.log(error);
+          });
     };
     fileReader.readAsArrayBuffer(this.file);
   }
@@ -299,9 +350,18 @@ export class UploadManagementComponent implements OnInit {
       this.fullVendor = XLSX.utils.sheet_to_json(worksheet);
       this.uploadService.createVendor(this.fullVendor)
         .subscribe(detail => {
-          this.employee = detail;
-          console.log(detail);
-        });
+      this.vendor = detail;
+      console.log(detail);
+          if (detail.length > 0)           {
+            this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
+            this.alertBox = this.alertBoxSuccess;
+          }
+        }, error => {
+          this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Server Down please try again';
+            console.log(error);
+          });
     };
     fileReader.readAsArrayBuffer(this.file);
   }
@@ -324,9 +384,17 @@ export class UploadManagementComponent implements OnInit {
       this.fullVendor = XLSX.utils.sheet_to_json(worksheet);
       this.uploadService.createAgent(this.fullVendor)
         .subscribe(detail => {
-          this.employee = detail;
-          console.log(detail);
-        });
+          this.agent = detail;
+          if (detail.length > 0)           {
+            this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
+            this.alertBox = this.alertBoxSuccess;
+          }
+        }, error => {
+          this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Server Down please try again';
+            console.log(error);
+          });
     };
     fileReader.readAsArrayBuffer(this.file);
   }
@@ -350,9 +418,18 @@ export class UploadManagementComponent implements OnInit {
       this.fullVendor = XLSX.utils.sheet_to_json(worksheet);
       this.uploadService.createOthers(this.fullVendor)
         .subscribe(detail => {
-          this.employee = detail;
+          this.others = detail;
           console.log(detail);
-        });
+          if (detail.length > 0)           {
+            this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
+            this.alertBox = this.alertBoxSuccess;
+          }
+        }, error => {
+          this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Server Down please try again';
+            console.log(error);
+          });
     };
     fileReader.readAsArrayBuffer(this.file);
   }

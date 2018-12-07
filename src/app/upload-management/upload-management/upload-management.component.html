@@ -4,10 +4,15 @@
   <div class="form-group">
     <label for="name"><strong>B2B Customers</strong></label>
     <br>
-    <input type="file" (change)="uploadingfile($event)" placeholder="Upload file" accept=".xlsx">
-    <button type="button" mat-raised-button color="primary" (click)="Upload()">Upload</button>&nbsp; &nbsp;&nbsp;
+    <input type="file" (change)="uploadingfile($event)"
+     placeholder="Upload file" accept=".xlsx"
+     >
+     
+    <button type="button" mat-raised-button color="primary"
+     (click)="Upload()">Upload</button>&nbsp; &nbsp;&nbsp;
     Excel format for B2B Customers
-    <button mat-raised-button color="warn" (click)="b2bCustomerAsXLSX()">
+    <button mat-raised-button color="warn"
+     (click)="b2bCustomerAsXLSX()">
       <mat-icon>file_download</mat-icon>
     </button>
   </div>
@@ -73,7 +78,8 @@
   <div class="form-group">
     <label for="name"><strong>Agent</strong></label>
     <br>
-    <input type="file" (change)="uploadingAgentFile($event)" placeholder="Upload file" accept=".xlsx">
+    <input type="file" (change)="uploadingAgentFile($event)" 
+    placeholder="Upload file" accept=".xlsx">
     <button type="button" mat-raised-button color="primary" (click)="uploadAgent()">Upload</button>&nbsp; &nbsp;&nbsp;
     Excel format for Agent &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
     <button mat-raised-button color="warn" (click)="agentAsXLSX()">
@@ -91,3 +97,4 @@
     </button>
   </div>
 </div>
+<app-alert [alertBox]="this.alertBox"></app-alert>

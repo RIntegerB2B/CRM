@@ -52,7 +52,7 @@ export class SmsManagementComponent implements OnInit {
   isChecked: any;
   newMessage: Message[];
   setFullBillDetails;
-  setFullLlrDetails;
+  setFullLlrDetails: string;
   array: any;
   displayedColumns = ['', '', '', '', ''];
   alertBox: AlertBox;
@@ -469,13 +469,13 @@ statusCode: 200};
     } else {
       this.showLlrDetails = false;
       this.showPrimaryNumber = false;
-      this.setFullLlrDetails = 'Your LLR# ' + this.llrNumber.nativeElement.value
-        + ' goods is dispatched ' + this.transp.nativeElement.value + ' on ' +
+      this.setFullLlrDetails = 'Your LLR No: ' + this.llrNumber.nativeElement.value
+        + ' goods is dispatched ' + this.transp.nativeElement.value + 'on' +
         this.dateLlr.nativeElement.value + 'Thank you for purchase';
+        this.smsDetailsForm.controls.message.setValue(this.setFullLlrDetails);
         const inSms = ',9845263436,9880039896,9108329309';
         this.sendMobileNumber = this.smsDetailsForm.controls.mobileNumber.value + inSms;
         this.smsDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
-        this.smsDetailsForm.controls.message.setValue(this.setFullLlrDetails);
         this.smsDetailsForm.controls.llrNo.reset();
         this.smsDetailsForm.controls.dateOfLlr.reset();
         this.smsDetailsForm.controls.transporter.reset();

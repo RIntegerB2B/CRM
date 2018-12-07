@@ -8,7 +8,7 @@ import { InterB2cMarket } from './../../shared/model/interb2cmarket.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { InteruploadService } from './../interupload.service';
 import { HttpClient } from '@angular/common/http';
-
+import { AlertBox } from './../../shared/alert/alert.model';
 @Component({
   selector: 'app-interupload-management',
   templateUrl: './interupload-management.component.html',
@@ -17,6 +17,8 @@ import { HttpClient } from '@angular/common/http';
 export class InteruploadManagementComponent implements OnInit {
   arrayBuffer: any;
   file: File;
+  alertBox: AlertBox;
+  alertBoxSuccess: AlertBox;
   customerDetailsForm: FormGroup;
   interB2bCustomer: InterB2bCustomer[];
   interB2bMarket: InterB2bMarket[];
@@ -83,7 +85,13 @@ export class InteruploadManagementComponent implements OnInit {
   constructor(private interUploadService: InteruploadService) { }
 
   ngOnInit() {
+    this.alertBoxSuccess = new AlertBox(
+      'displayNone',
+      'Information',
+      ''
+    );
   }
+  
   /* b2b customer */
 
   interB2bCustomerUpload() {
@@ -103,8 +111,16 @@ export class InteruploadManagementComponent implements OnInit {
       this.interUploadService.createInterB2bCustomer(this.fullInterB2bCustomer)
         .subscribe(detail => {
           this.interB2bCustomer = detail;
-          console.log(detail);
-        });
+          if (detail.length > 0)           {
+            this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
+            this.alertBox = this.alertBoxSuccess;
+          }
+        }, error => {
+          this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Server Down please try again';
+            console.log(error);
+          });
     };
     fileReader.readAsArrayBuffer(this.file);
   }
@@ -129,8 +145,16 @@ export class InteruploadManagementComponent implements OnInit {
       this.interUploadService.createInterB2bMarket(this.fullInterB2bMarket)
         .subscribe(detail => {
           this.interB2bMarket = detail;
-          console.log(detail);
-        });
+          if (detail.length > 0)           {
+            this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
+            this.alertBox = this.alertBoxSuccess;
+          }
+        }, error => {
+          this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Server Down please try again';
+            console.log(error);
+          });
     };
     fileReader.readAsArrayBuffer(this.file);
   }
@@ -154,8 +178,16 @@ export class InteruploadManagementComponent implements OnInit {
       this.interUploadService.createInterB2cMarket(this.fullInterB2cMarket)
         .subscribe(detail => {
           this.interB2cMarket = detail;
-          console.log(detail);
-        });
+          if (detail.length > 0)           {
+            this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
+            this.alertBox = this.alertBoxSuccess;
+          }
+        }, error => {
+          this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Server Down please try again';
+            console.log(error);
+          });
     };
     fileReader.readAsArrayBuffer(this.file);
   }
@@ -179,8 +211,16 @@ export class InteruploadManagementComponent implements OnInit {
       this.interUploadService.createInterB2cCustomer(this.fullInterB2cCustomer)
         .subscribe(detail => {
           this.interB2bCustomer = detail;
-          console.log(detail);
-        });
+          if (detail.length > 0)           {
+            this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
+            this.alertBox = this.alertBoxSuccess;
+          }
+        }, error => {
+          this.alertBoxSuccess.displayClass = 'displayBlock' ;
+            this.alertBoxSuccess.modalBody = 'Server Down please try again';
+            console.log(error);
+          });
     };
     fileReader.readAsArrayBuffer(this.file);
   }

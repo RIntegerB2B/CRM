@@ -50,4 +50,10 @@ export class MessageService {
     const url: string = this.serviceUrl + addUrl + edit._id;
     return this.httpClient.delete<Message[]>(url);
   }
+  editMessage(edit): Observable<any> {
+
+    const addUrl = 'messageedit/';
+    const url: string = this.serviceUrl + addUrl + edit._id;
+    return this.httpClient.put<Message[]>(url, edit);
+  }
 }
