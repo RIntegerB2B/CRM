@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MobileSend } from './sms-model';
+import { SmsSelect } from './smsSelect.model';
 import { MatStepper } from '@angular/material';
 /* import { Customer } from './../../shared/model/customer.model'; */
 import { B2cMarket } from './../../shared/model/b2cmarket.model';
@@ -9,9 +10,9 @@ import { Message } from './../../shared/model/message.model';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { PageEvent } from '@angular/material';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
-import { MessageService } from '../../message-management/message.service'
+import { MessageService } from '../../message-management/message.service';
 import { AccessPermission } from './../../user-management/permission/accessPermission.model';
-import { AlertBox } from './../../shared/alert/alert.model';
+import { AlertService } from './../../shared/alert/alert.service';
 
 @Component({
   selector: 'app-sms-management',
@@ -55,15 +56,13 @@ export class SmsManagementComponent implements OnInit {
   setFullLlrDetails: string;
   array: any;
   displayedColumns = ['', '', '', '', ''];
-  alertBox: AlertBox;
-  alertBoxSuccess: AlertBox;
-  alertBoxError:  AlertBox;
   dataSource: any = [];
   rows: any = [];
   columns: any = [];
   temp: any = [];
   role: AccessPermission;
   smsResponeSuccess: any;
+
   // pageEvent: PageEvent;
   nationalDatabse = [{ 'type': 'B2B CUSTOMER DB' },
   { 'type': 'B2B MARKET DB' }, { 'type': 'B2C CUSTOMER DB' }, { 'type': 'B2C MARKET DB' },
@@ -75,13 +74,14 @@ export class SmsManagementComponent implements OnInit {
   public currentPage = 0;
   public totalSize = 0;
   public searchString: string;
-/* smsRepsone = {  body: {'status':'success', 'mobilenumbers': '9965437973',
-'remainingcredits': 3809, 'msgcount': 1, 'selectedRoute': 'transactional',
-'refid': -3178967485238437313, 'senttime': '2018-11-25 14:11:37',
-'response': [ {'mobile_number': '919965437973', 'unique_id': '5bfa604167fee'}]},
-statusCode: 200};
- */
+  /* smsRepsone = {  body: {'status':'success', 'mobilenumbers': '9965437973',
+  'remainingcredits': 3809, 'msgcount': 1, 'selectedRoute': 'transactional',
+  'refid': -3178967485238437313, 'senttime': '2018-11-25 14:11:37',
+  'response': [ {'mobile_number': '919965437973', 'unique_id': '5bfa604167fee'}]},
+  statusCode: 200};
+   */
   constructor(private fb: FormBuilder, private smsService: SmsService, private headerSideService: HeaderSideService,
+    private alertService: AlertService,
     private messageService: MessageService) {
   }
 
@@ -90,21 +90,6 @@ statusCode: 200};
     this.createMessageForm();
     this.getAllMessage();
     this.role = JSON.parse(sessionStorage.getItem('role'));
-    this.alertBoxSuccess = new AlertBox(
-      'displayNone',
-      'Information',
-      ''
-    );
-    this.alertBox = new AlertBox(
-      'displayNone',
-      'Information',
-      'SMS send Successfully!'
-    );
-    this.alertBoxError = new AlertBox(
-      'displayNone',
-      'Information',
-      'Server Down. Please try again'
-    );
   }
 
   goBack(stepper: MatStepper) {
@@ -343,8 +328,8 @@ statusCode: 200};
   sendSms(smsDetailsForm: FormGroup) {
     console.log(smsDetailsForm);
     if (
-       smsDetailsForm.controls.mobileNumber.value === null
-       || smsDetailsForm.controls.mobileNumber.value === ''  ) {
+      smsDetailsForm.controls.mobileNumber.value === null
+      || smsDetailsForm.controls.mobileNumber.value === '') {
       this.showMobileNumber = true;
       this.showMessage = false;
     } else {
@@ -364,13 +349,15 @@ statusCode: 200};
           this.smsRespone = data;
           this.smsResponeSuccess = JSON.parse(this.smsRespone.body);
           console.log(this.smsResponeSuccess.status);
-          this.alertBoxSuccess.displayClass = 'displayBlock';
-          this.alertBoxSuccess.modalBody = 'status: ' + this.smsResponeSuccess.status;
-          this.alertBox = this.alertBoxSuccess;
+          /*  this.alertBoxSuccess.displayClass = 'displayBlock';
+           this.alertBoxSuccess.modalBody = 'status: ' + this.smsResponeSuccess.status;
+           this.alertBox = this.alertBoxSuccess; */
+          this.alertService.confirm({ message: 'SMS Status: &nbsp;' + this.smsResponeSuccess.status });
           smsDetailsForm.reset();
         }, error => {
-          this.alertBoxError.displayClass = 'displayBlock';
-          this.alertBox = this.alertBoxError;
+          this.alertService.confirm({ message: 'Server Down. Please try again' });
+          /*   this.alertBoxError.displayClass = 'displayBlock';
+            this.alertBox = this.alertBoxError; */
           smsDetailsForm.reset();
           console.log(error);
         });
@@ -404,7 +391,7 @@ statusCode: 200};
   } */
   selectedMobileNumber(e, mobileData) {
     if (e.checked) {
-         if (mobileData.length > 10) {
+      if (mobileData.length > 10) {
         const lengthOf = mobileData.length - 10;
         const newValue = mobileData.substr(lengthOf);
         this.selectedMobileNumbers.push(newValue);
@@ -432,46 +419,46 @@ statusCode: 200};
     });
   }
   getBillDetails() {
-    if (this.smsDetailsForm.controls.mobileNumber.value === null || this.smsDetailsForm.controls.mobileNumber.value === '' ) {
+    if (this.smsDetailsForm.controls.mobileNumber.value === null || this.smsDetailsForm.controls.mobileNumber.value === '') {
       this.showPrimaryNumber = true;
     } else {
-    if (this.billNumber.nativeElement.value === '' ||
-      this.billTotal.nativeElement.value === '' ||
-      this.billDate.nativeElement.value === ''
-    ) {
-      this.showBillDetails = true;
-      this.showPrimaryNumber = false;
-    } else {
-      this.showBillDetails = false;
-      this.showPrimaryNumber = false;
-      this.setFullBillDetails = 'Bill Number: ' + this.billNumber.nativeElement.value
-        + '\nBill Amount: ' + this.billTotal.nativeElement.value + '\nBill Date: ' + this.billDate.nativeElement.value;
-      this.smsDetailsForm.controls.message.setValue(this.setFullBillDetails);
-      const inSms = ',9845263436,9880039896,9108329309';
-      this.sendMobileNumber = this.smsDetailsForm.controls.mobileNumber.value + inSms;
-      console.log(this.sendMobileNumber);
-      this.smsDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
-      this.smsDetailsForm.controls.billDate.reset();
-      this.smsDetailsForm.controls.billNo.reset();
-      this.smsDetailsForm.controls.billAmount.reset();
+      if (this.billNumber.nativeElement.value === '' ||
+        this.billTotal.nativeElement.value === '' ||
+        this.billDate.nativeElement.value === ''
+      ) {
+        this.showBillDetails = true;
+        this.showPrimaryNumber = false;
+      } else {
+        this.showBillDetails = false;
+        this.showPrimaryNumber = false;
+        this.setFullBillDetails = 'Bill Number: ' + this.billNumber.nativeElement.value
+          + '\nBill Amount: ' + this.billTotal.nativeElement.value + '\nBill Date: ' + this.billDate.nativeElement.value;
+        this.smsDetailsForm.controls.message.setValue(this.setFullBillDetails);
+        const inSms = ',9845263436,9880039896,9108329309';
+        this.sendMobileNumber = this.smsDetailsForm.controls.mobileNumber.value + inSms;
+        console.log(this.sendMobileNumber);
+        this.smsDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
+        this.smsDetailsForm.controls.billDate.reset();
+        this.smsDetailsForm.controls.billNo.reset();
+        this.smsDetailsForm.controls.billAmount.reset();
+      }
     }
   }
-}
   getLlrDetails() {
-    if (this.smsDetailsForm.controls.mobileNumber.value === null || this.smsDetailsForm.controls.mobileNumber.value === '' ) {
+    if (this.smsDetailsForm.controls.mobileNumber.value === null || this.smsDetailsForm.controls.mobileNumber.value === '') {
       this.showPrimaryNumber = true;
     } else {
-    if (this.llrNumber.nativeElement.value === '' ||
-      this.dateLlr.nativeElement.value === '' ||
-      this.transp.nativeElement.value === ''
-    ) {
-      this.showLlrDetails = true;
-    } else {
-      this.showLlrDetails = false;
-      this.showPrimaryNumber = false;
-      this.setFullLlrDetails = 'Your LLR No: ' + this.llrNumber.nativeElement.value
-        + ' goods is dispatched ' + this.transp.nativeElement.value + 'on' +
-        this.dateLlr.nativeElement.value + 'Thank you for purchase';
+      if (this.llrNumber.nativeElement.value === '' ||
+        this.dateLlr.nativeElement.value === '' ||
+        this.transp.nativeElement.value === ''
+      ) {
+        this.showLlrDetails = true;
+      } else {
+        this.showLlrDetails = false;
+        this.showPrimaryNumber = false;
+        this.setFullLlrDetails = 'Your LLR No: ' + this.llrNumber.nativeElement.value
+          + ' goods is dispatched ' + this.transp.nativeElement.value + 'on' +
+          this.dateLlr.nativeElement.value + 'Thank you for purchase';
         this.smsDetailsForm.controls.message.setValue(this.setFullLlrDetails);
         const inSms = ',9845263436,9880039896,9108329309';
         this.sendMobileNumber = this.smsDetailsForm.controls.mobileNumber.value + inSms;
@@ -479,8 +466,8 @@ statusCode: 200};
         this.smsDetailsForm.controls.llrNo.reset();
         this.smsDetailsForm.controls.dateOfLlr.reset();
         this.smsDetailsForm.controls.transporter.reset();
+      }
     }
-  }
   }
 
   setNameValue(e, template) {

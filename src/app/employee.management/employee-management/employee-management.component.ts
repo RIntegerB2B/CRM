@@ -3,7 +3,9 @@ import { Employee } from './../../shared/model/employee.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { EmployeeService } from './../employee.service';
 import { map } from 'rxjs/operators';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ConfirmAlertService } from './../../shared/confirm-alert/confirm-alert.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+
 // import { CustomerEditComponent } from './../../customer-management/customer-management/customer-management.component';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
 import { AccessPermission } from './../../user-management/permission/accessPermission.model';
@@ -29,7 +31,9 @@ export class EmployeeManagementComponent implements OnInit {
   employeeDetailsForm: FormGroup;
   constructor(private fb: FormBuilder,
     private headerSideService: HeaderSideService,
-    private employeeService: EmployeeService, private dialog: MatDialog) { }
+    private employeeService: EmployeeService, private dialog: MatDialog,
+    private confirmAlertService: ConfirmAlertService, private snack: MatSnackBar
+    ) { }
   ngOnInit() {
     this.createEmployeeForm();
     this.getAllEmployee();
@@ -127,7 +131,7 @@ export class EmployeeManagementComponent implements OnInit {
       console.log(error);
     });
   }
-  deleteEmployee(employeeDetailsForm: FormGroup, row) {
+  /* deleteEmployee(employeeDetailsForm: FormGroup, row) {
     row.editing = false;
     employeeDetailsForm.reset();
     this.employeeService.deleteEmployee(row).subscribe(data => {
@@ -135,6 +139,21 @@ export class EmployeeManagementComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  } */
+  deleteEmployee(b2bMarketDetailsForm: FormGroup, row) {
+    this.confirmAlertService.confirm({message: `Are you want to Delete `})
+      .subscribe(res => {
+        if (res) {
+          this.employeeService.deleteEmployee(row)
+            .subscribe(data => {
+              this.newCustomer = data;
+              this.snack.open('Successfully Deleted!', 'OK', { duration: 4000, panelClass: ['blue-snackbar'] });
+            }, error => {
+              console.log(error);
+            }
+            );
+        }
+      });
   }
   // CRUD end
   getEditEmployee(employeeDetailsForm: FormGroup, row) {
@@ -237,7 +256,7 @@ export class EmployeeAddComponent implements OnInit {
       employeeDetailsForm.controls.dateOfBirth.value,
       employeeDetailsForm.controls.dateOfJoin.value,
       employeeDetailsForm.controls.designation.value,
-      employeeDetailsForm.controls.address.value,
+      employeeDetailsForm.controls.address.value
     );
     this.employeeService.addSingleEmployee(this.newCustomer).subscribe(data => {
       this.newCustomer = data;

@@ -3,10 +3,10 @@ import { InterB2cCustomer } from './../../shared/model/interb2ccustomer.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Interb2ccustomerService } from './../interb2ccustomer.service';
 import { map } from 'rxjs/operators';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ConfirmAlertService } from './../../shared/confirm-alert/confirm-alert.service';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
 import { AccessPermission } from './../../user-management/permission/accessPermission.model';
-
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-interb2ccustomer-management',
@@ -29,7 +29,8 @@ export class Interb2ccustomerManagementComponent implements OnInit {
   interB2cCustomerDetailsForm: FormGroup;
   constructor(private fb: FormBuilder,
     private headerSideService: HeaderSideService,
-    private interb2ccustomerService: Interb2ccustomerService, private dialog: MatDialog) { }
+    private interb2ccustomerService: Interb2ccustomerService,
+    private dialog: MatDialog, private confirmAlertService: ConfirmAlertService, private snack: MatSnackBar) { }
   ngOnInit() {
     this.createInterB2cCustomerForm();
     this.getAllInterB2cCustomer();
@@ -119,7 +120,7 @@ export class Interb2ccustomerManagementComponent implements OnInit {
       console.log(error);
     });
   }
-  getDeleteInterB2cCustomer(interB2cCustomerDetailsForm: FormGroup, row) {
+  /* getDeleteInterB2cCustomer(interB2cCustomerDetailsForm: FormGroup, row) {
     row.editing = false;
     interB2cCustomerDetailsForm.reset();
     this.interb2ccustomerService.deleteInterB2cCustomer(row).subscribe(data => {
@@ -127,6 +128,21 @@ export class Interb2ccustomerManagementComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  } */
+  getDeleteInterB2cCustomer(interB2cCustomerDetailsForm: FormGroup, row) {
+    this.confirmAlertService.confirm({message: `Are you want to Delete `})
+      .subscribe(res => {
+        if (res) {
+          this.interb2ccustomerService.deleteInterB2cCustomer(row)
+            .subscribe(data => {
+              this.newCustomer = data;
+              this.snack.open('Successfully Deleted!', 'OK', { duration: 4000, panelClass: ['blue-snackbar'] });
+            }, error => {
+              console.log(error);
+            }
+            );
+        }
+      });
   }
   addCustomer(interB2cCustomerDetailsForm: FormGroup, row) {
     const dialogRef = this.dialog.open(InterB2ccustomerAddComponent, {

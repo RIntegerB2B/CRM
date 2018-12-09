@@ -3,11 +3,10 @@ import { Vendor } from './../../shared/model/vendor.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { VendorService } from './../vendor.service';
 import { map } from 'rxjs/operators';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
 import { AccessPermission } from './../../user-management/permission/accessPermission.model';
-
+import { ConfirmAlertService } from './../../shared/confirm-alert/confirm-alert.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-vendor-management',
   templateUrl: './vendor-management.component.html',
@@ -29,7 +28,8 @@ export class VendorManagementComponent implements OnInit {
   vendorDetailsForm: FormGroup;
   constructor(private fb: FormBuilder,
     private headerSideService: HeaderSideService,
-    private vendorService: VendorService, private dialog: MatDialog) { }
+    private vendorService: VendorService, private dialog: MatDialog,
+    private confirmAlertService: ConfirmAlertService, private snack: MatSnackBar ) { }
   ngOnInit() {
     this.createVendorForm();
     this.getAllVendor();
@@ -132,7 +132,7 @@ export class VendorManagementComponent implements OnInit {
       console.log(error);
     });
   }
-  getDeleteVendor(vendorDetailsForm: FormGroup, row) {
+  /* getDeleteVendor(vendorDetailsForm: FormGroup, row) {
     row.editing = false;
     vendorDetailsForm.reset();
     this.vendorService.deleteVendor(row).subscribe(data => {
@@ -140,8 +140,22 @@ export class VendorManagementComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  } */
+  getDeleteVendor(vendorDetailsForm: FormGroup, row) {
+    this.confirmAlertService.confirm({message: `Are you want to Delete `})
+      .subscribe(res => {
+        if (res) {
+          this.vendorService.deleteVendor(row)
+            .subscribe(data => {
+              this.newCustomer = data;
+              this.snack.open('Successfully Deleted!', 'OK', { duration: 4000, panelClass: ['blue-snackbar'] });
+            }, error => {
+              console.log(error);
+            }
+            );
+        }
+      });
   }
-  
   // CRUD end
   getEditVendor(vendorDetailsForm: FormGroup, row) {
     const dialogRef = this.dialog.open(VendoorEditComponent, {

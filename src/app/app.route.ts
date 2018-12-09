@@ -33,6 +33,7 @@ import {
   } from './message-management/message-management/message-management.component';
   import { InteruploadManagementComponent } from './interupload-management/interupload-management/interupload-management.component';
   import { AlertComponent } from './shared/alert/alert.component';
+  import { ConfirmAlertComponent } from './shared/confirm-alert/confirm-alert.component';
 
 const routes: Routes = [
     {
@@ -41,6 +42,7 @@ const routes: Routes = [
     { path: 'permission', component: PermissionComponent},
     { path: 'register',  component: RegisterComponent },
     { path: 'alert',  component: AlertComponent },
+    { path: 'confirmalert',  component: ConfirmAlertComponent },
     {
         path: '', canActivate: [AuthGuard],
     children: [

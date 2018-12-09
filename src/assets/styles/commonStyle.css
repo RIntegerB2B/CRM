@@ -6,6 +6,9 @@ body {
   font-weight: 500;
 }
 
+.blue-snackbar {
+  background: #3f51b5 !important;
+}
 .topbar-button-right {
   margin-left: 1rem !important;
 }

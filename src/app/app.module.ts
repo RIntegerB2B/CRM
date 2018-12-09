@@ -101,12 +101,13 @@ import { Interb2ccustomerManagementComponent, InterB2ccustomerEditComponent,
 import { Interb2cmarketManagementComponent, InterB2cmarketEditComponent,
   InterB2cmarketAddComponent
  } from './interb2cmarket-management/interb2cmarket-management/interb2cmarket-management.component';
-import { MessageManagementComponent, MessageAddComponent
+import { MessageManagementComponent, MessageAddComponent, MessageEditComponent
 } from './message-management/message-management/message-management.component';
 import { InteruploadManagementComponent } from './interupload-management/interupload-management/interupload-management.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import { ConfirmAlertComponent } from './shared/confirm-alert/confirm-alert.component';
-
+import {  ConfirmAlertService } from './shared/confirm-alert/confirm-alert.service';
+import {  AlertService } from './shared/alert/alert.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -157,6 +158,7 @@ import { ConfirmAlertComponent } from './shared/confirm-alert/confirm-alert.comp
     InterB2cmarketAddComponent,
     MessageManagementComponent,
     MessageAddComponent,
+    MessageEditComponent,
     InteruploadManagementComponent,
     AlertComponent,
     ConfirmAlertComponent
@@ -201,7 +203,7 @@ import { ConfirmAlertComponent } from './shared/confirm-alert/confirm-alert.comp
   ],
   providers: [NavHeaderService, CustomerManagementService,
     HeaderSideService, B2bmarketService,
-    B2ccustomerService, EmployeeService,
+    B2ccustomerService, EmployeeService, ConfirmAlertService, AlertService,
     B2cmarketService, AuthService, AuthGuard],
   bootstrap: [AppComponent],
   entryComponents: [CustomerEditComponent,
@@ -230,6 +232,7 @@ import { ConfirmAlertComponent } from './shared/confirm-alert/confirm-alert.comp
     InterB2bmarketAddComponent,
     InterB2bmarketEditComponent,
     MessageAddComponent,
+    MessageEditComponent
   ]
 })
 export class AppModule { }

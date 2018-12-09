@@ -30,17 +30,17 @@
             
           </ng-template>
         </ngx-datatable-column>
-      <!--   <ngx-datatable-column [sortable]="false" [draggable]="false"
+        <ngx-datatable-column [sortable]="false" [draggable]="false"
         name="EDIT" [flexGrow]="1">
          <ng-template let-row="row" ngx-datatable-cell-template>
            <button
-            mat-icon-button mat-sm-button color="accent" 
+            mat-icon-button mat-sm-button color="primary" 
             (click)="getEditMessage(messageDetailsForm, row)"
             >
              <mat-icon>edit</mat-icon>
            </button>
          </ng-template>
-       </ngx-datatable-column> -->
+       </ngx-datatable-column>
         <ngx-datatable-column [sortable]="false" [draggable]="false"
          name="DELETE" [flexGrow]="1">
           <ng-template let-row="row" ngx-datatable-cell-template>

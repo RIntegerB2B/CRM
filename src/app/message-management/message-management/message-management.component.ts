@@ -2,7 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Message } from './../../shared/model/message.model';
 import { MessageService } from './../message.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ConfirmAlertService } from './../../shared/confirm-alert/confirm-alert.service';
+
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-message-management',
@@ -15,6 +17,7 @@ export class MessageManagementComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
      private messageService: MessageService, private dialog: MatDialog,
+     private confirmAlertService: ConfirmAlertService, private snack: MatSnackBar
      ) { }
 
   ngOnInit() {
@@ -31,20 +34,35 @@ export class MessageManagementComponent implements OnInit {
     dialogRef.afterClosed();
   }
   getEditMessage(messageDetailsForm: FormGroup, row)   {
-    const dialogRef = this.dialog.open(MessageAddComponent, {
+    const dialogRef = this.dialog.open(MessageEditComponent, {
       width: '360px',
       disableClose: true,
       data: row
     });
     dialogRef.afterClosed();
   }
-  getDeleteMessage(messageDetailsForm: FormGroup, row) {
+ /*  getDeleteMessage(messageDetailsForm: FormGroup, row) {
     this.messageService.deleteMessage(row).subscribe(data => {
       this.newMessage = data;
     }, error => {
       console.log(error);
     });
-  }
+  } */
+  getDeleteMessage(messageDetailsForm: FormGroup, row) {
+    this.confirmAlertService.confirm({message: `Are you want to Delete `})
+      .subscribe(res => {
+        if (res) {
+          this.messageService.deleteMessage(row)
+            .subscribe(data => {
+              this.newMessage = data;
+              this.snack.open('Successfully Deleted!', 'OK', { duration: 4000, panelClass: ['blue-snackbar'] });
+            }, error => {
+              console.log(error);
+            }
+            );
+        }
+      });
+    }
   getAllMessage() {
     this.messageService.allMessage().subscribe(data => {
       this.newMessage = data;
@@ -93,11 +111,38 @@ export class MessageAddComponent implements OnInit {
     });
     this.dialogRef.close();
   }
- /*  getEditMessage(messageDetailsForm: FormGroup, row) {
+}
+@Component({
+  templateUrl: './message-edit.component.html'
+})
+export class MessageEditComponent implements OnInit {
+  messageDetailsForm: FormGroup;
+  newMessage: Message;
+  constructor(private fb: FormBuilder, private messageService: MessageService
+    , public dialogRef: MatDialogRef<MessageEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Message) {
+    console.log(data);
+  }
+  cancel(): void {
+    this.dialogRef.close();
+  }
+
+  ngOnInit() {
+    this.createMessageForm();
+  }
+
+  createMessageForm() {
+    this.messageDetailsForm = this.fb.group({
+      messageTitle: [],
+      messageDescription: []
+    });
+  }
+  updateEdit(messageDetailsForm: FormGroup, row) {
     this.messageService.editMessage(row).subscribe(data => {
       this.newMessage = data;
     }, error => {
       console.log(error);
     });
-  } */
+    this.dialogRef.close();
+  }
 }

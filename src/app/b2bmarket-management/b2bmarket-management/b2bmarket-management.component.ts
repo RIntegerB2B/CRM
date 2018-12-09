@@ -3,10 +3,12 @@ import { B2bMarket } from './../../shared/model/b2bmarket.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { B2bmarketService } from './../b2bmarket.service';
 import { map } from 'rxjs/operators';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
 import { AccessPermission } from './../../user-management/permission/accessPermission.model';
 import { Customer } from 'src/app/shared/model/customer.model';
+import { ConfirmAlertService } from './../../shared/confirm-alert/confirm-alert.service';
+import { AlertService } from './../../shared/alert/alert.service';
 
 
 @Component({
@@ -30,7 +32,8 @@ export class B2bmarketManagementComponent implements OnInit {
   b2bMarketDetailsForm: FormGroup;
   constructor(private fb: FormBuilder,
     private headerSideService: HeaderSideService,
-    private b2bmarketService: B2bmarketService, private dialog: MatDialog) { }
+    private b2bmarketService: B2bmarketService, private dialog: MatDialog,
+     private confirmAlertService: ConfirmAlertService, private snack: MatSnackBar) { }
   ngOnInit() {
     this.createB2bMarketForm();
     this.getAllB2bMarketCustomer();
@@ -124,7 +127,7 @@ export class B2bmarketManagementComponent implements OnInit {
       console.log(error);
     });
   }
-  deleteB2bMarketCustomer(b2bMarketDetailsForm: FormGroup, row) {
+  /* deleteB2bMarketCustomer(b2bMarketDetailsForm: FormGroup, row) {
     row.editing = false;
     b2bMarketDetailsForm.reset();
     this.b2bmarketService.deleteB2bMarket(row).subscribe(data => {
@@ -134,6 +137,21 @@ export class B2bmarketManagementComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  } */
+  deleteB2bMarketCustomer(b2bMarketDetailsForm: FormGroup, row) {
+    this.confirmAlertService.confirm({message: `Are you want to Delete `})
+      .subscribe(res => {
+        if (res) {
+          this.b2bmarketService.deleteB2bMarket(row)
+            .subscribe(data => {
+              this.newCustomer = data;
+              this.snack.open('Successfully Deleted!', 'OK', { duration: 4000, panelClass: ['blue-snackbar'] });
+            }, error => {
+              console.log(error);
+            }
+            );
+        }
+      });
   }
   addCustomer(b2bMarketDetailsForm: FormGroup, row) {
 

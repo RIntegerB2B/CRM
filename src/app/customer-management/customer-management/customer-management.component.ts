@@ -4,7 +4,8 @@ import { Customer } from './customer.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CustomerManagementService } from './../customer-management.service';
 import { map } from 'rxjs/operators';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { ConfirmAlertService } from './../../shared/confirm-alert/confirm-alert.service';
 // import {CustomerEditComponent  } from './../customer-management/customer-edit/customer-edit.component';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -53,7 +54,7 @@ export class CustomerManagementComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private customerManagementService: CustomerManagementService
     , private http: HttpClient, private dialog: MatDialog,
-    private headerSideService: HeaderSideService
+    private headerSideService: HeaderSideService, private confirmAlertService: ConfirmAlertService, private snack: MatSnackBar
     ) { }
 
   ngOnInit() {
@@ -132,7 +133,7 @@ export class CustomerManagementComponent implements OnInit {
       console.log(error);
     });
   }
-  delete(customerDetailsForm: FormGroup, row) {
+  /* delete(customerDetailsForm: FormGroup, row) {
     row.editing = false;
     customerDetailsForm.reset();
     this.customerManagementService.deleteCustomer(row).subscribe(data => {
@@ -140,8 +141,22 @@ export class CustomerManagementComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  } */
+  delete(customerDetailsForm: FormGroup, row) {
+    this.confirmAlertService.confirm({message: `Are you want to Delete `})
+      .subscribe(res => {
+        if (res) {
+          this.customerManagementService.deleteCustomer(row)
+            .subscribe(data => {
+              this.newCustomer = data;
+              this.snack.open('Successfully Deleted!', 'OK', { duration: 4000, panelClass: ['blue-snackbar'] });
+            }, error => {
+              console.log(error);
+            }
+            );
+        }
+      });
   }
-
   addCustomer(customerDetailsForm: FormGroup, row) {
 
     const dialogRef = this.dialog.open(CustomerAddComponent, {

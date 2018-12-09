@@ -170,9 +170,7 @@
       <ng-template matStepLabel>Mobile Numbers</ng-template>
       <div class=" col-sm-12 d-flex  flex-row">
         <div class="col-sm-4">
-          <mat-checkbox [checked]="selectCheckbox"
-           (change)="selectAllMobileNumber($event, dataSource)"
-            class="inbox-toggle-all mr-1"><b>ALL</b>
+          <mat-checkbox [checked]="selectCheckbox" (change)="selectAllMobileNumber($event, dataSource)" class="inbox-toggle-all mr-1"><b>ALL</b>
           </mat-checkbox>
         </div>
       </div>
@@ -246,9 +244,7 @@
               <strong>required</strong>
             </div>
             <label for="comment" class="textHeader"><b>Text Message</b></label>
-            <textarea class="form-control"
-            [maxLength]="158"
-             formControlName="message" rows="4" required>
+            <textarea class="form-control" [maxLength]="158" formControlName="message" rows="4" required>
             </textarea><br>
             <div *ngIf="smsDetailsForm.controls['message'].errors && 
             smsDetailsForm.controls['message'].errors.maxlength"
@@ -266,8 +262,7 @@
             <div *ngIf="showMobileNumber" class="alert alert-danger">
               <div>Please select Mobile Number</div>
             </div>
-            <button mat-raised-button
-             (click)="sendSms(smsDetailsForm)" color="primary">
+            <button mat-raised-button (click)="sendSms(smsDetailsForm)" color="primary">
               SMS sent
             </button><br>
 
@@ -306,20 +301,17 @@
               </div>
               <div fxFlex="100%">
                 <mat-form-field class="example-full-width">
-                  <input #llrNumber matInput placeholder="LLR Number"
-                   formControlName="llrNo">
+                  <input #llrNumber matInput placeholder="LLR Number" formControlName="llrNo">
                 </mat-form-field>
               </div>
               <div fxFlex="100%">
                 <mat-form-field class="example-full-width">
-                  <input #dateLlr matInput placeholder="Date" 
-                  formControlName="dateOfLlr">
+                  <input #dateLlr matInput placeholder="Date" formControlName="dateOfLlr">
                 </mat-form-field>
               </div>
               <div fxFlex="100%">
                 <mat-form-field class="example-full-width">
-                  <input #transp matInput placeholder="Transporter"
-                   formControlName="transporter">
+                  <input #transp matInput placeholder="Transporter" formControlName="transporter">
                 </mat-form-field>
               </div>
               <div fxFlex="100">
@@ -337,4 +329,4 @@
     </mat-step>
   </mat-horizontal-stepper>
 </div>
-<app-alert [alertBox]="this.alertBox"></app-alert>
+<!-- <app-alert [alertBox]="this.alertBox"></app-alert> -->

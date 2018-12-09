@@ -3,10 +3,16 @@ import { B2cCustomer } from './../../shared/model/b2ccustomer.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { B2ccustomerService } from './../b2ccustomer.service';
 import { map } from 'rxjs/operators';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+
 // import { CustomerEditComponent } from './../../customer-management/customer-management/customer-management.component';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
 import { AccessPermission } from './../../user-management/permission/accessPermission.model';
+import { ConfirmAlertService } from './../../shared/confirm-alert/confirm-alert.service';
+
+
+
+
 
 
 @Component({
@@ -29,7 +35,8 @@ export class B2ccustomerManagementComponent implements OnInit {
   b2cCustomerDetailsForm: FormGroup;
   constructor(private fb: FormBuilder,
     private headerSideService: HeaderSideService,
-    private b2ccustomerService: B2ccustomerService, private dialog: MatDialog) { }
+    private b2ccustomerService: B2ccustomerService, private dialog: MatDialog,
+    private confirmAlertService: ConfirmAlertService, private snack: MatSnackBar) { }
   ngOnInit() {
     this.createB2cCustomerForm();
     this.getAllB2cCustomer();
@@ -117,7 +124,7 @@ export class B2ccustomerManagementComponent implements OnInit {
       console.log(error);
     });
   }
-  getDeleteB2cCustomer(b2cCustomerDetailsForm: FormGroup, row) {
+  /* getDeleteB2cCustomer(b2cCustomerDetailsForm: FormGroup, row) {
     row.editing = false;
     b2cCustomerDetailsForm.reset();
     this.b2ccustomerService.deleteB2cCustomer(row).subscribe(data => {
@@ -125,6 +132,21 @@ export class B2ccustomerManagementComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  } */
+  getDeleteB2cCustomer(b2cCustomerDetailsForm: FormGroup, row) {
+    this.confirmAlertService.confirm({message: `Are you want to Delete `})
+      .subscribe(res => {
+        if (res) {
+          this.b2ccustomerService.deleteB2cCustomer(row)
+            .subscribe(data => {
+              this.newCustomer = data;
+              this.snack.open('Successfully Deleted!', 'OK', { duration: 4000, panelClass: ['blue-snackbar'] });
+            }, error => {
+              console.log(error);
+            }
+            );
+        }
+      });
   }
   addCustomer(b2cCustomerDetailsForm: FormGroup, row) {
 

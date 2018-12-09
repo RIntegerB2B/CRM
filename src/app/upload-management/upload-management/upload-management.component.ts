@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { UploadService } from './../upload.service';
 import { HttpClient } from '@angular/common/http';
 import { AlertBox } from './../../shared/alert/alert.model';
-
+import { AlertService } from './../../shared/alert/alert.service';
 
 @Component({
   selector: 'app-upload-management',
@@ -23,8 +23,6 @@ import { AlertBox } from './../../shared/alert/alert.model';
 export class UploadManagementComponent implements OnInit {
   arrayBuffer: any;
   file: File;
-  alertBoxSuccess: AlertBox;
-  alertBox: AlertBox;
   customerDetailsForm: FormGroup;
   b2cMarket: B2cMarket[];
   b2bMarket: B2bMarket[];
@@ -66,7 +64,7 @@ export class UploadManagementComponent implements OnInit {
   excelB2BCustomerData: any = [
     {
       customerName: 'customerName1',
-      mobileNumber: 'Male/Female',
+      mobileNumber: '9988776655',
       whatsAppNo: '9988776655',
       landLine: '080-4455666',
       email: 'sample@gmail.com',
@@ -81,7 +79,7 @@ export class UploadManagementComponent implements OnInit {
   excelB2BMarketData: any = [
     {
       customerName: 'customerName1',
-      mobileNumber: 'Male/Female',
+      mobileNumber: '9988776655',
       whatsAppNo: '9988776655',
       landLine: '080-4455666',
       email: 'sample@gmail.com',
@@ -152,14 +150,9 @@ export class UploadManagementComponent implements OnInit {
   ];
 
 
-  constructor(private uploadService: UploadService) { }
+  constructor(private uploadService: UploadService, private alertService: AlertService) { }
 
   ngOnInit() {
-    this.alertBoxSuccess = new AlertBox(
-      'displayNone',
-      'Information',
-      ''
-    );
   }
   /* b2b customer */
 
@@ -181,14 +174,11 @@ export class UploadManagementComponent implements OnInit {
         .subscribe(detail => {
           this.newCustomer = detail;
           if (detail.length > 0)           {
-            this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
-            this.alertBox = this.alertBoxSuccess;
+            this.alertService.confirm({message: `Upload Successfully `});
           }
         }, error => {
-          this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Server Down please try again';
-            console.log(error);
+          this.alertService.confirm({message: `Server Down please try again`});
+          console.log(error);
           });
     };
     fileReader.readAsArrayBuffer(this.file);
@@ -215,14 +205,11 @@ export class UploadManagementComponent implements OnInit {
         .subscribe(detail => {
           this.b2cCustomer = detail;
           if (detail.length > 0)           {
-            this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
-            this.alertBox = this.alertBoxSuccess;
+            this.alertService.confirm({message: `Upload Successfully `});
           }
         }, error => {
-          this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Server Down please try again';
-            console.log(error);
+          this.alertService.confirm({message: `Server Down please try again`});
+          console.log(error);
           });
     };
     fileReader.readAsArrayBuffer(this.file);
@@ -250,14 +237,11 @@ export class UploadManagementComponent implements OnInit {
         .subscribe(detail => {
           this.b2cMarket = detail;
           if (detail.length > 0)           {
-            this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
-            this.alertBox = this.alertBoxSuccess;
+            this.alertService.confirm({message: `Upload Successfully `});
           }
         }, error => {
-          this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Server Down please try again';
-            console.log(error);
+          this.alertService.confirm({message: `Server Down please try again`});
+          console.log(error);
           });
     };
     fileReader.readAsArrayBuffer(this.file);
@@ -283,14 +267,11 @@ export class UploadManagementComponent implements OnInit {
       this.uploadService.createB2bMarket(this.b2bMarketCustomer)
         .subscribe(detail => {
           if (detail.length > 0)           {
-            this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
-            this.alertBox = this.alertBoxSuccess;
+            this.alertService.confirm({message: `Upload Successfully `});
           }
         }, error => {
-          this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Server Down please try again';
-            console.log(error);
+          this.alertService.confirm({message: `Server Down please try again`});
+          console.log(error);
           });
     };
     fileReader.readAsArrayBuffer(this.file);
@@ -317,14 +298,11 @@ export class UploadManagementComponent implements OnInit {
         .subscribe(detail => {
           this.employee = detail;
           if (detail.length > 0)           {
-            this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
-            this.alertBox = this.alertBoxSuccess;
+            this.alertService.confirm({message: `Upload Successfully `});
           }
         }, error => {
-          this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Server Down please try again';
-            console.log(error);
+          this.alertService.confirm({message: `Server Down please try again`});
+          console.log(error);
           });
     };
     fileReader.readAsArrayBuffer(this.file);
@@ -353,14 +331,11 @@ export class UploadManagementComponent implements OnInit {
       this.vendor = detail;
       console.log(detail);
           if (detail.length > 0)           {
-            this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
-            this.alertBox = this.alertBoxSuccess;
+            this.alertService.confirm({message: `Upload Successfully `});
           }
         }, error => {
-          this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Server Down please try again';
-            console.log(error);
+          this.alertService.confirm({message: `Server Down please try again`});
+          console.log(error);
           });
     };
     fileReader.readAsArrayBuffer(this.file);
@@ -386,14 +361,11 @@ export class UploadManagementComponent implements OnInit {
         .subscribe(detail => {
           this.agent = detail;
           if (detail.length > 0)           {
-            this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
-            this.alertBox = this.alertBoxSuccess;
+            this.alertService.confirm({message: `Upload Successfully `});
           }
         }, error => {
-          this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Server Down please try again';
-            console.log(error);
+          this.alertService.confirm({message: `Server Down please try again`});
+          console.log(error);
           });
     };
     fileReader.readAsArrayBuffer(this.file);
@@ -421,14 +393,11 @@ export class UploadManagementComponent implements OnInit {
           this.others = detail;
           console.log(detail);
           if (detail.length > 0)           {
-            this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Upload Successfully' ;
-            this.alertBox = this.alertBoxSuccess;
+            this.alertService.confirm({message: `Upload Successfully `});
           }
         }, error => {
-          this.alertBoxSuccess.displayClass = 'displayBlock' ;
-            this.alertBoxSuccess.modalBody = 'Server Down please try again';
-            console.log(error);
+          this.alertService.confirm({message: `Server Down please try again`});
+          console.log(error);
           });
     };
     fileReader.readAsArrayBuffer(this.file);

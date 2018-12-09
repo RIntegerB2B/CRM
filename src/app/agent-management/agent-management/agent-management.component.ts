@@ -3,11 +3,13 @@ import { Agent } from './../../shared/model/agent.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AgentService } from './../agent.service';
 import { map } from 'rxjs/operators';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
 import { AccessPermission } from './../../user-management/permission/accessPermission.model';
 import { Customer } from 'src/app/shared/model/customer.model';
 import { ConfirmAlertBox } from 'src/app/shared/confirm-alert/confirmAlert.model';
+import { ConfirmAlertService } from './../../shared/confirm-alert/confirm-alert.service';
+
 
 
 @Component({
@@ -33,7 +35,8 @@ export class AgentManagementComponent implements OnInit {
   agentDetailsForm: FormGroup;
   constructor(private fb: FormBuilder,
     private headerSideService: HeaderSideService,
-    private agentService: AgentService, private dialog: MatDialog) { }
+    private agentService: AgentService, private confirmAlertService: ConfirmAlertService,
+     private snack: MatSnackBar, private dialog: MatDialog) { }
   ngOnInit() {
     this.createAgentForm();
     this.getAllAgentCustomer();
@@ -134,26 +137,31 @@ export class AgentManagementComponent implements OnInit {
       console.log(error);
     });
   }
-  deleteOpen(row)   {
-    this.confirmAlertBox.displayClass = 'displayBlock';
-    this.confirmAlertBox = this.confirmAlertBox;
-    this.deleteRow = row;
+  deleteAgentCustomer(agentDetailsForm: FormGroup, row) {
+    this.confirmAlertService.confirm({message: `Are you want to Delete `})
+      .subscribe(res => {
+        if (res) {
+          this.agentService.deleteAgent(row)
+            .subscribe(data => {
+              this.newCustomer = data;
+              this.snack.open('Successfully Deleted!', 'OK', { duration: 2000, panelClass: ['blue-snackbar'] });
+            }, error => {
+              console.log(error);
+            }
+            );
+        }
+      });
   }
-  deleteAgentCustomer($event, row) {
-    /* row.editing = false; */
+  /* deleteAgentCustomer($event, row) {
     this.message = $event;
     if (this.message === 'Yes')   {
-      /* this.agentService.deleteAgent(row).subscribe(data => {
-        if (data) {
-        this.newCustomer = this.newCustomer.filter(customer => customer._id !== row);
-        } */
         this.agentService.deleteAgent(row).subscribe(data => {
           this.newCustomer = data;
       }, error => {
         console.log(error);
       });
     }
-  }
+  } */
   addCustomer(agentDetailsForm: FormGroup, row) {
 
     const dialogRef = this.dialog.open(AgentAddComponent, {

@@ -6,6 +6,7 @@ import { Register } from './register.model';
 import { AccessPermission } from './../permission/accessPermission.model';
 import { AuthService } from '../auth.service';
 import { HeaderSideService } from '../../shared/header-side/header-side.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -21,7 +22,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userManagementService: UserManagementService, private router: Router, public route: ActivatedRoute,
-    public authService: AuthService, public headerSideService: HeaderSideService
+    public authService: AuthService, public headerSideService: HeaderSideService, private snack: MatSnackBar
   ) {
   }
 
@@ -59,8 +60,8 @@ export class RegisterComponent implements OnInit {
     );
     this.userManagementService.registration(this.register).subscribe(data => {
       console.log(data);
+      this.snack.open('register successfully', 'OK', { duration: 1000, panelClass: ['blue-snackbar'] });
     }, error => {
-
       console.log(error);
     });
   }
