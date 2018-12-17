@@ -34,7 +34,8 @@ import {
   import { InteruploadManagementComponent } from './interupload-management/interupload-management/interupload-management.component';
   import { AlertComponent } from './shared/alert/alert.component';
   import { ConfirmAlertComponent } from './shared/confirm-alert/confirm-alert.component';
-
+  import { SmsReportComponent } from './sms-management/sms-report/sms-report.component';
+  import { SmsReportViewComponent } from './sms-management/sms-report-view/sms-report-view.component';
 const routes: Routes = [
     {
         path: 'login', component: LoginComponent
@@ -43,6 +44,7 @@ const routes: Routes = [
     { path: 'register',  component: RegisterComponent },
     { path: 'alert',  component: AlertComponent },
     { path: 'confirmalert',  component: ConfirmAlertComponent },
+    { path: 'smsview',  component: SmsReportViewComponent },
     {
         path: '', canActivate: [AuthGuard],
     children: [
@@ -65,6 +67,7 @@ const routes: Routes = [
             { path: 'interb2cmarket', canActivate: [AuthGuard],  component: Interb2cmarketManagementComponent, },
             { path: 'email', canActivate: [AuthGuard],  component: EmailManagementComponent},
             { path: 'sms', canActivate: [AuthGuard], component: SmsManagementComponent },
+            { path: 'smsreport', canActivate: [AuthGuard], component: SmsReportComponent },
             { path: 'upload',  component: UploadManagementComponent, canActivate: [AuthGuard] },
             { path: 'interupload', component: InteruploadManagementComponent, canActivate: [AuthGuard]
             },

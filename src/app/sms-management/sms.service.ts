@@ -17,6 +17,9 @@ import { AppSetting } from './../config/appSetting';
 import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { ResponseResult } from './../shared/model/response-result.model';
+import {  SmsReport } from './sms-report/sms-report.model';
+import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';
+import { SmsReportViewComponent } from './sms-report-view/sms-report-view.component';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +41,7 @@ export class SmsService {
       return of(result as T);
     };
   }
-  constructor(private http: Http, private httpClient: HttpClient) { }
+  constructor(private http: Http, private httpClient: HttpClient, private dialog: MatDialog) { }
   // all customer details
   allB2bCustomer(): Observable<any> {
     const addUrl = 'allcustomers';
@@ -105,5 +108,19 @@ export class SmsService {
     const addUrl = 'customers/phone/';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<ResponseResult>(url, phone);
+  }
+  findAllSmsReport() {
+    const addUrl = 'customers/allsmsdetails';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.get<SmsReport[]>(url);
+  }
+  viewReport(data: any): Observable<boolean> {
+    let dialogRef: MatDialogRef<any>;
+    dialogRef = this.dialog.open(SmsReportViewComponent, {
+      width: '720px',
+      disableClose: true,
+      data: [data]
+    });
+    return dialogRef.afterClosed();
   }
 }

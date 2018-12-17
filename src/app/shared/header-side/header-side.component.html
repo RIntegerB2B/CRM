@@ -33,7 +33,7 @@
               <ul class="sidenav">
                 <!-- *ngIf="data.b2bCustomerPermission" -->
 
-                <li *ngIf="menus.b2bCustomerPermission">
+                <li *ngIf="menus?.b2bCustomerPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                         true}"
                     [routerLink]="['b2bcustomer']">
@@ -45,7 +45,7 @@
                   </div>
                 </li>
                 <!--  -->
-                <li *ngIf="menus.b2bMarketPermission">
+                <li *ngIf="menus?.b2bMarketPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                           true}"
                     [routerLink]="['b2bmarket']">
@@ -56,7 +56,7 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.b2cCustomerPermission">
+                <li *ngIf="menus?.b2cCustomerPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                               true}"
                     [routerLink]="['b2ccustomer']">
@@ -67,7 +67,7 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.b2cMarketPermission">
+                <li *ngIf="menus?.b2cMarketPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                         true}"
                     [routerLink]="['b2cmarket']">
@@ -80,7 +80,7 @@
                   </div>
                 </li>
 
-                <li *ngIf="menus.employeePermission">
+                <li *ngIf="menus?.employeePermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                         true}"
                     [routerLink]="['employee']">
@@ -91,7 +91,7 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.vendorPermission">
+                <li *ngIf="menus?.vendorPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                         true}"
                     [routerLink]="['vendor']">
@@ -102,7 +102,7 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.agentPermission">
+                <li *ngIf="menus?.agentPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                               true}"
                     [routerLink]="['agent']">
@@ -113,7 +113,7 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.othersPermission">
+                <li *ngIf="menus?.othersPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                           true}"
                     [routerLink]="['others']">
@@ -124,7 +124,7 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.uploadPermission">
+                <li *ngIf="menus?.uploadPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                       true}"
                     [routerLink]="['upload']">
@@ -135,7 +135,7 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.reportPermission">
+                <li *ngIf="menus?.reportPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                         true}"
                     [routerLink]="['report']">
@@ -169,7 +169,7 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.interB2bMarketPermission">
+                <li *ngIf="menus?.interB2bMarketPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                               true}"
                     [routerLink]="['interb2bmarket']">
@@ -181,7 +181,7 @@
                   </div>
                 </li>
 
-                <li *ngIf="menus.interB2cCustomerPermission">
+                <li *ngIf="menus?.interB2cCustomerPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                             true}"
                     [routerLink]="['interb2ccustomer']">
@@ -192,7 +192,7 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.interB2cMarketPermission">
+                <li *ngIf="menus?.interB2cMarketPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                               true}"
                     [routerLink]="['interb2cmarket']">
@@ -203,7 +203,7 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.interUploadPermission">
+                <li *ngIf="menus?.interUploadPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                           true}"
                     [routerLink]="['interupload']">
@@ -226,7 +226,7 @@
           <div id="scroll-area" class="navigation-hold" fxLayout="column">
             <div class="sidenav-hold" *ngFor="let menus of role.menuList">
               <ul class="sidenav">
-                <li *ngIf="menus.smsMenuPermission">
+                <li *ngIf="menus?.smsMenuPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLink]="['sms']" [routerLinkActiveOptions]="{exact:
                         true}">
                     <a matRipple>
@@ -236,7 +236,19 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.emailMenuPermission">
+                <li *ngIf="menus?.smsMenuPermission">
+                    <div [routerLinkActive]="['activeLink']"
+                     [routerLink]="['smsreport']"
+                      [routerLinkActiveOptions]="{exact:
+                          true}">
+                      <a matRipple>
+                        <mat-icon>message</mat-icon>
+                        <span class="item-name">SMS Report</span>
+                        <span fxFlex></span>
+                      </a>
+                    </div>
+                  </li>
+                <li *ngIf="menus?.emailMenuPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                         true}"
                     [routerLink]="['email']">
@@ -259,7 +271,7 @@
           <div id="scroll-area" class="navigation-hold" fxLayout="column">
             <div class="sidenav-hold">
               <ul class="sidenav" *ngFor="let menus of role.menuList">
-                <li *ngIf="menus.registerPermission">
+                <li *ngIf="menus?.registerPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                               true}"
                     [routerLink]="['register']">
@@ -270,7 +282,7 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.userPermission">
+                <li *ngIf="menus?.userPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                                 true}"
                     [routerLink]="['permission']">
@@ -281,7 +293,7 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.messagePermission">
+                <li *ngIf="menus?.messagePermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                           true}"
                     [routerLink]="['message']">
@@ -292,7 +304,7 @@
                     </a>
                   </div>
                 </li>
-                <li *ngIf="menus.backupPermission">
+                <li *ngIf="menus?.backupPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                         true}"
                     [routerLink]="['backup']">
@@ -303,7 +315,6 @@
                     </a>
                   </div>
                 </li>
-
               </ul>
             </div>
           </div>

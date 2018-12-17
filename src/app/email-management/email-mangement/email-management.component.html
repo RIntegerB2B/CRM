@@ -155,7 +155,7 @@
       <div class="row d-flex border-dark  flex-row">
 
         <div class=" col-sm-4 col">
-          <strong>MOBILE NUMBER</strong>
+          <strong>EMAIL</strong>
         </div>
         <div class="col-sm-4 col">
           <strong>CUSTOMER NAME</strong>
@@ -182,7 +182,8 @@
         <div *ngFor="let edit of dataSource;  let i = index" class="col-sm-12 d-flex   flex-row">
           <div class=" col-sm-4 col">
             <mat-checkbox name="{{edit.email}}" value="{{edit.email}}"
-            [checked]="selectCheckbox" (change)="selectedEmail($event, edit.email)"
+            [checked]="selectCheckbox"
+             (change)="selectedEmail($event, edit.email)"
               class="mail-checkbox">
               {{edit.email}}</mat-checkbox>
           </div>
@@ -318,7 +319,7 @@
                formControlName="emailMessage"
                 rows="5">
                 </textarea>
-              <button mat-raised-button color="primary" (click)="sendEmail(customerDetailsForm)">
+              <button type="button"  mat-raised-button color="primary" (click)="sendEmail(customerDetailsForm)">
                 Email sent
               </button>
             </div>
@@ -394,10 +395,12 @@
           </div>
           <div fxLayout="row" fxLayoutAlign="end center">
             <div class="pt-3">
-              <textarea hidden class="form-control" type="text" [(ngModel)]="emailMessage" formControlName="emailMessage"
+              <textarea hidden class="form-control" type="text"
+               [(ngModel)]="emailMessage" formControlName="emailMessage"
                 rows="5">
                   </textarea>
-              <button mat-raised-button color="primary" (click)="sendEmail(customerDetailsForm)">
+              <button type="button"  mat-raised-button  color="primary"
+               (click)="sendEmail(customerDetailsForm)">
                 Email sent
               </button>
             </div>

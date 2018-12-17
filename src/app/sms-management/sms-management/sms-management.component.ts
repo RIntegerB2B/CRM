@@ -62,8 +62,14 @@ export class SmsManagementComponent implements OnInit {
   temp: any = [];
   role: AccessPermission;
   smsResponeSuccess: any;
-
   // pageEvent: PageEvent;
+  messageTemplate = [{
+    title: 'Happy New Year'
+  }, {
+    title: 'Happy Pongal'
+  }, {
+    title: 'Happy Christmas'
+  }];
   nationalDatabse = [{ 'type': 'B2B CUSTOMER DB' },
   { 'type': 'B2B MARKET DB' }, { 'type': 'B2C CUSTOMER DB' }, { 'type': 'B2C MARKET DB' },
   { 'type': 'EMPLOYEE DB' }, { 'type': 'VENDOR DB' }, { 'type': 'AGENT DB' },
@@ -101,15 +107,17 @@ export class SmsManagementComponent implements OnInit {
   }
   createMessageForm() {
     this.smsDetailsForm = this.fb.group({
-      message: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(155)])],
+      smsBody: ['', Validators.compose([Validators.required, Validators.minLength(3),
+      Validators.maxLength(155)])],
       billNo: [],
       billDate: [],
       billAmount: [],
       mobileNumber: [],
       smsHeader: ['', Validators.maxLength(6)],
+      smsType: [''],
       llrNo: [],
       transporter: [],
-      dateOfLlr: [],
+      dateOfLlr: []
     });
   }
   mouseenter() {
@@ -333,7 +341,7 @@ export class SmsManagementComponent implements OnInit {
       this.showMobileNumber = true;
       this.showMessage = false;
     } else {
-      if (smsDetailsForm.controls.message.value === '') {
+      if (smsDetailsForm.controls.smsBody.value === '') {
         this.showMessage = true;
         this.showMobileNumber = false;
       } else {
@@ -341,54 +349,27 @@ export class SmsManagementComponent implements OnInit {
         this.showMobileNumber = false;
         this.mobileSend = new MobileSend(
           smsDetailsForm.controls.mobileNumber.value,
-          smsDetailsForm.controls.message.value,
-          smsDetailsForm.controls.smsHeader.value
+          smsDetailsForm.controls.smsBody.value,
+          smsDetailsForm.controls.smsHeader.value,
+          smsDetailsForm.controls.smsType.value
         );
         this.smsService.mobileMessage(this.mobileSend).subscribe(data => {
           console.log(data);
           this.smsRespone = data;
-          this.smsResponeSuccess = JSON.parse(this.smsRespone.body);
-          console.log(this.smsResponeSuccess.status);
-          /*  this.alertBoxSuccess.displayClass = 'displayBlock';
-           this.alertBoxSuccess.modalBody = 'status: ' + this.smsResponeSuccess.status;
-           this.alertBox = this.alertBoxSuccess; */
-          this.alertService.confirm({ message: 'SMS Status: &nbsp;' + this.smsResponeSuccess.status });
+          this.alertService.confirm({
+            message: 'SMS Status:  ' +
+              this.smsRespone.smsStatus
+          });
           smsDetailsForm.reset();
         }, error => {
           this.alertService.confirm({ message: 'Server Down. Please try again' });
-          /*   this.alertBoxError.displayClass = 'displayBlock';
-            this.alertBox = this.alertBoxError; */
           smsDetailsForm.reset();
           console.log(error);
         });
       }
     }
   }
-  /* selectedMobileNumber(e, mobileData) {
-    const index = this.selectedMobileNumbers.indexOf(mobileData);
-    if (e.checked === true) {
-         if (mobileData.length > 10) {
-        const lengthOf = mobileData.length - 10;
-        const newValue = mobileData.substr(lengthOf);
-        this.selectedMobileNumbers.push(newValue);
-      } else {
-        this.selectedMobileNumbers.push(mobileData);
-      }
-    } else  if (index > -1 ) {
-      this.selectedMobileNumbers.splice(index, 1);
-    }
-    this.sendMobileNumber = this.selectedMobileNumbers.toString();
-    this.smsDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
-    console.log(this.selectedMobileNumbers);
-  }
 
-
-  selectAllMobileNumber(e, dataSource) {
-    this.selectCheckbox = !this.selectCheckbox;
-    dataSource.forEach(element => {
-      this.selectedMobileNumber(e, element.mobileNumber);
-    });
-  } */
   selectedMobileNumber(e, mobileData) {
     if (e.checked) {
       if (mobileData.length > 10) {
@@ -419,7 +400,8 @@ export class SmsManagementComponent implements OnInit {
     });
   }
   getBillDetails() {
-    if (this.smsDetailsForm.controls.mobileNumber.value === null || this.smsDetailsForm.controls.mobileNumber.value === '') {
+    if (this.smsDetailsForm.controls.mobileNumber.value === null ||
+      this.smsDetailsForm.controls.mobileNumber.value === '') {
       this.showPrimaryNumber = true;
     } else {
       if (this.billNumber.nativeElement.value === '' ||
@@ -431,9 +413,10 @@ export class SmsManagementComponent implements OnInit {
       } else {
         this.showBillDetails = false;
         this.showPrimaryNumber = false;
+        this.showMobileNumber = false;
         this.setFullBillDetails = 'Bill Number: ' + this.billNumber.nativeElement.value
           + '\nBill Amount: ' + this.billTotal.nativeElement.value + '\nBill Date: ' + this.billDate.nativeElement.value;
-        this.smsDetailsForm.controls.message.setValue(this.setFullBillDetails);
+        this.smsDetailsForm.controls.smsBody.setValue(this.setFullBillDetails);
         const inSms = ',9845263436,9880039896,9108329309';
         this.sendMobileNumber = this.smsDetailsForm.controls.mobileNumber.value + inSms;
         console.log(this.sendMobileNumber);
@@ -456,10 +439,11 @@ export class SmsManagementComponent implements OnInit {
       } else {
         this.showLlrDetails = false;
         this.showPrimaryNumber = false;
+        this.showMobileNumber = false;
         this.setFullLlrDetails = 'Your LLR No: ' + this.llrNumber.nativeElement.value
           + ' goods is dispatched ' + this.transp.nativeElement.value + 'on' +
           this.dateLlr.nativeElement.value + 'Thank you for purchase';
-        this.smsDetailsForm.controls.message.setValue(this.setFullLlrDetails);
+        this.smsDetailsForm.controls.smsBody.setValue(this.setFullLlrDetails);
         const inSms = ',9845263436,9880039896,9108329309';
         this.sendMobileNumber = this.smsDetailsForm.controls.mobileNumber.value + inSms;
         this.smsDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
@@ -469,12 +453,26 @@ export class SmsManagementComponent implements OnInit {
       }
     }
   }
-
+  setMessageTemplate(e, title) {
+    if (e.checked !== true ||
+      this.smsDetailsForm.controls.mobileNumber.value === null ||
+      this.smsDetailsForm.controls.mobileNumber.value === ''
+    ) {
+      this.showPrimaryNumber = true;
+    } else {
+      this.showPrimaryNumber = false;
+      this.showMobileNumber = false;
+      this.sendMobileNumber = this.smsDetailsForm.controls.mobileNumber.value;
+      this.smsDetailsForm.controls.smsBody.setValue(title);
+      this.smsDetailsForm.controls.mobileNumber.setValue(this.sendMobileNumber);
+      this.smsDetailsForm.controls.smsType.setValue('staticMessage');
+    }
+  }
   setNameValue(e, template) {
     if (e.checked === true) {
-      this.smsDetailsForm.controls.message.setValue(template);
+      this.smsDetailsForm.controls.smsBody.setValue(template);
     } else {
-      this.smsDetailsForm.controls.message.reset();
+      this.smsDetailsForm.controls.smsBody.reset();
     }
   }
   updateFilter(event) {

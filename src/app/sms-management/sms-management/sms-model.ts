@@ -1,14 +1,17 @@
 export class MobileSend {
     mobileNumber: [string];
-    message: string;
+    smsBody: string;
     smsHeader: string;
+    smsType: string;
     constructor(
         mobileNumber: [string],
-        message: string,
+        smsBody: string,
         smsHeader: string,
+        smsType: string
     ) {
         this.mobileNumber = mobileNumber;
-        this.message = message;
+        this.smsBody = smsBody;
         this.smsHeader = smsHeader;
+        this.smsType = smsType;
     }
 }

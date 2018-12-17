@@ -378,8 +378,6 @@ export class EmailManagementComponent implements OnInit {
     const filterCustomer = Object.keys(this.temp[0]);
     // Removes last "$$index" from "column"
     filterCustomer.splice(filterCustomer.length - 1);
-
-    console.log(filterCustomer);
     if (!filterCustomer.length) {
       return;
     }

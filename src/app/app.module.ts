@@ -108,6 +108,8 @@ import { AlertComponent } from './shared/alert/alert.component';
 import { ConfirmAlertComponent } from './shared/confirm-alert/confirm-alert.component';
 import {  ConfirmAlertService } from './shared/confirm-alert/confirm-alert.service';
 import {  AlertService } from './shared/alert/alert.service';
+import { SmsReportComponent } from './sms-management/sms-report/sms-report.component';
+import { SmsReportViewComponent } from './sms-management/sms-report-view/sms-report-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -161,7 +163,9 @@ import {  AlertService } from './shared/alert/alert.service';
     MessageEditComponent,
     InteruploadManagementComponent,
     AlertComponent,
-    ConfirmAlertComponent
+    ConfirmAlertComponent,
+    SmsReportComponent,
+    SmsReportViewComponent
   ],
   imports: [
     BrowserModule,

@@ -152,6 +152,7 @@
       </div>
     </mat-step>
     <mat-step>
+      <ng-template matStepLabel>Mobile Numbers</ng-template>
       <div class="text-center mb-5 textHeader">
         <h4>{{textHeader}}</h4>
       </div>
@@ -167,10 +168,11 @@
           <strong>LOCATION</strong>
         </div>
       </div><br>
-      <ng-template matStepLabel>Mobile Numbers</ng-template>
       <div class=" col-sm-12 d-flex  flex-row">
         <div class="col-sm-4">
-          <mat-checkbox [checked]="selectCheckbox" (change)="selectAllMobileNumber($event, dataSource)" class="inbox-toggle-all mr-1"><b>ALL</b>
+          <mat-checkbox [checked]="selectCheckbox" 
+          (change)="selectAllMobileNumber($event, dataSource)" 
+          class="inbox-toggle-all mr-1"><b>ALL</b>
           </mat-checkbox>
         </div>
       </div>
@@ -201,6 +203,63 @@
       <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[100, 200, 300, 400, 500]"
         [showFirstLastButtons]="true" [length]="totalSize" [pageIndex]="currentPage" (page)="handlePage($event)">
       </mat-paginator>
+      <!-- <form style="padding-top:20px">
+          <div fxLayoutAlign="center center">
+            <div class="textHeader">
+                <h4>{{textHeader}}</h4>
+            </div>
+          </div>
+          <div class="pageBoxLg">
+            <div class="row gridRowHeader display-none-small">
+              <div class="col-md-4 vcenterHeader">
+                <div class="form-group">
+                  <label>MOBILE NUMBER</label>
+                </div>
+              </div>
+              <div class="col-md-4 vcenterHeader">
+                <div class="form-group">
+                  <label>CUSTOMER NAME</label>
+                </div>
+              </div>
+              <div class="col-md-4 vcenterHeader">
+                <div class="form-group">
+                  <label>LOCATION</label>
+                </div>
+              </div>
+            </div>
+            <div *ngFor="let edit of dataSource; let i = index ">
+              <div class="row gridRow">
+                <div class="display-none-large col-6">
+                  <label class="gridLabel">Mobile Number:</label>
+                </div>
+                <div class="col-md-4 col-6 vcenter form-group" *ngIf="role.mobilePermission; else noMobile">
+                  <mat-checkbox [checked]="selectCheckbox"
+                   (change)="selectedMobileNumber($event, edit.mobileNumber)" class="mail-checkbox">{{edit.mobileNumber}}
+                  </mat-checkbox>
+                </div>
+                <ng-template #noMobile>
+                    <mat-checkbox [checked]="selectCheckbox" name="{{edit.mobileNumber}}" value="{{edit.mobileNumber}}"
+                      (change)="selectedMobileNumber($event, edit.mobileNumber)" class="mail-checkbox">***********</mat-checkbox>
+                </ng-template>
+                <div class="display-none-large col-6">
+                  <label class="gridLabel">Customer Name:</label>
+                </div>
+                <div class="col-md-4 col-6 vcenter form-group">
+                  <label> {{edit.customerName}}</label>
+                </div>
+                <div class="display-none-large col-6">
+                  <label class="gridLabel">Location:</label>
+                </div>
+                <div class="col-md-4 col-6 vcenter form-group">
+                  <label> {{edit.location}}</label>
+                </div>
+              </div>
+          </div>
+          <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[100, 200, 300, 400, 500]"
+          [showFirstLastButtons]="true" [length]="totalSize" [pageIndex]="currentPage" (page)="handlePage($event)">
+        </mat-paginator>
+          </div>
+        </form> -->
       <div fxLayout="row">
         <div fxFlex="50%">
           <button mat-raised-button color="warn" matStepperPrevious>
@@ -217,56 +276,16 @@
     <mat-step>
       <ng-template matStepLabel>Message</ng-template>
       <form [formGroup]="smsDetailsForm">
-        <div class="row">
-          <div class="col-md-5">
-            <label for="comment" class="textHeader"><b>Wishes Message</b></label>
-            <div class="card col-sm-12" *ngFor="let template of newMessage; let i = index">
+        <div class="row pageBoxLgSms">
+          <div class="col-md-4 border-right">
+            <div for="comment" class="textHeader mt-2"><b>Wishes Message</b></div>
+            <div *ngFor="let template of newMessage; let i = index">
               <mat-checkbox [checked]="selected === i" (change)="selected = i" (change)="setNameValue($event, template.messageDescription)"
                 class="inbox-toggle-all mr-1"><b>{{template.messageTitle}}</b></mat-checkbox>
-            </div><br>
+            </div>
           </div>
-          <div class="col-md-2">
-
-          </div>
-          <div class="col-md-5">
-            <label for="comment" class="textHeader"><b>Selected Mobile Number</b></label>
-            <mat-form-field class="example-full-width">
-              <textarea matInput placeholder="MobileNumber" formControlName="mobileNumber" required></textarea>
-            </mat-form-field>
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Sms Header" formControlName="smsHeader" [maxLength]="7" required>
-              <mat-hint class="text-primary">UCCHAL, RUDRMA</mat-hint>
-            </mat-form-field>
-            <div *ngIf="smsDetailsForm.controls['smsHeader'].errors && 
-            smsDetailsForm.controls['smsHeader'].errors.maxlength"
-              class="alert alert-danger">
-              SMS Header 6 Letter is
-              <strong>required</strong>
-            </div>
-            <label for="comment" class="textHeader"><b>Text Message</b></label>
-            <textarea class="form-control" [maxLength]="158" formControlName="message" rows="4" required>
-            </textarea><br>
-            <div *ngIf="smsDetailsForm.controls['message'].errors && 
-            smsDetailsForm.controls['message'].errors.maxlength"
-              maxlength="160" class="alert alert-danger">
-              <span class="error-message">Maximum character length is 160</span>
-            </div>
-            <div *ngIf="smsDetailsForm.controls['message'].errors && 
-            smsDetailsForm.controls['message'].errors.minlength"
-              class="alert alert-danger">
-              <span class="error-message">Minimum character length is 3</span>
-            </div>
-            <div *ngIf="showMessage" class="alert alert-danger">
-              <div>Please enter Message</div>
-            </div>
-            <div *ngIf="showMobileNumber" class="alert alert-danger">
-              <div>Please select Mobile Number</div>
-            </div>
-            <button mat-raised-button (click)="sendSms(smsDetailsForm)" color="primary">
-              SMS sent
-            </button><br>
-
-            <label for="comment" class="textHeader"><b>Payment Reminder</b></label>
+          <div class="col-md-4 border-right">
+            <div for="comment" class="textHeader"><b>Payment Reminder</b></div>
             <div fxLayout="row wrap" fxLayout.lt-sm="column">
               <div *ngIf="showBillDetails" class="alert alert-danger">
                 <div>Please enter Bill Details</div>
@@ -292,9 +311,8 @@
               <div fxFlex="100">
                 <button mat-raised-button (click)="getBillDetails()" color="accent">ADD</button>
               </div>
-
             </div>
-            <label for="comment" class="textHeader"><b>LLR Details</b></label>
+            <div for="comment" class="textHeader"><b>LLR Details</b></div>
             <div fxLayout="row wrap" fxLayout.lt-sm="column">
               <div *ngIf="showLlrDetails" class="alert alert-danger">
                 <div>Please enter LLR Details</div>
@@ -318,6 +336,51 @@
                 <button mat-raised-button mat-button (click)="getLlrDetails()" color="accent" type="button">ADD</button>
               </div>
             </div>
+            <!-- static messages -->
+            <div for="comment" class="textHeader"><b>Message Template</b></div>
+            <div *ngFor="let messageText of messageTemplate; let i = index">
+              <mat-checkbox [checked]="selectedValue === i" (change)="selectedValue = i" (change)="setMessageTemplate($event, messageText.title)"
+                class="inbox-toggle-all mr-1"><b>{{messageText.title}}</b></mat-checkbox>
+            </div>
+
+          </div>
+          <div class="col-md-4">
+            <label for="comment" class="textHeader"><b>Selected Mobile Number</b></label>
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="MobileNumber" formControlName="mobileNumber" required></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Sms Header" formControlName="smsHeader" [maxLength]="7" required>
+              <mat-hint class="text-primary">UCCHAL, RUDRMA</mat-hint>
+            </mat-form-field>
+            <div *ngIf="smsDetailsForm.controls['smsHeader'].errors && 
+            smsDetailsForm.controls['smsHeader'].errors.maxlength"
+              class="alert alert-danger">
+              SMS Header 6 Letter is
+              <strong>required</strong>
+            </div>
+            <label for="comment" class="textHeader"><b>Text Message</b></label>
+            <textarea class="form-control" [maxLength]="158" formControlName="smsBody" rows="4" required>
+            </textarea><br>
+            <div *ngIf="smsDetailsForm.controls['smsBody'].errors && 
+            smsDetailsForm.controls['smsBody'].errors.maxlength"
+              maxlength="160" class="alert alert-danger">
+              <span class="error-message">Maximum character length is 160</span>
+            </div>
+            <div *ngIf="smsDetailsForm.controls['smsBody'].errors && 
+            smsDetailsForm.controls['smsBody'].errors.minlength"
+              class="alert alert-danger">
+              <span class="error-message">Minimum character length is 3</span>
+            </div>
+            <div *ngIf="showMessage" class="alert alert-danger">
+              <div>Please enter Message</div>
+            </div>
+            <div *ngIf="showMobileNumber" class="alert alert-danger">
+              <div>Please select Mobile Number</div>
+            </div>
+            <button mat-raised-button (click)="sendSms(smsDetailsForm)" color="primary">
+              SMS sent
+            </button>
           </div>
         </div>
         <div class="m-2" fxLayout="row" fxLayoutAlign="end center">
@@ -329,4 +392,3 @@
     </mat-step>
   </mat-horizontal-stepper>
 </div>
-<!-- <app-alert [alertBox]="this.alertBox"></app-alert> -->
