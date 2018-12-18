@@ -1,11 +1,10 @@
 export class SmsSelect {
-    id?: string;
+    _id?: string;
     mobileNumber?: string;
     constructor(
-        id?: string,
+        _id?: string,
         mobileNumber?: string
     ) {
-        this.id = id;
         this.mobileNumber = mobileNumber;
     }
 }

@@ -1,4 +1,5 @@
 export class B2cMarket {
+    _id: string;
     customerName: string;
     gender: string;
     mobileNumber: string;
@@ -8,6 +9,7 @@ export class B2cMarket {
     categoryType: string;
     designation: string;
     location: string;
+    selection: boolean;
     constructor(
         customerName: string,
         gender: string,

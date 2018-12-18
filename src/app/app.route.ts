@@ -38,6 +38,9 @@ import {
   import { SmsReportViewComponent } from './sms-management/sms-report-view/sms-report-view.component';
 const routes: Routes = [
     {
+        path: 'testing', component: NavHeaderComponent
+    },
+    {
         path: 'login', component: LoginComponent
     },
     { path: 'permission', component: PermissionComponent},

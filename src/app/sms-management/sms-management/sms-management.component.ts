@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MobileSend } from './sms-model';
 import { SmsSelect } from './smsSelect.model';
 import { MatStepper } from '@angular/material';
+import {SelectionModel, DataSource} from '@angular/cdk/collections';
 /* import { Customer } from './../../shared/model/customer.model'; */
 import { B2cMarket } from './../../shared/model/b2cmarket.model';
 import { SmsService } from './../sms.service';
@@ -32,7 +33,8 @@ export class SmsManagementComponent implements OnInit {
   smsDetailsForm: FormGroup;
   smsCompleted = false;
   mobileSend: MobileSend;
-  newCustomer: B2cMarket;
+  newCustomer: B2cMarket [];
+  newValue: B2cMarket;
   selectedMobileNumbers = [];
   sendMobileNumber;
   textHeader;
@@ -62,13 +64,14 @@ export class SmsManagementComponent implements OnInit {
   temp: any = [];
   role: AccessPermission;
   smsResponeSuccess: any;
+  selectedCustomerData;
   // pageEvent: PageEvent;
   messageTemplate = [{
-    title: 'Happy New Year'
+    title: 'Thanks for visiting Rudramma. "We wish to see you again". Hope you had a pleasant experience with us'
   }, {
-    title: 'Happy Pongal'
+    title: 'Thanks for Purchasing  your valuable order. The goods will be dispatched at the earliest'
   }, {
-    title: 'Happy Christmas'
+    title: 'Thanks for purchasing with Rudramma. It was pleasure having you at our store. The goods will be dispatched at the earliest'
   }];
   nationalDatabse = [{ 'type': 'B2B CUSTOMER DB' },
   { 'type': 'B2B MARKET DB' }, { 'type': 'B2C CUSTOMER DB' }, { 'type': 'B2C MARKET DB' },
@@ -330,6 +333,7 @@ export class SmsManagementComponent implements OnInit {
     const end = (this.currentPage + 1) * this.pageSize;
     const start = this.currentPage * this.pageSize;
     const part = this.array.slice(start, end);
+    const allItem = this.newCustomer.slice(start, end);
     this.dataSource = part;
   }
 
@@ -375,7 +379,7 @@ export class SmsManagementComponent implements OnInit {
       if (mobileData.length > 10) {
         const lengthOf = mobileData.length - 10;
         const newValue = mobileData.substr(lengthOf);
-        this.selectedMobileNumbers.push(newValue);
+        this.selectedMobileNumbers.push(mobileData);
       } else {
         this.selectedMobileNumbers.push(mobileData);
       }
@@ -399,6 +403,7 @@ export class SmsManagementComponent implements OnInit {
       this.selectedMobileNumber(e, element.mobileNumber);
     });
   }
+  
   getBillDetails() {
     if (this.smsDetailsForm.controls.mobileNumber.value === null ||
       this.smsDetailsForm.controls.mobileNumber.value === '') {

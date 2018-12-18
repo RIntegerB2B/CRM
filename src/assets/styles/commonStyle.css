@@ -43,6 +43,10 @@ body {
 
  .textWrap {
   word-wrap: break-word;
+} 
+.textWrap b
+{
+  word-wrap: break-word;
 }
 
 .gridRow {
