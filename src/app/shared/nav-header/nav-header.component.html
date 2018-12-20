@@ -1,43 +1,48 @@
-<!-- <div class="container mt-5">
-<table mat-table [dataSource]="dataSource" 
- >
+<div class="container mt-5">
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-   
+    <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
       <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="isAllSelected()"
-                      >
-        </mat-checkbox>
+        <mat-checkbox (click)="$event.stopPropagation()"
+        (change)="$event ? masterToggle() : null"
+        [checked]="isAtLeaseOneSelected() && isAllSelected()"
+        [indeterminate]="isAtLeaseOneSelected() && !isAllSelected()">
+</mat-checkbox>
       </th>
       <td mat-cell *matCellDef="let row">
         <mat-checkbox (click)="$event.stopPropagation()"
-                      (change)="$event ? selection.toggle(row) : null; selectedMobile(row)"
-                      [checked]="selection.isSelected(row)">
-        </mat-checkbox>
+                    (change)="$event ? rowToggle(row) : null"
+                    [checked]="selection.isSelected(row)">
+      </mat-checkbox>
       </td>
     </ng-container>
   
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+    <!-- customer Column -->
+    <ng-container matColumnDef="customername">
+      <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+      <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()"> {{element.customerName}} </td>
     </ng-container>
   
-    
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.mobileNumber}} </td>
+    <!-- mobilenumber Column -->
+    <ng-container matColumnDef="mobilenumber">
+      <th mat-header-cell *matHeaderCellDef> Mobile Number </th>
+      <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()"> {{element.mobileNumber}} </td>
     </ng-container>
   
-    
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef> Weight </th>
-      <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()"> {{element.email}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef> Symbol </th>
-      <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+    <!-- Location Column -->
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef> Location </th>
+      <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()"> {{element.location}} </td>
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -45,7 +50,6 @@
         (click)="selection.toggle(row)">
     </tr>
   </table>
-  <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 30, 40, 50]"
-        [showFirstLastButtons]="true" [length]="totalSize" [pageIndex]="currentPage" (page)="handlePage($event)">
-      </mat-paginator>
-</div> -->
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+<div>{{ selection?.selected | json}}</div>

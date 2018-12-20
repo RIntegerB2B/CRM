@@ -149,7 +149,7 @@
       </div>
     </mat-step>
     <mat-step>
-      <div class="text-center mb-5 textHeader">
+      <!-- <div class="text-center mb-5 textHeader">
         <h4>{{textHeader}}</h4>
       </div>
       <div class="row d-flex border-dark  flex-row">
@@ -209,6 +209,64 @@
             next
           </button>
         </div>
+      </div> -->
+      <ng-template matStepLabel>Select Mobile Number</ng-template>
+      <div class="text-center mb-5 textHeader">
+        <h4>{{textHeader}}</h4>
+      </div>
+      <div class="container">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+         *ngIf="this.dataSource.data?.length > 0">
+
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? masterToggle() : null" [checked]="isAtLeaseOneSelected() && isAllSelected()"
+                [indeterminate]="isAtLeaseOneSelected() && !isAllSelected()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()"
+               (change)="$event ? rowToggle(row) : null" [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <!-- customer Column -->
+          <ng-container matColumnDef="customername">
+            <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+            <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()"> {{element.customerName}} </td>
+          </ng-container>
+
+          <!-- mobilenumber Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()"> {{element.email}} </td>
+          </ng-container>
+
+          <!-- Email Column -->
+          <ng-container matColumnDef="mobilenumber">
+            <th mat-header-cell *matHeaderCellDef> Mobile Number </th>
+            <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()"> {{element.mobileNumber}} </td>
+          </ng-container>
+
+          <!-- Location Column -->
+          <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef> Location </th>
+            <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()"> {{element.location}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+          </tr>
+        </table>
+        <div *ngIf="dataSource.data?.length === 0">No records found</div>
+
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
       </div>
     </mat-step>
     <mat-step>

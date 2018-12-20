@@ -110,6 +110,9 @@ import {  ConfirmAlertService } from './shared/confirm-alert/confirm-alert.servi
 import {  AlertService } from './shared/alert/alert.service';
 import { SmsReportComponent } from './sms-management/sms-report/sms-report.component';
 import { SmsReportViewComponent } from './sms-management/sms-report-view/sms-report-view.component';
+import {CdkTableModule} from '@angular/cdk/table';
+import {CdkTreeModule} from '@angular/cdk/tree';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -165,7 +168,7 @@ import { SmsReportViewComponent } from './sms-management/sms-report-view/sms-rep
     AlertComponent,
     ConfirmAlertComponent,
     SmsReportComponent,
-    SmsReportViewComponent
+    SmsReportViewComponent 
   ],
   imports: [
     BrowserModule,
@@ -203,6 +206,8 @@ import { SmsReportViewComponent } from './sms-management/sms-report-view/sms-rep
     MatInputModule,
     FlexLayoutModule,
     NgxDatatableModule,
+    CdkTableModule,
+    CdkTreeModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [NavHeaderService, CustomerManagementService,

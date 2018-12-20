@@ -1,7 +1,7 @@
-.container
-{
+table {
     width: 100%;
+  }
+.mat-cell
+{
+    font-size: 1rem;
 }
-
-
-  
