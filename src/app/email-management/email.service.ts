@@ -101,7 +101,7 @@ export class EmailService {
     return this.httpClient.get<InterB2cMarket[]>(url);
   }
   emailSender(email) {
-    const addUrl = 'customers/emailId/';
+    const addUrl = 'customers/mail/';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<ResponseResult>(url, email);
   }

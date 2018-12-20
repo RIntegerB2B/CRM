@@ -318,8 +318,7 @@ export class EmailManagementComponent implements OnInit {
   }
 
   sendEmail(customerDetailsForm: FormGroup) {
-    this.sendEmaillist = this.selectedEmails.toString();
-    this.customerDetailsForm.controls.email.setValue(this.sendEmaillist);
+    this.customerDetailsForm.controls.email.setValue(this.allEmails);
     console.log(this.selectedEmails);
     this.htmlTemplate = this.content.nativeElement.innerHTML;
     this.customerDetailsForm.controls.emailMessage.setValue(this.htmlTemplate);
