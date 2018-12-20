@@ -304,6 +304,17 @@
                     </a>
                   </div>
                 </li>
+                <li *ngIf="menus?.messagePermission">
+                    <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
+                            true}"
+                      [routerLink]="['emailImage']">
+                      <a matRipple>
+                        <mat-icon>email</mat-icon>
+                        <span class="item-name">EMAIL SETTING</span>
+                        <span fxFlex></span>
+                      </a>
+                    </div>
+                  </li>
                 <li *ngIf="menus?.backupPermission">
                   <div [routerLinkActive]="['activeLink']" [routerLinkActiveOptions]="{exact:
                         true}"

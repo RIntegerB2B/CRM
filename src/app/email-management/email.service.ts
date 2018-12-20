@@ -16,6 +16,7 @@ import { InterB2bCustomer } from './../shared/model/interb2bcustomer.model';
 import { InterB2bMarket } from './../shared/model/interb2bmarket.model';
 import { InterB2cCustomer } from './../shared/model/interb2ccustomer.model';
 import { InterB2cMarket } from './../shared/model/interb2cmarket.model';
+import { ImagesUpload } from './../email-management/email-mangement/image.model';
 
 @Injectable({
   providedIn: 'root'
@@ -105,5 +106,19 @@ export class EmailService {
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<ResponseResult>(url, email);
   }
-
+  uploadImages(data): Observable<any> {
+    const addUrl = 'upload';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.post<ImagesUpload[]>(url, data);
+  }
+  findAllImage(): Observable<any> {
+    const addUrl = 'allimage';
+    const url: string = this.serviceUrl + addUrl;
+    return this.httpClient.get<ImagesUpload[]>(url);
+  }
+  deleteSingleImages(deleteData): Observable<any> {
+    const addUrl = 'imageDelete/';
+    const url: string = this.serviceUrl + addUrl + deleteData._id;
+    return this.httpClient.delete<ImagesUpload[]>(url);
+  }
 }

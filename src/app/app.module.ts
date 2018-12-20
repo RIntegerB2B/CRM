@@ -112,6 +112,7 @@ import { SmsReportComponent } from './sms-management/sms-report/sms-report.compo
 import { SmsReportViewComponent } from './sms-management/sms-report-view/sms-report-view.component';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
+import { EmailImageComponent } from './email-management/email-image/email-image.component';
 
 @NgModule({
   declarations: [
@@ -168,7 +169,8 @@ import {CdkTreeModule} from '@angular/cdk/tree';
     AlertComponent,
     ConfirmAlertComponent,
     SmsReportComponent,
-    SmsReportViewComponent 
+    SmsReportViewComponent,
+    EmailImageComponent 
   ],
   imports: [
     BrowserModule,

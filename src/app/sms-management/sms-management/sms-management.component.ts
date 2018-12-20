@@ -103,6 +103,7 @@ export class SmsManagementComponent implements OnInit {
     this.createMessageForm();
     this.getAllMessage();
     this.role = JSON.parse(sessionStorage.getItem('role'));
+    this.getAllB2bCustomer();
   }
 
   goBack(stepper: MatStepper) {

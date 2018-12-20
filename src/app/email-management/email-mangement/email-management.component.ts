@@ -11,6 +11,7 @@ import { HeaderSideService } from '../../shared/header-side/header-side.service'
 import { AccessPermission } from './../../user-management/permission/accessPermission.model';
 import { PaginationModel } from './pagination.model';
 import {SelectionModel, DataSource} from '@angular/cdk/collections';
+import { ImagesUpload } from './image.model';
 @Component({
   selector: 'app-email-management',
   templateUrl: './email-management.component.html',
@@ -48,6 +49,9 @@ export class EmailManagementComponent implements OnInit {
   selectOneTemplate = false;
   selectSecondTemplate = false;
   role: AccessPermission;
+  subjectImage;
+  imageAll: ImagesUpload;
+  
   nationalDatabse = [{ 'type': 'B2B CUSTOMER DB' },
   { 'type': 'B2B MARKET DB' }, { 'type': 'B2C CUSTOMER DB' }, { 'type': 'B2C MARKET DB' },
   { 'type': 'EMPLOYEE DB' }, { 'type': 'VENDOR DB' }, { 'type': 'AGENT DB' },
@@ -71,6 +75,7 @@ export class EmailManagementComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.role = JSON.parse(sessionStorage.getItem('role'));
+    this.getAllImages();
   }
   createForm() {
     this.customerDetailsForm = this.fb.group({
@@ -112,6 +117,13 @@ export class EmailManagementComponent implements OnInit {
     this.selectSecondTemplate = false;
     this.customerDetailsForm.reset();
   }
+  setMailImage(e, imageData)   {
+    if (e.checked === true)     {
+      this.subjectImage = imageData;
+    } else {
+      this.subjectImage = '';
+    }
+    }
   // get B2B Customer //
   /* getAllB2bCustomer() {
     this.textHeader = this.nationalDatabse[0].type;
@@ -294,6 +306,15 @@ export class EmailManagementComponent implements OnInit {
         console.log(error);
       });
   } */
+  getAllImages() {
+    this.emailService.findAllImage().subscribe(data => {
+      this.imageAll = data;
+      console.log(this.imageAll);
+    }, error => {
+      console.log(error);
+    });
+  }
+  
   mouseenter() {
     if (!this.isExpanded) {
       this.isShowing = true;

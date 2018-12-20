@@ -36,6 +36,7 @@ import {
   import { ConfirmAlertComponent } from './shared/confirm-alert/confirm-alert.component';
   import { SmsReportComponent } from './sms-management/sms-report/sms-report.component';
   import { SmsReportViewComponent } from './sms-management/sms-report-view/sms-report-view.component';
+  import { EmailImageComponent } from './email-management/email-image/email-image.component';
 const routes: Routes = [
     {
         path: 'testing', component: NavHeaderComponent
@@ -64,6 +65,7 @@ const routes: Routes = [
             { path: 'agent', component: AgentManagementComponent, canActivate: [AuthGuard] },
             { path: 'others', component: OtherCustomerComponent, canActivate: [AuthGuard]
             },
+            { path: 'emailImage',  component: EmailImageComponent, canActivate: [AuthGuard] },
             { path: 'interb2bcustomer',  canActivate: [AuthGuard], component: Interb2bcustomerManagementComponent },
             { path: 'interb2bmarket',  canActivate: [AuthGuard], component: Interb2bmarketManagementComponent},
             { path: 'interb2ccustomer', canActivate: [AuthGuard], component: Interb2ccustomerManagementComponent},
