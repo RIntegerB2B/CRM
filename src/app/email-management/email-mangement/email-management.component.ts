@@ -624,8 +624,7 @@ applyFilter(filterValue: string) {
     this.selection.clear();
     this.customerDetailsForm.reset();
     this.textHeader = 'INTERNATIONAL B2C MARKET';
-      this.emailService.allInterB2cMarket()
-      .subscribe((response) => {
+      this.emailService.allInterB2cMarket().subscribe((response) => {
         this.dataSource = new MatTableDataSource<PaginationModel>(response);
         this.dataSource.paginator = this.paginator;
       }, error => {
