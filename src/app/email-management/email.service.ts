@@ -18,6 +18,8 @@ import { InterB2cCustomer } from './../shared/model/interb2ccustomer.model';
 import { InterB2cMarket } from './../shared/model/interb2cmarket.model';
 import { ImagesUpload } from './../email-management/email-mangement/image.model';
 
+import {EmailImageData} from './email-image/emailData.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -106,10 +108,18 @@ export class EmailService {
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<ResponseResult>(url, email);
   }
-  uploadImages(data): Observable<any> {
-    const addUrl = 'upload';
+ /*  uploadImages(data): Observable<any> {
+    const addUrl = 'eamilupload';
     const url: string = this.serviceUrl + addUrl;
     return this.httpClient.post<ImagesUpload[]>(url, data);
+  } */
+
+  uploadImages(adImageData: EmailImageData  ): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', adImageData.emailImage, adImageData.emailImage.name);
+    const addUrl = 'eamilupload/';
+    const url: string = this.serviceUrl + addUrl  ;
+    return this.httpClient.put<boolean>(url, formData);
   }
   findAllImage(): Observable<any> {
     const addUrl = 'allimage';
@@ -118,7 +128,8 @@ export class EmailService {
   }
   deleteSingleImages(deleteData): Observable<any> {
     const addUrl = 'imageDelete/';
-    const url: string = this.serviceUrl + addUrl + deleteData._id;
+    const imageUrl = '/imageUrl/';
+    const url: string = this.serviceUrl + addUrl + deleteData._id + imageUrl + deleteData.imageName;
     return this.httpClient.delete<ImagesUpload[]>(url);
   }
 }

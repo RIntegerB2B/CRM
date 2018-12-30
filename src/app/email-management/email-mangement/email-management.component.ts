@@ -13,6 +13,8 @@ import { PaginationModel } from './pagination.model';
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { ImagesUpload } from './image.model';
 import { AlertService } from './../../shared/alert/alert.service';
+import { AppSetting } from './../../config/appSetting';
+
 @Component({
   selector: 'app-email-management',
   templateUrl: './email-management.component.html',
@@ -52,6 +54,7 @@ export class EmailManagementComponent implements OnInit {
   role: AccessPermission;
   subjectImage;
   imageAll: ImagesUpload;
+  imagePath: string = AppSetting.imagePath;
 
   nationalDatabse = [{ 'type': 'B2B CUSTOMER DB' },
   { 'type': 'B2B MARKET DB' }, { 'type': 'B2C CUSTOMER DB' }, { 'type': 'B2C MARKET DB' },
@@ -120,7 +123,7 @@ export class EmailManagementComponent implements OnInit {
   }
   setMailImage(e, imageData) {
     if (e.checked === true) {
-      this.subjectImage = imageData;
+      this.subjectImage = this.imagePath + '/' + imageData;
     } else {
       this.subjectImage = '';
     }

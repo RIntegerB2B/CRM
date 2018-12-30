@@ -386,28 +386,28 @@
           <b>{{textTemplate}}</b>
           <ng-template matStepLabel>Email Message</ng-template>
           <div class="row">
-            <div class="col-sm-8 d-flex  flex-row">
-              <div fxLayout="row wrap" fxLayout.lt-sm="column">
-                <div fxFlex="100%">
-                  <mat-form-field class="example-full-width">
-                    <input matInput formControlName="subjectTitle" placeholder="Enter Subject">
-                  </mat-form-field>
-                </div>
-                <div fxFlex="100%">
-                  <mat-form-field class="example-full-width">
-                    <textarea matInput [(ngModel)]="subjectSecondBody" formControlName="subjectSecondBody" placeholder="Enter Body">
-                           </textarea>
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
+                <div class="col-sm-8 d-flex  flex-row">
+                    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                      <div fxFlex="100%">
+                        <mat-form-field class="example-full-width">
+                          <input matInput formControlName="subjectTitle" placeholder="Enter Subject">
+                        </mat-form-field>
+                      </div>
+                      <div fxFlex="100%">
+                        <mat-form-field class="example-full-width">
+                          <textarea matInput [(ngModel)]="subjectSecondBody" formControlName="subjectSecondBody" placeholder="Enter Body">
+                                 </textarea>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
             <div class="col-md-4">
-
+           
             </div>
           </div>
           <div #contentWrapper>
             <p>{{subjectSecondBody}}</p>
-            <a href="https://ucchal.com" style="color:black; text-decoration:none;">
+            <a style="color:black; text-decoration:none;">
               <table cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
                 <tr style="border: 1px solid #7777;">
                   <td valign="top">
@@ -418,17 +418,12 @@
                           <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
                             <tr>
                               <td align="left" placholer="sample" valign="top">
-                                <div class="row">
-                                  <div style="text-align: left">
-                                    <img class="img-fluid"  [src]="subjectImage">
-                                  </div>
-                                </div>
+                                    <img style="max-width: 100%; height: auto"  src="{{subjectImage}}">
                               </td>
                             </tr>
                           </table>
                         </td>
                       </tr>
-
                     </table>
                   </td>
                 </tr>
@@ -439,17 +434,19 @@
               <div class="col-md-4" *ngFor="let filePath of imageAll; let i = index">
                 {{filePath.imageName}}
                 <mat-checkbox [checked]="selectedValue === i" (change)="selectedValue = i"
-                 (change)="setMailImage($event, filePath.imagePath)">
+                 (change)="setMailImage($event, filePath?.imageName)">
                   </mat-checkbox>
                 <div class="gridRow">
-                  <img class="img-fluid" 
-                   [src]="filePath.imagePath">
+                  <img class="img-fluid" style='width:100%;' [src]="this?.imagePath + '/' + filePath?.imageName">
                 </div>
               </div>
             </div>
           <div fxLayout="row" fxLayoutAlign="end center">
             <div class="pt-3">
-              <textarea hidden class="form-control" type="text" [(ngModel)]="emailMessage" formControlName="emailMessage"
+              <textarea hidden class="form-control"
+              type="text" 
+              [(ngModel)]="emailMessage" 
+              formControlName="emailMessage"
                 rows="5">
                   </textarea>
               <button type="button" mat-raised-button color="primary" (click)="sendEmail(customerDetailsForm)">

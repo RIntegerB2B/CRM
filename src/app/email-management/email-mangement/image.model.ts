@@ -1,6 +1,6 @@
 export class ImagesUpload {
     imageName: string;
-    imagePath: string;
+    imagePath?: string;
     constructor(
         imageName: string,
         imagePath: string

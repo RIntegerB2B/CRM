@@ -93,7 +93,8 @@ export class SmsManagementComponent implements OnInit {
   'response': [ {'mobile_number': '919965437973', 'unique_id': '5bfa604167fee'}]},
   statusCode: 200};
    */
-  constructor(private fb: FormBuilder, private smsService: SmsService, private headerSideService: HeaderSideService,
+  constructor(private fb: FormBuilder, private smsService: SmsService,
+    private headerSideService: HeaderSideService,
     private alertService: AlertService,
     private messageService: MessageService) {
   }

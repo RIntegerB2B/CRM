@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ImagesUpload } from './../email-mangement/image.model';
 import { EmailService } from './../email.service';
 
+import {EmailImageData} from './emailData.model';
+import { AppSetting } from './../../config/appSetting';
+
 @Component({
   selector: 'app-email-image',
   templateUrl: './email-image.component.html',
@@ -15,11 +18,15 @@ export class EmailImageComponent implements OnInit {
   check;
   showImage: any;
   image: ImagesUpload;
-  imageAll: ImagesUpload;
-  BASE64_MARKER: any = ';base64,';
+  imageAll: ImagesUpload[];
   message;
   action;
-
+  url: any;
+  imagePath: string = AppSetting.imagePath;
+  emailImageData: EmailImageData = new EmailImageData();
+  reader: FileReader = new FileReader();
+  portFolioImageBlob: Blob;
+  portFolioImageBytes: Uint8Array;
   constructor(private emailService: EmailService) { }
 
   ngOnInit() {
@@ -29,39 +36,24 @@ export class EmailImageComponent implements OnInit {
     );
     this.getAllImages();
   }
-
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files[0];
-    const reader = new FileReader();
-    const file = this.fileToUpload;
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.check = reader.result;
-      this.byteArrayConverted = this.convertDataURIToBinary(this.check);
-      this.image.imageName = this.fileToUpload.name;
-      this.image.imagePath = this.check;
-      this.showImage = this.check;
-    };
-    this.image = this.image;
-  }
-  convertDataURIToBinary(dataURI) {
-    const base64Index = dataURI.indexOf(this.BASE64_MARKER) + this.BASE64_MARKER.length;
-    const base64 = dataURI.substring(base64Index);
-    const raw = window.atob(base64);
-    const rawLength = raw.length;
-    const array = new Uint8Array(new ArrayBuffer(rawLength));
-    for (let i = 0; i < rawLength; i++) {
-      array[i] = raw.charCodeAt(i);
+  handleFileInput(event) {
+  console.log(event.target.files[0]);
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      this.emailImageData.emailImage = event.target.files[0];
+      reader.onload = (data) => { // called once readAsDataURL is completed
+        this.url = data.currentTarget;
+      };
     }
-    return array;
   }
   uploadSingleImage() {
-    this.emailService.uploadImages(this.image).subscribe(data => {
-      this.getAllImages();
-    }, error => {
-      console.log(error);
-    });
-  }
+      this.emailService.uploadImages(this.emailImageData).subscribe(data => {
+        this.getAllImages();
+      }, error => {
+        console.log(error);
+      });
+    }
   getAllImages() {
     this.emailService.findAllImage().subscribe(data => {
       this.imageAll = data;
@@ -73,7 +65,7 @@ export class EmailImageComponent implements OnInit {
   deleteSingleImage(deleteData) {
     console.log(deleteData);
     this.emailService.deleteSingleImages(deleteData).subscribe(data => {
-      this.imageAll = data;
+      this.getAllImages();
     }, error => {
       console.log(error);
     });
