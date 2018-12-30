@@ -5,5 +5,5 @@ export const AppSetting: AppSettingType = {
     serviceUrl: environment.serviceUrl,
     // serviceUrl: 'https://rinteger.com/adminservice/'
     /* imagePath: 'http://localhost/ucchal' */
-    imagePath: 'http://ucchal.com.com/admin/crm/images/'
+    imagePath: 'http://ucchal.com/admin/crm/images'
 };
