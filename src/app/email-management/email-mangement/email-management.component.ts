@@ -99,6 +99,7 @@ export class EmailManagementComponent implements OnInit {
       subjectBody: [],
       subjectSecondBody: [],
       subjectImage: [],
+      emailType: [],
       subjectFooter: []
     });
   }
@@ -349,6 +350,7 @@ export class EmailManagementComponent implements OnInit {
     this.customerDetailsForm.controls.emailMessage.setValue(this.htmlTemplate);
     this.emailSend = new EmailSend(
       customerDetailsForm.controls.email.value,
+      customerDetailsForm.controls.emailType.value,
       customerDetailsForm.controls.emailMessage.value,
       customerDetailsForm.controls.subjectTitle.value
     );

@@ -265,6 +265,18 @@
 
 
         <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        <div fxLayout="row">
+            <div fxFlex="50%">
+              <button mat-raised-button color="warn" matStepperPrevious>
+                back
+              </button>
+            </div>
+            <div fxFlex="50%" fxLayoutAlign="end center">
+              <button mat-raised-button color="warn" matStepperNext>
+                next
+              </button>
+            </div>
+          </div>
       </div>
     </mat-step>
     <mat-step>
@@ -290,6 +302,12 @@
           <div class="row">
             <div class="col-sm-8 d-flex  flex-row">
               <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <div fxFlex="100%">
+                  <mat-form-field class="example-full-width">
+                    <input matInput [(ngModel)]="emailType" formControlName="emailType" placeholder="Email Header">
+                  </mat-form-field>
+<!--                   <mat-hint class="text-primary">UCCHAL, RUDRAMA</mat-hint> -->
+                </div>
                 <div fxFlex="100%">
                   <mat-form-field class="example-full-width">
                     <input matInput type="text" formControlName="subjectTitle" placeholder="Enter Subject">
@@ -386,23 +404,30 @@
           <b>{{textTemplate}}</b>
           <ng-template matStepLabel>Email Message</ng-template>
           <div class="row">
-                <div class="col-sm-8 d-flex  flex-row">
-                    <div fxLayout="row wrap" fxLayout.lt-sm="column">
-                      <div fxFlex="100%">
-                        <mat-form-field class="example-full-width">
-                          <input matInput formControlName="subjectTitle" placeholder="Enter Subject">
-                        </mat-form-field>
-                      </div>
-                      <div fxFlex="100%">
-                        <mat-form-field class="example-full-width">
-                          <textarea matInput [(ngModel)]="subjectSecondBody" formControlName="subjectSecondBody" placeholder="Enter Body">
-                                 </textarea>
-                        </mat-form-field>
-                      </div>
-                    </div>
+            <div class="col-sm-8 d-flex  flex-row">
+              <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                  <div fxFlex="100%">
+                <mat-form-field class="example-full-width">
+                  <input matInput [(ngModel)]="emailType" formControlName="emailType" 
+                  placeholder="Email Header">
+                </mat-form-field>
+                <!-- <mat-hint class="text-primary">UCCHAL, RUDRAMA</mat-hint> -->
                   </div>
+                <div fxFlex="100%">
+                  <mat-form-field class="example-full-width">
+                    <input matInput formControlName="subjectTitle" placeholder="Enter Subject">
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100%">
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput [(ngModel)]="subjectSecondBody" formControlName="subjectSecondBody" placeholder="Enter Body">
+                                 </textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
             <div class="col-md-4">
-           
+
             </div>
           </div>
           <div #contentWrapper>
@@ -418,7 +443,7 @@
                           <table border="0" cellpadding="20" cellspacing="0" width="100%" id="emailHeader">
                             <tr>
                               <td align="left" placholer="sample" valign="top">
-                                    <img style="max-width: 100%; height: auto"  src="{{subjectImage}}">
+                                <img style="max-width: 100%; height: auto" src="{{subjectImage}}">
                               </td>
                             </tr>
                           </table>
@@ -431,22 +456,18 @@
             </a>
           </div>
           <div class="row">
-              <div class="col-md-4" *ngFor="let filePath of imageAll; let i = index">
-                {{filePath.imageName}}
-                <mat-checkbox [checked]="selectedValue === i" (change)="selectedValue = i"
-                 (change)="setMailImage($event, filePath?.imageName)">
-                  </mat-checkbox>
-                <div class="gridRow">
-                  <img class="img-fluid" style='width:100%;' [src]="this?.imagePath + '/' + filePath?.imageName">
-                </div>
+            <div class="col-md-4" *ngFor="let filePath of imageAll; let i = index">
+              {{filePath.imageName}}
+              <mat-checkbox [checked]="selectedValue === i" (change)="selectedValue = i" (change)="setMailImage($event, filePath?.imageName)">
+              </mat-checkbox>
+              <div class="gridRow">
+                <img class="img-fluid" style='width:100%;' [src]="this?.imagePath + '/' + filePath?.imageName">
               </div>
             </div>
+          </div>
           <div fxLayout="row" fxLayoutAlign="end center">
             <div class="pt-3">
-              <textarea hidden class="form-control"
-              type="text" 
-              [(ngModel)]="emailMessage" 
-              formControlName="emailMessage"
+              <textarea hidden class="form-control" type="text" [(ngModel)]="emailMessage" formControlName="emailMessage"
                 rows="5">
                   </textarea>
               <button type="button" mat-raised-button color="primary" (click)="sendEmail(customerDetailsForm)">
@@ -461,8 +482,7 @@
           </div>
         </form>
       </div>
-   
+
     </mat-step>
   </mat-horizontal-stepper>
 </div>
-
